@@ -7,6 +7,8 @@ import {
 import App from 'components/App';
 import HomePage from 'components/HomePage';
 import React from 'react';
+import LoginPage from 'components/LoginPage';
+
 
 const Routes = React.createClass({
   // handleChange(prevState, nextState, replace) {
@@ -23,6 +25,9 @@ const Routes = React.createClass({
     return <Router history={browserHistory}>
       <Route component={App} path="/">
         <IndexRoute component={HomePage} />
+
+        <Route component={LoginPage} path="login" />
+
 
       </Route>
     </Router>;

@@ -33,6 +33,14 @@ const App = React.createClass({
       });
   },
 
+  handleTitleTouchTap() {
+      this.props.router.push('/');
+    },
+
+  handleTouchTapLogin() {
+    this.props.router.push('/login');
+  },
+
   getChildrenProps() {
     const matchPath = this.props.routes.reduce((accum, route) => {
       // Sometimes route.path is undefined, so default to empty string
@@ -102,13 +110,20 @@ const App = React.createClass({
       display: 'inline-block',
     };
 
+    const styleTitle = {
+      cursor: 'pointer'
+    };
+
+
     console.log(this.state.patterns);
     return <div>
         <AppBar
-          zDepth="2"
+          zDepth='2'
           iconElementLeft={<IconButton></IconButton>}
           title="Free Pattern Warehouse"
+          titleStyle={styleTitle}
           style={styleAppBar}
+          onTitleTouchTap={this.handleTitleTouchTap}
         >
         {/* <div style={styleInputContainer}> */}
           {/* <input style={styleNavInput} /> */}
@@ -127,6 +142,7 @@ const App = React.createClass({
         <FlatButton
           label="Login"
           style={styleFlatButton}
+          onTouchTap={this.handleTouchTapLogin}
         />
         <FlatButton
           label="Register"

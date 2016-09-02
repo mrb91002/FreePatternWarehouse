@@ -31,7 +31,64 @@ const HomePage = React.createClass({
       </div>
 
 
-      {patterns.map((pattern) => {
+        <div className="row">
+          <div className="col s1 offset-s1">
+            Explore
+          </div>
+          <div className="col s10 offset-s1">
+            <div className="col s3 blue">
+              s3
+              {patterns.map((pattern) => {
+                if (pattern.displayOrder !== 1) {
+                  return;
+                }
+                return <PatternInSearch
+                  key={weakKey(pattern)}
+                  pattern={pattern}
+                />
+              })}
+            </div>
+            <div className="col s3 green">
+              s3
+              {patterns.map((pattern) => {
+                if (pattern.displayOrder !== 1) {
+                  return;
+                }
+                return <PatternInSearch
+                  key={weakKey(pattern)}
+                  pattern={pattern}
+                />
+              })}
+            </div>
+            <div className="col s3 red">
+              s3
+              {patterns.map((pattern) => {
+                if (pattern.displayOrder !== 1) {
+                  return;
+                }
+                return <PatternInSearch
+                  key={weakKey(pattern)}
+                  pattern={pattern}
+                />
+              })}
+            </div>
+            <div className="col s3 purple">
+              s3
+              {patterns.map((pattern) => {
+                if (pattern.displayOrder !== 1) {
+                  return;
+                }
+                return <PatternInSearch
+                  key={weakKey(pattern)}
+                  pattern={pattern}
+                />
+              })}
+            </div>
+          </div>
+        </div>
+
+
+      {/* {patterns.map((pattern) => {
         if (pattern.displayOrder !== 1) {
           return;
         }
@@ -39,7 +96,7 @@ const HomePage = React.createClass({
           key={weakKey(pattern)}
           pattern={pattern}
         />
-      })}
+      })} */}
 
     </div>;
   }

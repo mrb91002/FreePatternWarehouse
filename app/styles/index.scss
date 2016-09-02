@@ -45,5 +45,25 @@ body {
 // }
 
 img {
-  width:400px;
+  width: 100%;
+}
+
+.login-form, .reg-form, .payment-form {
+  padding-top: 100px;
+}
+
+.login-paper {
+  margin-bottom: 20px;
+}
+
+.row .col.form-button {
+  padding: 0px;
+}
+
+.form-button-row {
+  margin-top: 50px;
+}
+
+.form-row {
+  margin-bottom: 0;
 }
