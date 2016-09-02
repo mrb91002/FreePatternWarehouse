@@ -2,6 +2,7 @@ import React from 'react';
 import PatternInSearch from 'components/PatternInSearch';
 import weakKey from 'weak-key';
 
+
 const HomePage = React.createClass({
   // contextTypes: {
   //   muiTheme: React.PropTypes.object.isRequired
@@ -28,6 +29,7 @@ const HomePage = React.createClass({
         <p>Explore</p>
         <p>Trending</p>
       </div>
+
 
       {patterns.map((pattern) => {
         if (pattern.displayOrder !== 1) {

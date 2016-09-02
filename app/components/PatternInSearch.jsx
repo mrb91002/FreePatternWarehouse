@@ -15,7 +15,7 @@ const PatternInSearch = React.createClass({
     const pattern = this.props.pattern
 
     return <div>
-      <img src={pattern.imageUrl} alt={pattern.altText} />
+      <img src={pattern.imageUrl} alt={pattern.altText} id={pattern.id} />
       {pattern.patternName}
       {pattern.userName}
       {pattern.id}

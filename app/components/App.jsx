@@ -7,6 +7,11 @@ import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import {Navbar, NavItem} from 'react-materialize';
+// import {Grid, Row, Col} from 'react-flexbox-grid';
+import TextField from 'material-ui/TextField';
+
+
 
 const App = React.createClass({
   getInitialState() {
@@ -70,36 +75,53 @@ const App = React.createClass({
 
     const styleAppBar = {
       backgroundColor: '#385D79',
-      position: "fixed"
+      position: "fixed",
+      // boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;'
     };
 
     const styleInputContainer = {
-      width: '50%'
-    }
+    };
 
     const styleSearchButton = {
       backgroundColor: '#AD5057',
-      height: '29px',
+      height: '30px',
       lineHeight: '27px',
       border: 'none',
       borderRadius: '0 3px 3px 0',
-      // marginTop: '-4px' no dice
+      display: 'inline-block',
+      marginTop: '18px'
+    };
+
+    const styleTextField = {
+      backgroundColor: '#fff',
+      borderRadius: '3px 0 0 3px',
+      height: '10px',
+      marginTop: '18px',
+      border: 'none',
+      padding: '10px',
+      display: 'inline-block',
     };
 
     console.log(this.state.patterns);
     return <div>
         <AppBar
+          zDepth="2"
           iconElementLeft={<IconButton></IconButton>}
           title="Free Pattern Warehouse"
           style={styleAppBar}
         >
-        <div style={styleInputContainer}>
-          <input style={styleNavInput} />
+        {/* <div style={styleInputContainer}> */}
+          {/* <input style={styleNavInput} /> */}
+
+          <TextField
+            inputStyle={styleTextField}
+            underlineShow={false}
+          />
           <FlatButton
             label="Search"
             style={styleSearchButton}
           />
-        </div>
+        {/* </div> */}
 
 
         <FlatButton
@@ -112,23 +134,8 @@ const App = React.createClass({
         />
         </AppBar>
 
-      {/* <nav>
-        <div class="nav-wrapper">
-          <p><a href="#" className="brand-logo">Logo</a></p>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-            <li><a href="collapsible.html">JavaScript</a></li>
-          </ul>
-        </div>
-      </nav> */}
 
 
-
-
-
-
-      {/* <h1>Hello world</h1> */}
 
       {/* React.cloneElement is the glue that passes in props to children created with React Router. React router instantiates classes for us, and cloning the existing instance is the only way to set props.
       */}

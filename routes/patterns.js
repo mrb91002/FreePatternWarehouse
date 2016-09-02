@@ -12,7 +12,7 @@ const ev = require('express-validation');
 router.get('/patterns', (_req, res, next) => {
 
   knex('patterns')
-    .select('pattern_images.alt_text', 'pattern_images.display_order', 'pattern_images.id', 'patterns.pattern_name', 'patterns.user_id', 'pattern_images.image_url', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email')
+    .select('pattern_images.alt_text', 'pattern_images.display_order', 'patterns.pattern_name', 'patterns.user_id', 'pattern_images.image_url', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email', 'patterns.id')
     // .where('patterns.id', 1)
     .orderBy('patterns.created_at', 'ASC')
     .innerJoin('pattern_images','patterns.id', 'pattern_images.pattern_id')
