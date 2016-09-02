@@ -12,7 +12,27 @@ const ev = require('express-validation');
 router.get('/patterns', (_req, res, next) => {
 
   knex('patterns')
-    // .orderBy('name')
+    .select('pattern_images.alt_text', 'pattern_images.display_order', 'pattern_images.id', 'patterns.pattern_name', 'patterns.user_id', 'pattern_images.image_url', 'users.first_name', 'users.last_name', 'users.user_name', 'users.email')
+    // .where('patterns.id', 1)
+    .orderBy('patterns.created_at', 'ASC')
+    .innerJoin('pattern_images','patterns.id', 'pattern_images.pattern_id')
+    .innerJoin('users', 'users.id', 'patterns.user_id')
+    .then((patterns) => {
+      res.send(camelizeKeys(patterns));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get('/patterns/:id', (req, res, next) => {
+  const id = req.params.id;
+
+  knex('patterns')
+    .where('patterns.id', id)
+    .orderBy('patterns.created_at', 'ASC')
+    // .where('pattern_images.display_order', '1' )
+    .innerJoin('pattern_images','patterns.id', 'pattern_images.pattern_id')
     .then((patterns) => {
       // resultPatterns = camelizeKeys(patterns);
       res.send(camelizeKeys(patterns));

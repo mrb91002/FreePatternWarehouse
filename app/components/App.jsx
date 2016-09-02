@@ -26,20 +26,20 @@ const App = React.createClass({
       });
   },
 
-  // getChildrenProps() {
-  //   const matchPath = this.props.routes.reduce((accum, route) => {
-  //     // Sometimes route.path is undefined, so default to empty string
-  //     return `${accum}${route.path || ''}`;
-  //   }, '');
-  //
-  //   const props = {
-  //     '/': {
-  //       patterns: this.state.patterns
-  //     }
-  //   };
-  //
-  //   return props[matchPath];
-  // },
+  getChildrenProps() {
+    const matchPath = this.props.routes.reduce((accum, route) => {
+      // Sometimes route.path is undefined, so default to empty string
+      return `${accum}${route.path || ''}`;
+    }, '');
+
+    const props = {
+      '/': {
+        patterns: this.state.patterns
+      }
+    };
+
+    return props[matchPath];
+  },
 
   render() {
     console.log(this.state.patterns);
@@ -48,7 +48,7 @@ const App = React.createClass({
 
       {/* React.cloneElement is the glue that passes in props to children created with React Router. React router instantiates classes for us, and cloning the existing instance is the only way to set props.
       */}
-      {React.cloneElement(this.props.children)}
+      {React.cloneElement(this.props.children, this.getChildrenProps())}
     </div>
   }
 });
