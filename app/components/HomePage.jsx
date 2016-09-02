@@ -8,6 +8,12 @@ const HomePage = React.createClass({
   // },
 
   render() {
+    // const styleUpperHero = {
+    //   backgroundColor: '#79A2C1',
+    //   width: '100%',
+    //   height: '64px'
+    // }
+
     let patterns  = this.props.patterns.data;
 
     if (!patterns) {
@@ -18,7 +24,10 @@ const HomePage = React.createClass({
     console.log(patterns);
 
     return <div>
-      <p>home page is working</p>
+      <div className="upperHero">
+        <p>Explore</p>
+        <p>Trending</p>
+      </div>
 
       {patterns.map((pattern) => {
         if (pattern.displayOrder !== 1) {

@@ -1,0 +1,46 @@
+@import 'normalize';
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+
+body {
+  color: #333;
+}
+
+
+
+.upperHero {
+  background-color: #79A2C1;
+  width: 100%;
+  height: 128px;
+  padding-top: 64px;
+}
+
+.upperHero p{
+  margin-top: 0;
+  padding-top: 20px;
+  color: #9F1A1A;
+  font-size: 18px;
+  margin-left: 65px;
+  display: inline-block;
+}
+
+//  ul li {
+//   display: inline-block;
+//   margin-left: 20px;
+// }
+//
+// a, ul, p {
+//   display: inline-block;
+// }
+
+img {
+  width:400px;
+}

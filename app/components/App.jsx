@@ -5,6 +5,8 @@ import cookie from 'react-cookie';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 const App = React.createClass({
   getInitialState() {
@@ -42,9 +44,91 @@ const App = React.createClass({
   },
 
   render() {
+
+    const styleFlatButton = {
+      height: '64px',
+      lineHeight: '64px'
+    };
+
+    const styleNavInput = {
+      borderRadius: '3px 0 0 3px',
+      height: '29px',
+      marginTop: '20px',
+      border: 'none',
+      padding: '9px',
+      width: '50%'
+
+      // backgroundColor: '#fff',
+      // borderRadius: '3px 0 0 3px',
+      // height: '15px',
+      // marginTop: '13px',
+      // border: 'none',
+      // display:'inline-block',
+      // padding: '9px',
+      // width: 70%;
+    };
+
+    const styleAppBar = {
+      backgroundColor: '#385D79',
+      position: "fixed"
+    };
+
+    const styleInputContainer = {
+      width: '50%'
+    }
+
+    const styleSearchButton = {
+      backgroundColor: '#AD5057',
+      height: '29px',
+      lineHeight: '27px',
+      border: 'none',
+      borderRadius: '0 3px 3px 0',
+      // marginTop: '-4px' no dice
+    };
+
     console.log(this.state.patterns);
     return <div>
-      <h1>Hello world</h1>
+        <AppBar
+          iconElementLeft={<IconButton></IconButton>}
+          title="Free Pattern Warehouse"
+          style={styleAppBar}
+        >
+        <div style={styleInputContainer}>
+          <input style={styleNavInput} />
+          <FlatButton
+            label="Search"
+            style={styleSearchButton}
+          />
+        </div>
+
+
+        <FlatButton
+          label="Login"
+          style={styleFlatButton}
+        />
+        <FlatButton
+          label="Register"
+          style={styleFlatButton}
+        />
+        </AppBar>
+
+      {/* <nav>
+        <div class="nav-wrapper">
+          <p><a href="#" className="brand-logo">Logo</a></p>
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+          </ul>
+        </div>
+      </nav> */}
+
+
+
+
+
+
+      {/* <h1>Hello world</h1> */}
 
       {/* React.cloneElement is the glue that passes in props to children created with React Router. React router instantiates classes for us, and cloning the existing instance is the only way to set props.
       */}
@@ -54,3 +138,51 @@ const App = React.createClass({
 });
 
 export default withRouter(App);
+
+
+{/*
+        <AppBar
+          onTitleTouchTap={this.handleTitleTouchTap}
+          title="Oh Sew Much"
+          titleStyle={styleTitle}
+          style={styleNav}
+          zDepth={2}
+        >
+          <FlatButton
+            label="Login"
+            onTouchTap={this.handleTouchTapLogin}
+            style={Object.assign({}, styleFlatButton, showLogin())}
+          />
+          <FlatButton
+            label="Register"
+            onTouchTap={this.handleTouchTapReg}
+            style={Object.assign({}, styleFlatButton, showRegister())}
+          />
+          <FlatButton
+            label="Logout"
+            onTouchTap={this.handleTouchTapLogout}
+            style={Object.assign({}, styleFlatButton, showLogout())}
+          />
+          <FlatButton
+            label="Admin"
+            onTouchTap={this.handleTouchTapAdmin}
+            style={Object.assign({}, styleFlatButton, showAdmin())}
+          />
+          <FlatButton
+            label={"Cart - " + quantity}
+            onTouchTap={this.handleTouchTapCart}
+            style={Object.assign({}, styleFlatButton, showCart())}
+          />
+          <FlatButton
+            label="Empty Cart"
+            onTouchTap={this.handleTouchTapEmptyCart}
+            style={Object.assign({}, styleFlatButton, showEmptyCart())}
+          />
+        </AppBar> */}
+
+
+
+
+// make sure that materialzie is coming in properly... doesn't appear to be.
+// Afterwards make sure columns are working... try to get materialize stock
+// navbar... cause it's better. col s? is not doing anything...
