@@ -37,6 +37,12 @@ const HomePage = React.createClass({
       marginTop: '18px'
     };
 
+    const styleIcons = {
+      fontSize: '130px',
+      color: '#AD5057',
+      // color: '#F3F5F6'
+    };
+
     let patterns  = this.props.patterns.data;
 
     if (!patterns) {
@@ -72,6 +78,41 @@ const HomePage = React.createClass({
         </div>
       </div>
 
+      <div className="row about">
+        <div className="col s10 offset-s1 about-inner">
+
+          <div className="col s4">
+            <div className="col s4">
+              <i className="material-icons" style={styleIcons}>search</i>
+            </div>
+            <div className="col s7">
+              <p> Find Something you Love </p>
+              <p>Our community has what you need to be inspired</p>
+            </div>
+          </div>
+
+          <div className="col s4">
+            <div className="col s4">
+              <i className="material-icons" style={styleIcons}>print</i>
+            </div>
+            <div className="col s7">
+              <p> Print out your new pattern </p>
+              <p>No Download <br/> No login <br/> 100% free</p>
+            </div>
+          </div>
+
+          <div className="col s4">
+            <div className="col s4">
+              <i className="material-icons" style={styleIcons}>done_all</i>
+            </div>
+            <div className="col s7">
+              <p> Create something new </p>
+              <p>Our community has what you need to be inspired</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
         <div className="row">
           <div className="col s1 offset-s1">
