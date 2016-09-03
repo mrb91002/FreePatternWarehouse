@@ -21,9 +21,10 @@ body {
   width: 100%;
   height: 128px;
   padding-top: 64px;
-  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
   // box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
-  margin-bottom: 20px;
+  // box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  // margin-bottom: 20px;
+  // border-bottom: 5px outset green;
 }
 
 .upperHero p{
@@ -66,4 +67,28 @@ img {
 
 .form-row {
   margin-bottom: 0;
+}
+
+.mainHero {
+  background-color: #F3F5F6;
+  height: 230px;
+}
+
+.heroSearch {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.heroSearch h1 {
+  font-size: 40px;
+  line-height: 30px;
+}
+
+h1, p {
+  font-family: 'Libre Baskerville', serif;
+}
+
+.heroImg img {
+  height: 230px;
+  width: auto;
 }

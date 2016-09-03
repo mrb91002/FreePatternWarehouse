@@ -1,6 +1,8 @@
 import React from 'react';
 import PatternInSearch from 'components/PatternInSearch';
 import weakKey from 'weak-key';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 
 const HomePage = React.createClass({
@@ -15,6 +17,26 @@ const HomePage = React.createClass({
     //   height: '64px'
     // }
 
+    const styleTextField = {
+      backgroundColor: '#fff',
+      borderRadius: '3px 0 0 3px',
+      height: '10px',
+      marginTop: '18px',
+      border: 'none',
+      padding: '10px',
+      display: 'inline-block',
+    };
+
+    const styleSearchButton = {
+      backgroundColor: '#AD5057',
+      height: '30px',
+      lineHeight: '27px',
+      border: 'none',
+      borderRadius: '0 3px 3px 0',
+      display: 'inline-block',
+      marginTop: '18px'
+    };
+
     let patterns  = this.props.patterns.data;
 
     if (!patterns) {
@@ -28,6 +50,26 @@ const HomePage = React.createClass({
       <div className="upperHero">
         <p>Explore</p>
         <p>Trending</p>
+      </div>
+
+      <div className="mainHero row">
+        <div className="col s6">
+          <div className="heroSearch">
+            <h1>Whatever your skill level,</h1>
+            <h1>Find your next project here</h1>
+            <TextField
+              inputStyle={styleTextField}
+              underlineShow={false}
+            />
+            <FlatButton
+              label="Search"
+              style={styleSearchButton}
+            />
+          </div>
+        </div>
+        <div className="col s4 heroImg">
+          <img src="images/beard.png" height="230px" width="10px" />
+        </div>
       </div>
 
 

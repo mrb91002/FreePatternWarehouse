@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import {Navbar, NavItem} from 'react-materialize';
+// import {Navbar, NavItem} from 'react-materialize';
 // import {Grid, Row, Col} from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
 
