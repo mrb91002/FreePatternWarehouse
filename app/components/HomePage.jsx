@@ -86,7 +86,7 @@ const HomePage = React.createClass({
               <i className="material-icons" style={styleIcons}>search</i>
             </div>
             <div className="col s7">
-              <p> Find Something you Love </p>
+              <p><strong>Find Something you Love </strong></p>
               <p>Our community has what you need to be inspired</p>
             </div>
           </div>
@@ -96,7 +96,7 @@ const HomePage = React.createClass({
               <i className="material-icons" style={styleIcons}>print</i>
             </div>
             <div className="col s7">
-              <p> Print out your new pattern </p>
+              <p><strong>  Print out your new pattern </strong></p>
               <p>No Download <br/> No login <br/> 100% free</p>
             </div>
           </div>
@@ -106,7 +106,7 @@ const HomePage = React.createClass({
               <i className="material-icons" style={styleIcons}>done_all</i>
             </div>
             <div className="col s7">
-              <p> Create something new </p>
+              <p><strong> Create something new </strong> </p>
               <p>Our community has what you need to be inspired</p>
             </div>
           </div>
