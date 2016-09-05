@@ -16,12 +16,6 @@ const HomePage = React.createClass({
   //   muiTheme: React.PropTypes.object.isRequired
   // },
 
-  componentWillReceiveProps() {
-    $('#collumn1').append(1);
-
-    console.log('NEW REVEIVING PROPS');
-    // this.forceUpdate();
-},
 
   calculateCollumn(patternClip) {
     if( $('#collumn1').height() <= $('#collumn2').height() &&
@@ -49,24 +43,6 @@ const HomePage = React.createClass({
       $('#collumn4').append(`${patternClip}`);
       return;
     }
-  },
-
-
-  componentDidMount() {
-    console.log('componentDidMount');
-    $('#collumn1').append(1);
-    $('#collumn1').append(1);
-    $('#collumn1').append(1);
-    $('#collumn1').append(1);
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
-    // $('#collumn3').append('<h1>test</h1>');
   },
 
   render() {
@@ -107,13 +83,8 @@ const HomePage = React.createClass({
     let patterns  = this.props.patterns.data;
 
     if (!patterns) {
-      console.log('RAN THROUGH AND NO DATA');
       return <p>failed</p>
     }
-
-    console.log('render home page');
-    console.log(patterns);
-    $('#collumn1').append(1);
 
     return <div>
       <div className="upperHero">
@@ -179,36 +150,39 @@ const HomePage = React.createClass({
 
         <div className="row">
           <div className="col s1 offset-s1">
-            Explore
+            <p>Explore</p>
           </div>
           <div className="col s10 offset-s1">
-            <div className="col s3 blue" id="collumn1">
-              s3
+
+            <div className="col s3" id="collumn1">
             </div>
-            <div className="col s3 green" id="collumn2" >
-              s3
+
+            <div className="col s3" id="collumn2" >
             </div>
-            <div className="col s3 red" id="collumn3">
-              s3
+
+            <div className="col s3" id="collumn3">
             </div>
-            <div className="col s3 purple" id="collumn4">
-              s3
+
+            <div className="col s3" id="collumn4">
             </div>
+
           </div>
         </div>
 
         {console.log('made it')}
 
+
+
         { patterns.map((pattern) => {
           if (pattern.displayOrder !== 1) {
             return;
           }
 
-          this.calculateCollumn(`<div>
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
-              ${pattern.patternName}
-              ${pattern.userName}
-              ${pattern.id}
+          this.calculateCollumn(`<div class="home-tile">
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} class="pattern-image"/>
+              <p>${pattern.patternName}</p>
+              <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
+              <h1>${pattern.userName}</h1>
             </div>`);
           return;
         })}
@@ -218,39 +192,11 @@ const HomePage = React.createClass({
             return;
           }
 
-          this.calculateCollumn(`<div>
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
-              ${pattern.patternName}
-              ${pattern.userName}
-              ${pattern.id}
-            </div>`);
-          return;
-        })}
-
-        { patterns.map((pattern) => {
-          if (pattern.displayOrder !== 1) {
-            return;
-          }
-
-          this.calculateCollumn(`<div>
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
-              ${pattern.patternName}
-              ${pattern.userName}
-              ${pattern.id}
-            </div>`);
-          return;
-        })}
-
-        { patterns.map((pattern) => {
-          if (pattern.displayOrder !== 1) {
-            return;
-          }
-
-          this.calculateCollumn(`<div>
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
-              ${pattern.patternName}
-              ${pattern.userName}
-              ${pattern.id}
+          this.calculateCollumn(`<div class="home-tile">
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} class="pattern-image"/>
+              <p>${pattern.patternName}</p>
+              <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
+              <h1>${pattern.userName}</h1>
             </div>`);
           return;
         })}

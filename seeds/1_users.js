@@ -10,7 +10,7 @@ exports.seed = function(knex) {
         last_name: "Benavides",
         phone: "4258821234",
         email: "mrb91002@gmail.com",
-        user_name: "ohsewmuch",
+        user_name: "Ohsewmuch",
         hashed_password: "$2a$12$B/am5U44mBPr7HA1xfcdsOCC0hvxoaLBsy/Tj3rbPIN5ADL0zj1vK"
       },{
         id:2,
@@ -20,7 +20,7 @@ exports.seed = function(knex) {
         last_name: "user",
         phone: "4238851264",
         email: "guestasdfasdf@gmail.com",
-        user_name: "guest1",
+        user_name: "Guest1",
         hashed_password: "$2a$12$BVsODe/K.En9Fhj/uOySNeFCN7Rfv7wfUZnBKX24Gj7sEx3B.xkyu"
       }, {
         id:3,
@@ -30,7 +30,7 @@ exports.seed = function(knex) {
         last_name: "Address",
         phone: "4258821234",
         email: "mrb91002@gmail.com",
-        user_name: "ohsewmuch",
+        user_name: "TheThirdUser",
         hashed_password: "$2a$12$B/am5U44mBPr7HA1xfcdsOCC0hvxoaLBsy/Tj3rbPIN5ADL0zj1vK"
       }, {
         id:4,
@@ -40,7 +40,7 @@ exports.seed = function(knex) {
         last_name: "",
         phone: "4258821234",
         email: "mrb91002@gmail.com",
-        user_name: "ohsewmuch",
+        user_name: "NotaStitch",
         hashed_password: ""
       }, {
         id:5,
@@ -50,7 +50,7 @@ exports.seed = function(knex) {
         last_name: "ClIeNt5",
         phone: "4258821234",
         email: "mrb91002@gmail.com",
-        user_name: "ohsewmuch",
+        user_name: "CraftyCrafter",
         hashed_password: "$2a$12$B/am5U44mBPr7HA1xfcdsOCC0hvxoaLBsy/Tj3rbPIN5ADL0zj1vK"
       }]);
     })

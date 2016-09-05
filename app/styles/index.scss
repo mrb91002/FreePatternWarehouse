@@ -114,3 +114,40 @@ h1, p {
 // div .about-inner a.material-icons {
 //   font-size: 90px;
 // }
+
+.user-image-small {
+  width: 45px;
+  display: inline-block;
+  margin-left: 10px;
+  border-radius: 5px
+}
+
+.home-tile {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+}
+
+.home-tile img:hover, .home-tile p:hover, .home-tile h1:hover {
+  cursor: pointer;
+}
+
+.home-tile h1 {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-style: italic;
+  color: #79A2C1;
+  // margin-left: 10px;
+}
+
+.home-tile p {
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.pattern-image {
+  border-radius: 5px 5px 0 0;
+}
