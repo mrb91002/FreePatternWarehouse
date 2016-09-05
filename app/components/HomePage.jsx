@@ -44,8 +44,58 @@ const HomePage = React.createClass({
       return;
     }
   },
+  //
+  // componentWillReceiveProps() {
+  //   this.props.patterns.map((pattern) => {
+  //     if (pattern.displayOrder !== 1) {
+  //       return;
+  //     }
+  //
+  //     this.calculateCollumn(`<div class="home-tile">
+  //         <img src=${pattern.imageUrl}
+  //           alt=${pattern.altText}
+  //           id=${pattern.id}
+  //           class="pattern-image"
+  //           onclick="myFunction(event)"
+  //         />
+  //         <p>${pattern.patternName}</p>
+  //         <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
+  //         <h1>${pattern.userName}</h1>
+  //       </div>`);
+  //     return;
+  //   })
+  // },
+
+  // componentWillMount() {
+  //    this.props.patterns.map((pattern) => {
+  //     if (pattern.displayOrder !== 1) {
+  //       return;
+  //     }
+  //
+  //     this.calculateCollumn(`<div class="home-tile">
+  //         <img src=${pattern.imageUrl}
+  //           alt=${pattern.altText}
+  //           id=${pattern.id}
+  //           class="pattern-image"
+  //           onclick="myFunction(event)"
+  //         />
+  //         <p>${pattern.patternName}</p>
+  //         <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
+  //         <h1>${pattern.userName}</h1>
+  //       </div>`);
+  //     return;
+  //   })
+  // },
 
   render() {
+
+    // const myFunction = () => {
+    //   console.log('please work');
+    // }
+    // getElementsByTagName('img').addEventListener("click", myFunction);
+
+    // $('img').addEventListener("click", myFunction);
+
     console.log('initial homepage render');
 
     // const styleUpperHero = {
@@ -87,10 +137,11 @@ const HomePage = React.createClass({
     }
 
     return <div>
-      <div className="upperHero">
+      {/* <div className="upperHero">
         <p>Explore</p>
         <p>Trending</p>
-      </div>
+      </div> */}
+      <div className="spacer"></div>
 
       <div className="mainHero row">
         <div className="col s6">
@@ -179,21 +230,30 @@ const HomePage = React.createClass({
           }
 
           this.calculateCollumn(`<div class="home-tile">
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} class="pattern-image"/>
+              <img src=${pattern.imageUrl}
+                alt=${pattern.altText}
+                id=${pattern.id}
+                class="pattern-image"
+                onclick="myFunction(event)"
+              />
               <p>${pattern.patternName}</p>
               <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
               <h1>${pattern.userName}</h1>
             </div>`);
           return;
         })}
-
         { patterns.map((pattern) => {
           if (pattern.displayOrder !== 1) {
             return;
           }
 
           this.calculateCollumn(`<div class="home-tile">
-              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} class="pattern-image"/>
+              <img src=${pattern.imageUrl}
+                alt=${pattern.altText}
+                id=${pattern.id}
+                class="pattern-image"
+                onclick="myFunction(event)"
+              />
               <p>${pattern.patternName}</p>
               <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
               <h1>${pattern.userName}</h1>
@@ -204,5 +264,15 @@ const HomePage = React.createClass({
     </div>;
   }
 });
+
+// console.log('things are happening');
+//
+// $('img').on('click', () => {
+//   console.log('you clicked an image!!!!!');
+// });
+//
+// const clickImage = () => {
+//   console.log('you clicked an image');
+// };
 
 export default HomePage;

@@ -22,10 +22,10 @@ const App = React.createClass({
 
   componentWillMount() {
     // Get the patterns from the API
-    console.log('componentWillMount');
+    // console.log('componentWillMount');
     axios.get('/api/patterns')
       .then((patterns) => {
-        console.log('data ');
+        // console.log('data ');
         this.setState({ patterns: patterns });
         this.forceUpdate();
       })
@@ -54,6 +54,7 @@ const App = React.createClass({
       }
     };
 
+    props['/pattern/:id'] = props['/'];
     return props[matchPath];
   },
 
@@ -116,7 +117,7 @@ const App = React.createClass({
     };
 
 
-    console.log(this.state.patterns);
+    // console.log(this.state.patterns);
     return <div>
         <AppBar
           zDepth='2'

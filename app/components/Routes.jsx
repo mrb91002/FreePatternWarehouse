@@ -8,7 +8,7 @@ import App from 'components/App';
 import HomePage from 'components/HomePage';
 import React from 'react';
 import LoginPage from 'components/LoginPage';
-
+import PatternPage from 'components/PatternPage';
 
 const Routes = React.createClass({
   // handleChange(prevState, nextState, replace) {
@@ -27,7 +27,7 @@ const Routes = React.createClass({
         <IndexRoute component={HomePage} />
 
         <Route component={LoginPage} path="login" />
-
+        <Route component={PatternPage} path="pattern/:id" />
 
       </Route>
     </Router>;

@@ -129,6 +129,58 @@ h1, p {
   box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
 }
 
+.pattern-title {
+  // width: 800px;
+  // margin: 0 auto;
+  // margin-top: 10px;
+  height: 80px;
+  margin-top: 20px;
+  background-color: #fff;
+  // border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+}
+
+.instruction-tile {
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  border-radius: 5px;
+  padding: 2px;
+  padding-left: 20px;
+  margin-bottom: 17px;
+}
+
+.image-tile {
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  border-radius: 5px;
+  margin-bottom: 17px;
+}
+
+.image-tile img {
+  border-radius: 5px 5px 0 0;
+}
+
+.image-tile p {
+  margin: 0 auto;
+  width: 70px;
+}
+
+.pattern-title h1 {
+  padding-top: 25px;
+  margin: 0 auto;
+  width: 700px;
+}
+
+.pattern-title {
+   margin: 0 auto;
+}
+
+.pattern-space {
+  margin-top: 50px;
+}
+
+.pattern-image-main {
+  height: 300px
+}
+
 .home-tile img:hover, .home-tile p:hover, .home-tile h1:hover {
   cursor: pointer;
 }
@@ -150,4 +202,42 @@ h1, p {
 
 .pattern-image {
   border-radius: 5px 5px 0 0;
+}
+
+.spacer {
+  height: 64px;
+}
+
+// .row .col {
+//   padding: 0px;
+// }
+
+.pattern-artist {
+  background-color: #79A2C1;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+}
+
+.pattern-artist img {
+  margin-top: 50px;
+  // border: 5px solid grey;
+  border-radius: 5px;
+}
+
+.pattern-directions {
+  margin-top: 0px;
+}
+
+.pattern-main {
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+}
+
+.materials {
+  margin-bottom: 20px;
+}
+
+.instructions {
+  margin-top: 55px;
+  margin-bottom: 20px
 }
