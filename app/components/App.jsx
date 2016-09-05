@@ -60,6 +60,8 @@ const App = React.createClass({
 
   render() {
 
+    // console.log(this.state.patterns);
+    
     const styleFlatButton = {
       height: '64px',
       lineHeight: '64px'

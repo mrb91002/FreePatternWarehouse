@@ -10,15 +10,28 @@ const ev = require('express-validation');
 // const val = require('../validations/products');
 
 router.get('/patterns', (_req, res, next) => {
+  let resultPatterns;
 
   knex('patterns')
-    .select('pattern_images.alt_text', 'pattern_images.display_order', 'patterns.pattern_name', 'patterns.user_id', 'pattern_images.image_url', 'users.first_name', 'users.last_name', 'users.user_name', 'users.user_image_url', 'users.email', 'patterns.id')
-    // .where('patterns.id', 1)
+    .select( 'patterns.pattern_name', 'patterns.user_id', 'users.first_name', 'users.last_name', 'users.user_name', 'users.user_image_url', 'users.email', 'patterns.id','patterns.pattern_name')
     .orderBy('patterns.created_at', 'ASC')
-    .innerJoin('pattern_images','patterns.id', 'pattern_images.pattern_id')
     .innerJoin('users', 'users.id', 'patterns.user_id')
     .then((patterns) => {
-      res.send(camelizeKeys(patterns));
+      resultPatterns = camelizeKeys(patterns);
+
+      return Promise.all(resultPatterns.map((pattern) => {
+
+        return knex('pattern_images')
+          .select('pattern_images.alt_text', 'pattern_images.display_order', 'pattern_images.image_url')
+          .where('pattern_images.pattern_id', pattern.id)
+          .orderBy('display_order')
+          .then((imgs) => {
+            pattern.images = camelizeKeys(imgs);
+          })
+      }));
+    })
+    .then(() => {
+      res.send(camelizeKeys(resultPatterns));
     })
     .catch((err) => {
       next(err);
