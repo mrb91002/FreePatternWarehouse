@@ -4,13 +4,74 @@ import weakKey from 'weak-key';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
+let col1 = 0;
+let col2 = 0;
+let col3 = 0;
+let col4 = 0;
+let number = 1;
+// let patterntest  = this.props.patterns.data;
 
 const HomePage = React.createClass({
   // contextTypes: {
   //   muiTheme: React.PropTypes.object.isRequired
   // },
 
+  componentWillReceiveProps() {
+    $('#collumn1').append(1);
+
+    console.log('NEW REVEIVING PROPS');
+    // this.forceUpdate();
+},
+
+  calculateCollumn(patternClip) {
+    if( $('#collumn1').height() <= $('#collumn2').height() &&
+      $('#collumn1').height() <= $('#collumn3').height() &&
+      $('#collumn1').height() <= $('#collumn4').height()
+    ) {
+      $('#collumn1').append(patternClip);
+      return;
+    }
+
+    else if( $('#collumn2').height() <= $('#collumn3').height() &&
+      $('#collumn2').height() <= $('#collumn4').height()
+    ) {
+      $('#collumn2').append(`${patternClip}`);
+      return;
+    }
+
+    else if( $('#collumn3').height() <= $('#collumn4').height()
+    ) {
+      $('#collumn3').append(`${patternClip}`);
+      return;
+    }
+
+    else {
+      $('#collumn4').append(`${patternClip}`);
+      return;
+    }
+  },
+
+
+  componentDidMount() {
+    console.log('componentDidMount');
+    $('#collumn1').append(1);
+    $('#collumn1').append(1);
+    $('#collumn1').append(1);
+    $('#collumn1').append(1);
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+    // $('#collumn3').append('<h1>test</h1>');
+  },
+
   render() {
+    console.log('initial homepage render');
+
     // const styleUpperHero = {
     //   backgroundColor: '#79A2C1',
     //   width: '100%',
@@ -46,11 +107,13 @@ const HomePage = React.createClass({
     let patterns  = this.props.patterns.data;
 
     if (!patterns) {
+      console.log('RAN THROUGH AND NO DATA');
       return <p>failed</p>
     }
 
     console.log('render home page');
     console.log(patterns);
+    $('#collumn1').append(1);
 
     return <div>
       <div className="upperHero">
@@ -82,31 +145,31 @@ const HomePage = React.createClass({
         <div className="col s10 offset-s1 about-inner">
 
           <div className="col s4">
-            <div className="col s4">
+            <div className="col s3">
               <i className="material-icons" style={styleIcons}>search</i>
             </div>
-            <div className="col s7">
-              <p><strong>Find Something you Love </strong></p>
+            <div className="col s8 offset-s1">
+              <p className="bold">Find Something you Love</p>
               <p>Our community has what you need to be inspired</p>
             </div>
           </div>
 
           <div className="col s4">
-            <div className="col s4">
+            <div className="col s3">
               <i className="material-icons" style={styleIcons}>print</i>
             </div>
-            <div className="col s7">
-              <p><strong>  Print out your new pattern </strong></p>
+            <div className="col s8 offset-s1">
+              <p className="bold">  Print out your new pattern</p>
               <p>No Download <br/> No login <br/> 100% free</p>
             </div>
           </div>
 
           <div className="col s4">
-            <div className="col s4">
+            <div className="col s3">
               <i className="material-icons" style={styleIcons}>done_all</i>
             </div>
-            <div className="col s7">
-              <p><strong> Create something new </strong> </p>
+            <div className="col s8 offset-s1">
+              <p className="bold">Create something new</p>
               <p>Our community has what you need to be inspired</p>
             </div>
           </div>
@@ -119,67 +182,78 @@ const HomePage = React.createClass({
             Explore
           </div>
           <div className="col s10 offset-s1">
-            <div className="col s3 blue">
+            <div className="col s3 blue" id="collumn1">
               s3
-              {patterns.map((pattern) => {
-                if (pattern.displayOrder !== 1) {
-                  return;
-                }
-                return <PatternInSearch
-                  key={weakKey(pattern)}
-                  pattern={pattern}
-                />
-              })}
             </div>
-            <div className="col s3 green">
+            <div className="col s3 green" id="collumn2" >
               s3
-              {patterns.map((pattern) => {
-                if (pattern.displayOrder !== 1) {
-                  return;
-                }
-                return <PatternInSearch
-                  key={weakKey(pattern)}
-                  pattern={pattern}
-                />
-              })}
             </div>
-            <div className="col s3 red">
+            <div className="col s3 red" id="collumn3">
               s3
-              {patterns.map((pattern) => {
-                if (pattern.displayOrder !== 1) {
-                  return;
-                }
-                return <PatternInSearch
-                  key={weakKey(pattern)}
-                  pattern={pattern}
-                />
-              })}
             </div>
-            <div className="col s3 purple">
+            <div className="col s3 purple" id="collumn4">
               s3
-              {patterns.map((pattern) => {
-                if (pattern.displayOrder !== 1) {
-                  return;
-                }
-                return <PatternInSearch
-                  key={weakKey(pattern)}
-                  pattern={pattern}
-                />
-              })}
             </div>
           </div>
         </div>
 
+        {console.log('made it')}
 
-      {/* {patterns.map((pattern) => {
-        if (pattern.displayOrder !== 1) {
+        { patterns.map((pattern) => {
+          if (pattern.displayOrder !== 1) {
+            return;
+          }
+
+          this.calculateCollumn(`<div>
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
+              ${pattern.patternName}
+              ${pattern.userName}
+              ${pattern.id}
+            </div>`);
           return;
-        }
-        return <PatternInSearch
-          key={weakKey(pattern)}
-          pattern={pattern}
-        />
-      })} */}
+        })}
+
+        { patterns.map((pattern) => {
+          if (pattern.displayOrder !== 1) {
+            return;
+          }
+
+          this.calculateCollumn(`<div>
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
+              ${pattern.patternName}
+              ${pattern.userName}
+              ${pattern.id}
+            </div>`);
+          return;
+        })}
+
+        { patterns.map((pattern) => {
+          if (pattern.displayOrder !== 1) {
+            return;
+          }
+
+          this.calculateCollumn(`<div>
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
+              ${pattern.patternName}
+              ${pattern.userName}
+              ${pattern.id}
+            </div>`);
+          return;
+        })}
+
+        { patterns.map((pattern) => {
+          if (pattern.displayOrder !== 1) {
+            return;
+          }
+
+          this.calculateCollumn(`<div>
+              <img src=${pattern.imageUrl} alt=${pattern.altText} id=${pattern.id} />
+              ${pattern.patternName}
+              ${pattern.userName}
+              ${pattern.id}
+            </div>`);
+          return;
+        })}
 
     </div>;
   }

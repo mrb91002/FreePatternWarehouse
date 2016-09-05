@@ -25,8 +25,9 @@ const App = React.createClass({
     console.log('componentWillMount');
     axios.get('/api/patterns')
       .then((patterns) => {
-        console.log(patterns);
+        console.log('data ');
         this.setState({ patterns: patterns });
+        this.forceUpdate();
       })
       .catch((err) => {
         console.error(err.response || err);
