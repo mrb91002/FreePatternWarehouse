@@ -26,6 +26,8 @@ const Routes = React.createClass({
       <Route component={App} path="/">
         <IndexRoute component={HomePage} />
 
+
+
         <Route component={LoginPage} path="login" />
         <Route component={PatternPage} path="pattern/:id" />
 

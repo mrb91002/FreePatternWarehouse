@@ -122,6 +122,14 @@ exports.seed = function(knex) {
         alt_text: 'knit hat with ears',
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
+      },{
+        id:16,
+        pattern_id:6,
+        display_order:1,
+        image_url: 'http://tutorials.knitpicks.com/wptutorials/wp-content/uploads/2009/12/circular4.jpg',
+        alt_text: 'hands kniting something pink',
+        created_at: new Date('2016-06-26 14:26:16 UTC'),
+        updated_at: new Date('2016-06-26 14:26:16 UTC')
       },]);
     })
     .then(() => {

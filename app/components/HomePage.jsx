@@ -3,19 +3,14 @@ import PatternInSearch from 'components/PatternInSearch';
 import weakKey from 'weak-key';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import Gallery from 'components/Gallery';
+import Masonry from 'react-masonry-component';
 
-let col1 = 0;
-let col2 = 0;
-let col3 = 0;
-let col4 = 0;
-let number = 1;
-// let patterntest  = this.props.patterns.data;
+var masonryOptions = {
+    transitionDuration: 0
+};
 
 const HomePage = React.createClass({
-  // contextTypes: {
-  //   muiTheme: React.PropTypes.object.isRequired
-  // },
-
 
   calculateCollumn(patternClip) {
     if( $('#collumn1').height() <= $('#collumn2').height() &&
@@ -87,23 +82,10 @@ const HomePage = React.createClass({
   //   })
   // },
 
+
   render() {
     console.log(this.props.patterns.data);
-
-    // const myFunction = () => {
-    //   console.log('please work');
-    // }
-    // getElementsByTagName('img').addEventListener("click", myFunction);
-
-    // $('img').addEventListener("click", myFunction);
-
     console.log('initial homepage render');
-
-    // const styleUpperHero = {
-    //   backgroundColor: '#79A2C1',
-    //   width: '100%',
-    //   height: '64px'
-    // }
 
     const styleTextField = {
       backgroundColor: '#fff',
@@ -204,97 +186,22 @@ const HomePage = React.createClass({
           <div className="col s1 offset-s1">
             <p>Explore</p>
           </div>
-          <div className="col s10 offset-s1">
-
-            <div className="col s3" id="collumn1">
-            </div>
-
-            <div className="col s3" id="collumn2" >
-            </div>
-
-            <div className="col s3" id="collumn3">
-            </div>
-
-            <div className="col s3" id="collumn4">
-            </div>
-
-          </div>
         </div>
 
         {console.log('made it')}
 
 
+      <div className="row">
+        <div className = "col s10 offset-s1">
 
-        { patterns.map((pattern) => {
+          <Gallery
+          patterns={patterns}
+          />
 
-          this.calculateCollumn(`<div class="home-tile">
-              <img src=${pattern.images[0].imageUrl}
-                alt=${pattern.images[0].altText}
-                id=${pattern.id}
-                class="pattern-image"
-                onclick="myFunction(event)"
-              />
-              <p>${pattern.patternName}</p>
-              <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
-              <h1>${pattern.userName}</h1>
-            </div>`);
-          return;
-        })}
-
-        { patterns.map((pattern) => {
-          // if (pattern.displayOrder !== 1) {
-          //   return;
-          // }
-
-
-
-          this.calculateCollumn(`<div class="home-tile">
-              <img src=${pattern.images[0].imageUrl}
-                alt=${pattern.altText}
-                id=${pattern.id}
-                class="pattern-image"
-                onclick="myFunction(event)"
-              />
-              <p>${pattern.patternName}</p>
-              <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
-              <h1>${pattern.userName}</h1>
-            </div>`);
-          return;
-        })}
-
-        { patterns.map((pattern) => {
-          // if (pattern.displayOrder !== 1) {
-          //   return;
-          // }
-
-
-
-          this.calculateCollumn(`<div class="home-tile">
-              <img src=${pattern.images[0].imageUrl}
-                alt=${pattern.altText}
-                id=${pattern.id}
-                class="pattern-image"
-                onclick="myFunction(event)"
-              />
-              <p>${pattern.patternName}</p>
-              <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
-              <h1>${pattern.userName}</h1>
-            </div>`);
-          return;
-        })}
-
+        </div>
+      </div>
     </div>;
   }
 });
-
-// console.log('things are happening');
-//
-// $('img').on('click', () => {
-//   console.log('you clicked an image!!!!!');
-// });
-//
-// const clickImage = () => {
-//   console.log('you clicked an image');
-// };
 
 export default HomePage;

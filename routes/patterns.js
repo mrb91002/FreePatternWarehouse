@@ -30,21 +30,6 @@ router.get('/patterns', (_req, res, next) => {
           })
       }));
     })
-    // .then((resultPatterns) => {
-      // resultPatterns = camelizeKeys(patterns);
-    //
-    //   return Promise.all(resultPatterns.map((pattern) => {
-    //
-    //     return knex('pattern_steps')
-    //       .select('pattern_steps.display_order', 'pattern_steps.step_details',
-    //         'pattern_steps.pattern_id')
-    //       // .where('pattern_steps.pattern_id', pattern.id)
-    //       .orderBy('display_order')
-    //       .then((steps) => {
-    //         pattern.steps = camelizeKeys(steps);
-    //       })
-    //   }));
-    // })
     .then(() => {
       res.send(camelizeKeys(resultPatterns));
     })

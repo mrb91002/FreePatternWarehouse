@@ -32,6 +32,12 @@ exports.seed = function(knex) {
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC'),
         pattern_name: 'test5'
+      }, {
+        id:6,
+        user_id:5,
+        created_at: new Date('2016-06-26 14:26:16 UTC'),
+        updated_at: new Date('2016-06-26 14:26:16 UTC'),
+        pattern_name: 'Crochet'
       }]);
     })
     .then(() => {
