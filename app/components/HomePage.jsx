@@ -40,49 +40,6 @@ const HomePage = React.createClass({
     }
   },
 
-  // componentWillReceiveProps() {
-  //   this.props.patterns.map((pattern) => {
-  //     if (pattern.displayOrder !== 1) {
-  //       return;
-  //     }
-  //
-  //     this.calculateCollumn(`<div class="home-tile">
-  //         <img src=${pattern.imageUrl}
-  //           alt=${pattern.altText}
-  //           id=${pattern.id}
-  //           class="pattern-image"
-  //           onclick="myFunction(event)"
-  //         />
-  //         <p>${pattern.patternName}</p>
-  //         <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
-  //         <h1>${pattern.userName}</h1>
-  //       </div>`);
-  //     return;
-  //   })
-  // },
-
-  // componentWillMount() {
-  //    this.props.patterns.map((pattern) => {
-  //     if (pattern.displayOrder !== 1) {
-  //       return;
-  //     }
-  //
-  //     this.calculateCollumn(`<div class="home-tile">
-  //         <img src=${pattern.imageUrl}
-  //           alt=${pattern.altText}
-  //           id=${pattern.id}
-  //           class="pattern-image"
-  //           onclick="myFunction(event)"
-  //         />
-  //         <p>${pattern.patternName}</p>
-  //         <img src=${pattern.userImageUrl} alt="default user image" class="user-image-small"/>
-  //         <h1>${pattern.userName}</h1>
-  //       </div>`);
-  //     return;
-  //   })
-  // },
-
-
   render() {
     console.log(this.props.patterns.data);
     console.log('initial homepage render');

@@ -10,10 +10,19 @@ var masonryOptions = {
 var Gallery = React.createClass({
 
   handleTouchTap(event) {
-    this.props.router.push(`/product/${this.props.product.id}`)
+    if (event.target.id) {
+      this.props.router.push(`/pattern/${event.target.id}`);
+    }
+
+    console.log(event.target);
+    // this.props.router.push(`/product/${this.props.patterns.id}`)
   },
 
-    render: function () {
+  handleLog() {
+    console.log('working');
+  },
+
+    render() {
       const shift = {
         marginLeft: '20px'
       };
@@ -29,12 +38,10 @@ var Gallery = React.createClass({
                       alt={pattern.images[0].altText}
                       id={pattern.id}
                       className="pattern-image"
-                      // onclick="myFunction(event)"
-                      // handleTouchTap={this.handleTouchTap}
                     />
-                    <p>{pattern.patternName}</p>
+                    <p id={pattern.id}>{pattern.patternName}</p>
                     <img src={pattern.userImageUrl} alt="default user image" className="user-image-small"/>
-                    <h1>{pattern.userName}</h1>
+                    <h1 user={pattern.userName}>{pattern.userName}</h1>
                   </div>
                 </li>
             );
@@ -47,6 +54,7 @@ var Gallery = React.createClass({
                 options={masonryOptions} // default {}
                 disableImagesLoaded={false} // default false
                 updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                onTouchTap={this.handleTouchTap}
             >
                 {childElements}
             </Masonry>
