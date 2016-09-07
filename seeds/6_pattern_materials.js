@@ -1,8 +1,8 @@
 
 exports.seed = function(knex) {
-  return knex('materials').del()
+  return knex('pattern_materials').del()
     .then(() => {
-      return knex('materials').insert([{
+      return knex('pattern_materials').insert([{
         id:1,
         pattern_id:1,
         display_order:1,
@@ -51,7 +51,7 @@ exports.seed = function(knex) {
     })
     .then(() => {
       return knex.raw(
-        "SELECT setval('materials_id_seq', (SELECT MAX(id) FROM materials));"
+        "SELECT setval('pattern_materials_id_seq', (SELECT MAX(id) FROM pattern_materials));"
       );
     });
 };

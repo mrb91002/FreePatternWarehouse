@@ -1,8 +1,8 @@
 
 exports.seed = function(knex) {
-  return knex('favorites').del()
+  return knex('user_favorites').del()
     .then(() => {
-      return knex('favorites').insert([{
+      return knex('user_favorites').insert([{
         id:1,
         pattern_id:1,
         user_id:1,
@@ -57,25 +57,19 @@ exports.seed = function(knex) {
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       },{
-        id:12,
+        id:10,
         pattern_id:5,
         user_id:2,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       },{
-        id:13,
+        id:11,
         pattern_id:5,
         user_id:3,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       },{
-        id:14,
-        pattern_id:1,
-        user_id:3,
-        created_at: new Date('2016-06-26 14:26:16 UTC'),
-        updated_at: new Date('2016-06-26 14:26:16 UTC')
-      },{
-        id:15,
+        id:12,
         pattern_id:2,
         user_id:2,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
@@ -84,7 +78,7 @@ exports.seed = function(knex) {
     })
     .then(() => {
       return knex.raw(
-        "SELECT setval('favorites_id_seq', (SELECT MAX(id) FROM favorites));"
+        "SELECT setval('user_favorites_id_seq', (SELECT MAX(id) FROM user_favorites));"
       );
     });
 };

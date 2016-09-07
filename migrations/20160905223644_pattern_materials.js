@@ -1,7 +1,7 @@
 'use strict';
 
 exports.up = function(knex) {
-  return knex.schema.createTable('materials', (table) => {
+  return knex.schema.createTable('pattern_materials', (table) => {
     table.increments();
     table.integer('pattern_id')
       .notNullable()
@@ -15,5 +15,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTable('materials');
+  return knex.schema.dropTable('pattern_materials');
 };
