@@ -5,6 +5,9 @@ import FlatButton from 'material-ui/FlatButton';
 
 
 const ProfilePage = React.createClass({
+  componentDidMount() {
+    $(window).scrollTop(0);
+  },
 
   render() {
 

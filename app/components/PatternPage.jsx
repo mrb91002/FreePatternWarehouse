@@ -14,6 +14,10 @@ const PatternPage = React.createClass({
     return { modalIsOpen: false };
   },
 
+  componentDidMount() {
+    $(window).scrollTop(0);
+  },
+  
   openModal(event) {
       console.log(event.target);
       modalImageNumber = event.target.id;
