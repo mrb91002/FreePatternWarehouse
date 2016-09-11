@@ -4,22 +4,59 @@ import weakKey from 'weak-key';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { withRouter } from 'react-router';
+import Modal from 'react-modal';
 
+let modalImage;
+let modalImageNumber;
 
 const PatternPage = React.createClass({
+  getInitialState() {
+    return { modalIsOpen: false };
+  },
+
+  openModal(event) {
+      console.log(event.target);
+      modalImageNumber = event.target.id;
+      modalImage = event.target.getAttribute('src');
+      this.setState({modalIsOpen: true});
+  },
+
+  afterOpenModal() {
+    console.log('MODAL OPENED');
+      // references are now sync'd and can be accessed.
+      // this.refs.subtitle.style.color = '#f00';
+  },
+
+  closeModal() {
+   this.setState({modalIsOpen: false});
+  },
 
   handleProfilePage(event) {
     this.props.router.push(`/profile/${event.target.id}`);
   },
 
   render() {
+    console.log('PATTERM PAGE');
+
     let imageNumber = 0;
     let stepNumber = 0;
     let materialNumber = 0;
 
+
     if (this.props.patterns.length === 0) {
       return <div></div>;
     }
+
+    const customStyles = {
+      content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+      }
+    };
 
     console.log(this.props.patterns.data.rows);
 
@@ -65,7 +102,6 @@ const PatternPage = React.createClass({
 
 
 
-
                 <div className="col s12 pattern-directions">
                   <h1 className="bold materials">Materials:</h1>
 
@@ -99,11 +135,31 @@ const PatternPage = React.createClass({
                   return;
                 }
                 imageNumber += 1;
-                return <div className="image-tile">
-                  <img src={img} alt="THIS IS A PLACEHOLDER" />
+                return <div
+                  onTouchTap={this.openModal}
+                  className="image-tile"
+                >
+                  <img
+                    id={imageNumber - 1}
+                    src={img}
+                    alt="THIS IS A PLACEHOLDER"
+                  />
                    <p>figure: {imageNumber - 1}</p>
                 </div>
               })}
+
+              <Modal
+                isOpen={this.state.modalIsOpen}
+                onAfterOpen={this.afterOpenModal}
+                onRequestClose={this.closeModal}
+                style={customStyles}
+              >
+                <img
+                  src={modalImage}
+                  className="modal-image"
+                 />
+                 <p>Figure: {modalImageNumber}</p>
+              </Modal>
 
 
             </div>

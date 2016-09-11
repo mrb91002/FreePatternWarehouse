@@ -11,7 +11,7 @@ var Gallery = React.createClass({
 
   handleTouchTap(event) {
     if (event.target.id) {
-      this.props.router.push(`/pattern/${event.target.id}`);
+        return this.props.router.push(`/pattern/${event.target.id}`);
     }
 
     this.props.router.push(`/profile/${event.target.getAttribute('profile')}`)
@@ -25,6 +25,7 @@ var Gallery = React.createClass({
   },
 
     render() {
+
       const shift = {
         marginLeft: '20px'
       };
