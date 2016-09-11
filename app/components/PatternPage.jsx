@@ -3,9 +3,14 @@ import PatternInSearch from 'components/PatternInSearch';
 import weakKey from 'weak-key';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import { withRouter } from 'react-router';
 
 
 const PatternPage = React.createClass({
+
+  handleProfilePage(event) {
+    this.props.router.push(`/profile/${event.target.id}`);
+  },
 
   render() {
     let imageNumber = 0;
@@ -31,7 +36,11 @@ const PatternPage = React.createClass({
       <div className="spacer"></div>
 
       <div className="pattern-title col s8 offset-s2">
-        <h1>{pattern.patternName} - By: {pattern.userName}</h1>
+        <h1>{pattern.patternName} - By:
+          <span id={pattern.userName} onTouchTap={this.handleProfilePage}>
+            {pattern.userName}
+          </span>
+        </h1>
       </div>
 
       <div className="row pattern-space">
@@ -42,7 +51,10 @@ const PatternPage = React.createClass({
             <div className="col s4 pattern-artist">
               <div className="col s10 offset-s1">
                 <img src={pattern.userImageUrl} />
-                <p>{pattern.userName}</p>
+                <p id={pattern.userName}
+                  onTouchTap={this.handleProfilePage}>
+                  {pattern.userName}
+                </p>
                 <p>Website</p>
               </div>
             </div>
@@ -102,4 +114,4 @@ const PatternPage = React.createClass({
   }
 });
 
-export default PatternPage;
+export default withRouter(PatternPage);

@@ -13,6 +13,11 @@ var Gallery = React.createClass({
     if (event.target.id) {
       this.props.router.push(`/pattern/${event.target.id}`);
     }
+
+    this.props.router.push(`/profile/${event.target.getAttribute('profile')}`)
+  },
+  handleProfilePage(event) {
+    this.props.router.push(`/profile/${event.target.id}`);
   },
 
   handleLog() {
@@ -37,8 +42,12 @@ var Gallery = React.createClass({
                       className="pattern-image"
                     />
                     <p id={pattern.id}>{pattern.patternName}</p>
-                    <img src={pattern.userImageUrl} alt="default user image" className="user-image-small"/>
-                    <h1 id={pattern.userName}>{pattern.userName}</h1>
+                    <img
+                      profile={pattern.userName}
+                      src={pattern.userImageUrl}
+                      alt="default user image"
+                      className="user-image-small"/>
+                    <h1  profile={pattern.userName}>{pattern.userName}</h1>
                   </div>
                 </li>
             );
