@@ -31,22 +31,27 @@ exports.seed = function(knex) {
         id:6,
         pattern_id:2,
         display_order:1,
-        material:'knitting needle #4'
+        material:'jeans pocket'
       }, {
         id:7,
         pattern_id:3,
         display_order:1,
-        material:'knitting needle #4'
+        material:'rainbow yarn'
       }, {
         id:8,
         pattern_id:4,
         display_order:1,
-        material:'knitting needle #4'
+        material:'green yarn'
       }, {
         id:9,
         pattern_id:5,
         display_order:1,
-        material:'knitting needle #4'
+        material:'knitting needle #5'
+      }, {
+        id:10,
+        pattern_id:6,
+        display_order:1,
+        material:'iron'
       }]);
     })
     .then(() => {

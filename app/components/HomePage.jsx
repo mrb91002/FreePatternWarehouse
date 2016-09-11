@@ -12,37 +12,10 @@ var masonryOptions = {
 
 const HomePage = React.createClass({
 
-  calculateCollumn(patternClip) {
-    if( $('#collumn1').height() <= $('#collumn2').height() &&
-      $('#collumn1').height() <= $('#collumn3').height() &&
-      $('#collumn1').height() <= $('#collumn4').height()
-    ) {
-      $('#collumn1').append(patternClip);
-      return;
-    }
-
-    else if( $('#collumn2').height() <= $('#collumn3').height() &&
-      $('#collumn2').height() <= $('#collumn4').height()
-    ) {
-      $('#collumn2').append(`${patternClip}`);
-      return;
-    }
-
-    else if( $('#collumn3').height() <= $('#collumn4').height()
-    ) {
-      $('#collumn3').append(`${patternClip}`);
-      return;
-    }
-
-    else {
-      $('#collumn4').append(`${patternClip}`);
-      return;
-    }
-  },
-
   render() {
-    console.log(this.props.patterns.data);
+    // console.log(this.props.patterns.data);
     console.log('initial homepage render');
+    // console.log(this.props.patterns.data.rows);
 
     const styleTextField = {
       backgroundColor: '#fff',

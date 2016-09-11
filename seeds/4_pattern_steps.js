@@ -107,7 +107,21 @@ exports.seed = function(knex) {
         step_details: 'This is a step that you need to follow in order to build out the product that you see above.  There could be a ton of steps or there could be just a few.  This comment is going to be a little long.  In this step you could potentially refer to one of the images on the side.  This will allow the crafter to make references to images and make the creation of a pattern easier.  There are a few different layout ideas for this, but this is the one that seems to easiest for users at the moment.',
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
-      },]);
+      },{
+        id:16,
+        pattern_id:6,
+        display_order:2,
+        step_details: 'STEP 2.',
+        created_at: new Date('2016-06-26 14:26:16 UTC'),
+        updated_at: new Date('2016-06-26 14:26:16 UTC')
+      },{
+        id:17,
+        pattern_id:6,
+        display_order:1,
+        step_details: 'STEP 1.',
+        created_at: new Date('2016-06-26 14:26:16 UTC'),
+        updated_at: new Date('2016-06-26 14:26:16 UTC')
+      }]);
     })
     .then(() => {
       return knex.raw(

@@ -13,9 +13,6 @@ var Gallery = React.createClass({
     if (event.target.id) {
       this.props.router.push(`/pattern/${event.target.id}`);
     }
-
-    console.log(event.target);
-    // this.props.router.push(`/product/${this.props.patterns.id}`)
   },
 
   handleLog() {
@@ -27,21 +24,21 @@ var Gallery = React.createClass({
         marginLeft: '20px'
       };
 
-      console.log(this.props.patterns);
-      let patterns  = this.props.patterns;
+      console.log(this.props.patterns.rows);
+      let patterns  = this.props.patterns.rows;
 
         var childElements = patterns.map(function(pattern){
            return (
                 <li className="image-element-class" style={shift}>
                   <div className="home-tile">
-                    <img src={pattern.images[0].imageUrl}
-                      alt={pattern.images[0].altText}
+                    <img src={pattern.images[0]}
+                      alt={pattern.images[0]}
                       id={pattern.id}
                       className="pattern-image"
                     />
                     <p id={pattern.id}>{pattern.patternName}</p>
                     <img src={pattern.userImageUrl} alt="default user image" className="user-image-small"/>
-                    <h1 user={pattern.userName}>{pattern.userName}</h1>
+                    <h1 id={pattern.userName}>{pattern.userName}</h1>
                   </div>
                 </li>
             );

@@ -48,6 +48,7 @@
     "react-dom": "^15.3.1",
     "react-masonry-component": "^4.2.1",
     "react-materialize": "^0.16.0",
+    "react-modal": "^1.4.0",
     "react-router": "^2.7.0",
     "react-tap-event-plugin": "^1.0.0",
     "sass-brunch": "^2.6.3",

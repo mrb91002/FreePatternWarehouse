@@ -23,7 +23,7 @@ const App = React.createClass({
   componentWillMount() {
     // Get the patterns from the API
     // console.log('componentWillMount');
-    axios.get('/api/patterns')
+    axios.get('/api/patterns2')
       .then((patterns) => {
         // console.log('data ');
         this.setState({ patterns: patterns });
@@ -61,7 +61,7 @@ const App = React.createClass({
   render() {
 
     // console.log(this.state.patterns);
-    
+
     const styleFlatButton = {
       height: '64px',
       lineHeight: '64px'
@@ -165,51 +165,3 @@ const App = React.createClass({
 });
 
 export default withRouter(App);
-
-
-{/*
-        <AppBar
-          onTitleTouchTap={this.handleTitleTouchTap}
-          title="Oh Sew Much"
-          titleStyle={styleTitle}
-          style={styleNav}
-          zDepth={2}
-        >
-          <FlatButton
-            label="Login"
-            onTouchTap={this.handleTouchTapLogin}
-            style={Object.assign({}, styleFlatButton, showLogin())}
-          />
-          <FlatButton
-            label="Register"
-            onTouchTap={this.handleTouchTapReg}
-            style={Object.assign({}, styleFlatButton, showRegister())}
-          />
-          <FlatButton
-            label="Logout"
-            onTouchTap={this.handleTouchTapLogout}
-            style={Object.assign({}, styleFlatButton, showLogout())}
-          />
-          <FlatButton
-            label="Admin"
-            onTouchTap={this.handleTouchTapAdmin}
-            style={Object.assign({}, styleFlatButton, showAdmin())}
-          />
-          <FlatButton
-            label={"Cart - " + quantity}
-            onTouchTap={this.handleTouchTapCart}
-            style={Object.assign({}, styleFlatButton, showCart())}
-          />
-          <FlatButton
-            label="Empty Cart"
-            onTouchTap={this.handleTouchTapEmptyCart}
-            style={Object.assign({}, styleFlatButton, showEmptyCart())}
-          />
-        </AppBar> */}
-
-
-
-
-// make sure that materialzie is coming in properly... doesn't appear to be.
-// Afterwards make sure columns are working... try to get materialize stock
-// navbar... cause it's better. col s? is not doing anything...

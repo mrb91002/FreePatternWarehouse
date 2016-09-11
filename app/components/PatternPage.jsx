@@ -8,21 +8,25 @@ import FlatButton from 'material-ui/FlatButton';
 const PatternPage = React.createClass({
 
   render() {
+    let imageNumber = 0;
+    let stepNumber = 0;
+    let materialNumber = 0;
 
     if (this.props.patterns.length === 0) {
       return <div></div>;
     }
 
+    console.log(this.props.patterns.data.rows);
+
     const id = Number.parseInt(this.props.routeParams.id);
 
-    const pattern = this.props.patterns.data.filter((pat) => {
+    const pattern = this.props.patterns.data.rows.filter((pat) => {
       return pat.id === id;
     })[0];
 
     console.log(pattern);
 
 
-    console.log(this.props.patterns.data);
     return <div>
       <div className="spacer"></div>
 
@@ -44,7 +48,7 @@ const PatternPage = React.createClass({
             </div>
 
             <div className="col s7 offset-s1 pattern-image-main">
-              <img className="pattern-main" src={pattern.images[0].imageUrl} height="305px" alt={pattern.images[0].altText} />
+              <img className="pattern-main" src={pattern.images[0]} height="305px" alt="TEMP HOLDER" />
             </div>
 
 
@@ -52,29 +56,23 @@ const PatternPage = React.createClass({
 
                 <div className="col s12 pattern-directions">
                   <h1 className="bold materials">Materials:</h1>
+
                   <div className="instruction-tile">
-                    <p>Step 1:  This is a sample step that is really long and needs to be put on multiple lines.  This is probably going to happen Quite a lot so we need to be prepaired for some really long explanations</p>
+                    {pattern.materials.map((material) => {
+                      materialNumber += 1;
+                      return <p><span className="bold">{materialNumber}:</span> {material}</p>
+                    })}
+
                   </div>
 
                   <h1 className="bold instructions">Instructions:</h1>
+                    {pattern.steps.map((step) => {
+                      stepNumber += 1;
 
-
-                  <div className="instruction-tile">
-                    <p>Step 1:  This is a sample step that is really long and needs to be put on multiple lines.  This is probably going to happen Quite a lot so we need to be prepaired for some really long explanations</p>
-                  </div>
-
-                  <div className="instruction-tile">
-                    <p>Step 2:  This is a sample step that is really long and needs to be put on multiple lines.  This is probably going to happen Quite a lot so we need to be prepaired for some really long explanations</p>
-                  </div>
-
-                  <div className="instruction-tile">
-                    <p>Step 3:  This is a sample step that is really long and needs to be put on multiple lines.  This is probably going to happen Quite a lot so we need to be prepaired for some really long explanations</p>
-                  </div>
-
-
-                  <div className="instruction-tile">
-                    <p>Step 4:  This is a sample step that is really long and needs to be put on multiple lines.  This is probably going to happen Quite a lot so we need to be prepaired for some really long explanations</p>
-                  </div>
+                      return <div className="instruction-tile">
+                        <p><span className="bold">Step {stepNumber}:</span> {step}</p>
+                      </div>
+                    })}
                 </div>
           </div>
 
@@ -84,21 +82,17 @@ const PatternPage = React.createClass({
 
 
               {pattern.images.map((img) => {
-                console.log(img);
-                if (img.displayOrder === 1) {
+                if (imageNumber === 0) {
+                  imageNumber += 1;
                   return;
                 }
-
+                imageNumber += 1;
                 return <div className="image-tile">
-                  <img src={img.imageUrl} alt={img.altText} />
-                   <p>figure: {img.displayOrder -1}</p>
+                  <img src={img} alt="THIS IS A PLACEHOLDER" />
+                   <p>figure: {imageNumber - 1}</p>
                 </div>
               })}
 
-              <div className="image-tile">
-                <img src="https://market.ionic.io/img/user-default.png"/>
-                <p>Figure: 1</p>
-              </div>
 
             </div>
           </div>
