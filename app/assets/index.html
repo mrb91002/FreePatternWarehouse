@@ -22,5 +22,14 @@
     </script>
     <script src="/app.js"></script>
     <script>require('index');</script>
+    <script src="http://your-io-server/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        var visitorData = {
+          referringSite: document.referrer,
+          page: location.pathname
+        }
+        socket.emit('visitor-data', visitorData);
+    </script>
   </body>
 </html>

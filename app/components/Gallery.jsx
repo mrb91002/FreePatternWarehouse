@@ -35,10 +35,14 @@ var Gallery = React.createClass({
 
         var childElements = patterns.map(function(pattern){
            return (
-                <li className="image-element-class" style={shift}>
-                  <div className="home-tile">
-                    <img src={pattern.images[0]}
-                      alt={pattern.images[0]}
+                <li
+                  id={pattern.id}
+                  className="image-element-class"
+                  style={shift}>
+                  <div id={pattern.id} className="home-tile"
+                >
+                    <img src={pattern.images[0][0]}
+                      alt={pattern.images[0][1]}
                       id={pattern.id}
                       className="pattern-image"
                     />

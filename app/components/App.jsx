@@ -42,6 +42,10 @@ const App = React.createClass({
     this.props.router.push('/login');
   },
 
+  handleTouchTapUpload() {
+    this.props.router.push('/add-pattern');
+  },
+
   getChildrenProps() {
     const matchPath = this.props.routes.reduce((accum, route) => {
       // Sometimes route.path is undefined, so default to empty string
@@ -55,12 +59,11 @@ const App = React.createClass({
     };
 
     props['/pattern/:id'] = props['/'];
+    props['/add-pattern'] = props['/'];
     return props[matchPath];
   },
 
   render() {
-
-    // console.log(this.state.patterns);
 
     const styleFlatButton = {
       height: '64px',
@@ -74,21 +77,11 @@ const App = React.createClass({
       border: 'none',
       padding: '9px',
       width: '50%'
-
-      // backgroundColor: '#fff',
-      // borderRadius: '3px 0 0 3px',
-      // height: '15px',
-      // marginTop: '13px',
-      // border: 'none',
-      // display:'inline-block',
-      // padding: '9px',
-      // width: 70%;
     };
 
     const styleAppBar = {
       backgroundColor: '#385D79',
       position: "fixed",
-      // boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;'
     };
 
     const styleInputContainer = {
@@ -112,6 +105,7 @@ const App = React.createClass({
       border: 'none',
       padding: '10px',
       display: 'inline-block',
+      boxShadow: '1px 1px 3px #c6cab9 inset',
     };
 
     const styleTitle = {
@@ -142,7 +136,11 @@ const App = React.createClass({
           />
         {/* </div> */}
 
-
+        <FlatButton
+          label="Upload"
+          style={styleFlatButton}
+          onTouchTap={this.handleTouchTapUpload}
+        />
         <FlatButton
           label="Login"
           style={styleFlatButton}

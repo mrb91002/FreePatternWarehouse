@@ -322,3 +322,27 @@ footer p {
 .modal-image {
   width: 500px;
 }
+
+.upload-main {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  padding-top: 30px;
+}
+
+.upload-main p {
+  // margin-bottom: 0px;
+  // margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.right20 {
+  margin-left: 20px;
+}
+
+p.upload-title {
+  color: rgb(173, 80, 87);
+  font-size: 16px;
+  // margin-top: 20px;
+}

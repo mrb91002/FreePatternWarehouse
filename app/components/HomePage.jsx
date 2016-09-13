@@ -12,10 +12,11 @@ var masonryOptions = {
 
 const HomePage = React.createClass({
 
+  componentDidMount() {
+    $(window).scrollTop(0);
+  },
+
   render() {
-    // console.log(this.props.patterns.data);
-    console.log('initial homepage render');
-    // console.log(this.props.patterns.data.rows);
 
     const styleTextField = {
       backgroundColor: '#fff',
@@ -117,9 +118,6 @@ const HomePage = React.createClass({
             <p>Explore</p>
           </div>
         </div>
-
-        {console.log('made it')}
-
 
       <div className="row">
         <div className = "col s10 offset-s1">

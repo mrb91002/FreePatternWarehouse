@@ -10,17 +10,9 @@ import React from 'react';
 import LoginPage from 'components/LoginPage';
 import PatternPage from 'components/PatternPage';
 import ProfilePage from 'components/ProfilePage';
+import AddPattern from 'components/AddPattern';
 
 const Routes = React.createClass({
-  // handleChange(prevState, nextState, replace) {
-    // console.log(prevState);
-    // console.log(nextState);
-    // console.log(replace);
-  // },
-
-  // handleEnter(event) {
-    // console.log(event)
-  // },
 
   render() {
     return <Router history={browserHistory}>
@@ -30,6 +22,7 @@ const Routes = React.createClass({
         <Route component={LoginPage} path="login" />
         <Route component={PatternPage} path="pattern/:id" />
         <Route component={ProfilePage} path="profile/:id" />
+        <Route component={AddPattern} path="add-pattern"/>
 
       </Route>
     </Router>;

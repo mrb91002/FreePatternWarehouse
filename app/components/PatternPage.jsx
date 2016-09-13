@@ -17,7 +17,7 @@ const PatternPage = React.createClass({
   componentDidMount() {
     $(window).scrollTop(0);
   },
-  
+
   openModal(event) {
       console.log(event.target);
       modalImageNumber = event.target.id;
@@ -101,7 +101,7 @@ const PatternPage = React.createClass({
             </div>
 
             <div className="col s7 offset-s1 pattern-image-main">
-              <img className="pattern-main" src={pattern.images[0]} height="305px" alt="TEMP HOLDER" />
+              <img className="pattern-main" src={pattern.images[0][0]} height="305px" alt="TEMP HOLDER" />
             </div>
 
 
@@ -145,8 +145,8 @@ const PatternPage = React.createClass({
                 >
                   <img
                     id={imageNumber - 1}
-                    src={img}
-                    alt="THIS IS A PLACEHOLDER"
+                    src={img[0]}
+                    alt={img[1]}
                   />
                    <p>figure: {imageNumber - 1}</p>
                 </div>
