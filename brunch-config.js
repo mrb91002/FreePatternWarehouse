@@ -11,7 +11,7 @@ module.exports = {
 
     stylesheets: {
       joinTo: {
-        'app.css': /^app\//
+        'app.css':/^app\//
       }
     }
   },

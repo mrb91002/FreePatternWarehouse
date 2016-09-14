@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Routes from 'components/Routes';
+// import 'react-anything-sortable/sortable.css';
 
 injectTapEventPlugin();
 

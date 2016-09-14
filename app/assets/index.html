@@ -10,26 +10,29 @@
     <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link rel="stylesheet" href="/app.css">
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"> -->
+
 
   </head>
   <body>
     <div id="app"></div>
 
     <script src="/vendor.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- <script   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"> -->
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js">
     </script>
     <script src="/app.js"></script>
     <script>require('index');</script>
     <script src="http://your-io-server/socket.io/socket.io.js"></script>
-    <script>
+    <!-- <script>
         var socket = io();
         var visitorData = {
           referringSite: document.referrer,
           page: location.pathname
         }
         socket.emit('visitor-data', visitorData);
-    </script>
+    </script> -->
   </body>
 </html>
