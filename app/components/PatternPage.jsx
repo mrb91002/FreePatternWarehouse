@@ -21,6 +21,10 @@ const PatternPage = React.createClass({
   openModal(event) {
       console.log(event.target);
       modalImageNumber = event.target.id;
+
+      if (!modalImageNumber) {
+        modalImageNumber = 'Main'
+      }
       modalImage = event.target.getAttribute('src');
       this.setState({modalIsOpen: true});
   },
@@ -91,17 +95,30 @@ const PatternPage = React.createClass({
           <div className="col s9">
             <div className="col s4 pattern-artist">
               <div className="col s10 offset-s1">
-                <img src={pattern.userImageUrl} />
+                <img src={pattern.userImageUrl}
+                  className="pointer"
+                />
                 <p id={pattern.userName}
-                  onTouchTap={this.handleProfilePage}>
+                  onTouchTap={this.handleProfilePage}
+                  className="pointer"
+                >
                   {pattern.userName}
                 </p>
-                <p>Website</p>
+                <p className="pointer">
+                  Website
+                </p>
               </div>
             </div>
 
             <div className="col s7 offset-s1 pattern-image-main">
-              <img className="pattern-main" src={pattern.images[0][0]} height="305px" alt="TEMP HOLDER" />
+              <img
+                className="pattern-main"
+                src={pattern.images[0][0]}
+                height="305px"
+                onTouchTap={this.openModal}
+                alt={pattern.images[0][1]}
+                className="pointer"
+              />
             </div>
 
 
