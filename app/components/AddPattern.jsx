@@ -4,61 +4,27 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { withRouter } from 'react-router';
 import UploadImage from 'components/UploadImage';
-import Sortable  from 'react-anything-sortable';
-import {SortableItemMixin} from 'react-anything-sortable';
 
-const SortableItem = React.createClass({
-  mixins: [SortableItemMixin],
 
-  render: function() {
-
-    const stylex = {
-      display: 'inline-block',
-      color: 'rgb(173, 80, 87)',
-      paddingRight: '10px',
-      cursor: 'pointer'
-    };
-
-    const foo = this.renderWithSortable(
-      <div style={styleMaterial}>
-        <p className="inline">{this.props.step}</p>
-        <div className="delete-div">
-          <p
-            style={stylex}
-            onTouchTap={this.props.handleDeleteStep}
-          >
-            x
-          </p>
-        </div>
-      </div>
-    )
-    return foo;
-  }
-});
 
 const AddPattern = React.createClass({
   getInitialState() {
     return {
       uploadImages: [
           <UploadImage/>,
-          <UploadImage/>,
-          <UploadImage/>,
-          <UploadImage/>,
-          <UploadImage/>,
-          <UploadImage/>
+          <img src='http://tutorials.knitpicks.com/wptutorials/wp-content/uploads/2009/12/circular4.jpg'
+          />,
+          <img src='http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg'
+          />
       ],
       materials: [],
-      steps: []
+      steps: [],
+      title: ''
     }
   },
 
   componentDidMount() {
     $(window).scrollTop(0);
-  },
-
-  handleSort(sortedArray) {
-    console.log('sort happened');
-    this.setState({steps: sortedArray})
   },
 
   handleCancel() {
@@ -105,14 +71,12 @@ const AddPattern = React.createClass({
 
   handleDeleteMaterial(event) {
     const remove = event.target.parentNode.previousSibling.innerHTML;
-    console.log(remove);
 
     let nextMaterials = this.state.materials.filter((material) => {
       if (material === remove) {
         return;
       }
 
-      console.log('keep', material);
       return material;
     });
 
@@ -156,8 +120,55 @@ const AddPattern = React.createClass({
     this.setState({steps: nextSteps});
   },
 
+  handleSubmit() {
+    console.log('submit');
+
+    // rip out need variables for the DB insert
+    let uploadImages = [];
+    for (var i = 1; i < this.state.uploadImages.length; i++) {
+      uploadImages.push(this.state.uploadImages[i].props.src);
+    }
+    console.log(uploadImages);
+
+    let title = '';
+    if (this.state.title) {
+      title=this.state.title;
+      console.log(title);
+    } else {
+      console.log('nothing in title ERROR which shouldn\'t fire on initial load');
+    }
+
+
+    let materials = '';
+    if (this.state.materials.length !== 0) {
+      materials = this.state.materials;
+      console.log(materials);
+    } else {
+      console.log('no materials yet');
+    }
+
+    let steps = '';
+    if (this.state.steps.length !== 0) {
+      steps = this.state.steps;
+      console.log(steps);
+    } else {
+      console.log('no steps yet');
+    }
+
+    if (title && uploadImages && materials && steps) {
+      console.log('win');
+    }
+
+  },
+
+  handleUpdateTitle(event) {
+    const nextTitle = event.target.value;
+    console.log(nextTitle);
+    this.setState({title: nextTitle})
+  },
+
   render() {
-    console.log(this.state.uploadImages);
+
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 3px 3px 3px',
@@ -245,7 +256,9 @@ const AddPattern = React.createClass({
     const styleImage = {
       marginLeft: '20px',
       display: 'inline-block',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      width: '120px',
+      border: '1px dashed grey'
     };
 
     const styleAdd = {
@@ -263,27 +276,10 @@ const AddPattern = React.createClass({
         boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
     };
 
-    console.log('props');
-    console.log(this.props);
 
-    // if (!this.props.patterns) {
-    //   return <div></div>;
-    // }
-
-    // const id = Number.parseInt(this.props.routeParams.id);
-    //
-    // const pattern = this.props.patterns.data.filter((pat) => {
-    //   return pat.id === id;
-    // })[0];
-
-    const stepItems = this.state.steps.map((step, index) => {
-      return <SortableItem
-        step={step}
-        handleDeleteStep={this.handleDeleteStep}
-        sortData={"" + index}
-        key={index}
-      />
-    });
+    if (!this.props.patterns || this.props.patterns.length === 0) {
+      return <div></div>;
+    }
 
     return <div>
       <div className="spacer"></div>
@@ -292,12 +288,9 @@ const AddPattern = React.createClass({
         <h1>Create a pattern</h1>
       </div>
 
-
       <div className="row pattern-space">
         <div className="container">
           <div className="col s12 upload-main">
-
-
 
           <div className="col s12">
             <p className="upload-title">Photos</p>
@@ -310,10 +303,16 @@ const AddPattern = React.createClass({
               </span>
             </p>
             <div className="col s12">
-
-              {this.state.uploadImages.map((image) => {
-                return <div style={styleImage}>
-                   {image}
+              {this.state.uploadImages.map((image, index) => {
+                if (!image || image.length === 0) {
+                  console.log('huh?');
+                  return <div></div>
+                }
+                return <div
+                    style={styleImage}
+                    key={index}
+                  >
+                    {image}
                   </div>
               })}
 
@@ -335,6 +334,8 @@ const AddPattern = React.createClass({
                   <TextField
                     inputStyle={styleTextField}
                     underlineShow={false}
+                    id="title"
+                    onKeyUp={this.handleUpdateTitle}
                   />
                 </div>
               </div>
@@ -364,8 +365,11 @@ const AddPattern = React.createClass({
 
                 <div className="col s10 offset-s2">
 
-                  {this.state.materials.map((material) => {
-                    return <div style={styleMaterial}>
+                  {this.state.materials.map((material, index) => {
+                    return <div
+                        style={styleMaterial}
+                        key={index}
+                      >
                       <p className="inline">{material}</p>
                       <div className="delete-div">
                         <p
@@ -412,9 +416,24 @@ const AddPattern = React.createClass({
 
 
               <div className="col s10 offset-s2">
-              <Sortable onSort={this.handleSort}>
-                {stepItems}
-              </Sortable>
+
+
+              {this.state.steps.map((step, index) => {
+                return <div style={styleMaterial}
+                key={index}
+                >
+                  <p className="inline">{step}</p>
+                  <div className="delete-div">
+                    <p
+                      style={stylex}
+                      onTouchTap={this.handleDeleteStep}
+                    >
+                      x
+                    </p>
+                  </div>
+                  </div>
+              })}
+
               </div>
 
             </div>
@@ -426,6 +445,7 @@ const AddPattern = React.createClass({
               <FlatButton
                 label="Submit"
                 style={styleActionButton}
+                onTouchTap={this.handleSubmit}
               />
               <FlatButton
                 label="Cancel"
@@ -447,3 +467,6 @@ const AddPattern = React.createClass({
 });
 
 export default withRouter(AddPattern);
+
+
+// create clickable word that creates a modal

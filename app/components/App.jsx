@@ -32,6 +32,10 @@ const App = React.createClass({
       .catch((err) => {
         console.error(err.response || err);
       });
+
+      $(window).on('beforeunload', () => {
+        $(window).scrollTop(0);
+      });
   },
 
   handleTitleTouchTap() {
@@ -64,6 +68,8 @@ const App = React.createClass({
   },
 
   render() {
+
+    const { pathname } = this.props.location;
 
     const styleFlatButton = {
       height: '64px',
@@ -108,6 +114,23 @@ const App = React.createClass({
       boxShadow: '1px 1px 3px #c6cab9 inset',
     };
 
+    const styleFooter = () => {
+      if (pathname === '/add-pattern') {
+        return {
+          position: 'fixed',
+          backgroundColor: 'blue',
+          bottom: '0',
+          display: 'block',
+          width: '100%',
+          zIndex: '10000'
+        }
+      }
+
+      return {
+        display: 'none'
+      }
+    }
+
     const styleTitle = {
       cursor: 'pointer'
     };
@@ -116,7 +139,7 @@ const App = React.createClass({
     // console.log(this.state.patterns);
     return <div>
         <AppBar
-          zDepth='2'
+          zDepth={2}
           iconElementLeft={<IconButton></IconButton>}
           title="Free Pattern Warehouse"
           titleStyle={styleTitle}
@@ -129,6 +152,7 @@ const App = React.createClass({
           <TextField
             inputStyle={styleTextField}
             underlineShow={false}
+            id="topSearch"
           />
           <FlatButton
             label="Search"
@@ -152,7 +176,9 @@ const App = React.createClass({
         />
         </AppBar>
 
-
+        {/* <footer style={styleFooter()}>
+          <p>footer text goes here</p>
+        </footer> */}
 
 
       {/* React.cloneElement is the glue that passes in props to children created with React Router. React router instantiates classes for us, and cloning the existing instance is the only way to set props.

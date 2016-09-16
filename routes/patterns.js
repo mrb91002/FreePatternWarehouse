@@ -62,27 +62,43 @@ router.get('/patterns/:id', (req, res, next) => {
     .then((patterns) => {
       // resultPatterns = camelizeKeys(patterns);
       res.send(camelizeKeys(patterns));
-
-      // return Promise.all(resultProducts.map((prod) => {
-      //   delete prod.createdAt;
-      //   delete prod.updatedAt;
-      //   delete prod.deleted;
-      //
-      //   return knex('product_images')
-      //     .select('alt_text', 'display_order', 'image_url')
-      //     .where('product_id', prod.id)
-      //     .orderBy('display_order')
-      //     .then((imgs) => {
-      //       prod.images = camelizeKeys(imgs);
-      //     });
-      // }));
-    // })
-    // .then(() => {
-    //   res.send(resultProducts);
     })
     .catch((err) => {
       next(err);
     });
 });
+
+// router.post('/patterns', (req, res next) => {
+//   knex.transaction(function(trx) => {
+//     {pattern, steps, images, materials} = req.body;
+//
+// // pattern - user_id, pattern_name
+// // steps   - pattern_id, step_details, display_order
+// // images - pattern_id, image_url, alt_text, display_order
+// // materials - pattern_id, display_order, material
+//
+//     return trx
+//       .insert({pattern}, id)
+//       .into('patterns')
+//       .transacting(trx)
+//       .then((ids) => {
+//         return knex.insert(info).into('pattern').transacting(trx);
+//    });
+//  })
+//
+//
+//
+//
+//
+//
+//   })
+//   .then((pattern) => {
+//     console.log('pattern saved');
+//   })
+//   .catch((err) => {
+//     console.log('error inserting pattern');
+//   });
+//
+// });
 
 module.exports = router;

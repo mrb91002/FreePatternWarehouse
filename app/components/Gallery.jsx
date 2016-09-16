@@ -38,7 +38,9 @@ var Gallery = React.createClass({
                 <li
                   id={pattern.id}
                   className="image-element-class"
-                  style={shift}>
+                  style={shift}
+                  key={pattern.id}
+                >
                   <div id={pattern.id} className="home-tile"
                 >
                     <img src={pattern.images[0][0]}

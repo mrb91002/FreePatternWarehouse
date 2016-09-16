@@ -5,9 +5,11 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { withRouter } from 'react-router';
 import Modal from 'react-modal';
+import reactStringReplace from 'react-string-replace';
 
 let modalImage;
 let modalImageNumber;
+let pattern;
 
 const PatternPage = React.createClass({
   getInitialState() {
@@ -19,6 +21,7 @@ const PatternPage = React.createClass({
   },
 
   openModal(event) {
+    console.log('event opening');
       console.log(event.target);
       modalImageNumber = event.target.id;
 
@@ -26,6 +29,13 @@ const PatternPage = React.createClass({
         modalImageNumber = 'Main'
       }
       modalImage = event.target.getAttribute('src');
+      this.setState({modalIsOpen: true});
+  },
+
+  openModalInline(event) {
+      modalImageNumber = event.target.id;
+
+      modalImage = pattern.images[event.target.id][0];
       this.setState({modalIsOpen: true});
   },
 
@@ -43,6 +53,14 @@ const PatternPage = React.createClass({
     this.props.router.push(`/profile/${event.target.id}`);
   },
 
+  createMarkup(string1) {
+    return {__html: string1};
+  },
+
+  handleLog() {
+    console.log('clicked');
+  },
+
   render() {
     console.log('PATTERM PAGE');
 
@@ -54,6 +72,7 @@ const PatternPage = React.createClass({
     if (this.props.patterns.length === 0) {
       return <div></div>;
     }
+
 
     const customStyles = {
       content : {
@@ -70,7 +89,7 @@ const PatternPage = React.createClass({
 
     const id = Number.parseInt(this.props.routeParams.id);
 
-    const pattern = this.props.patterns.data.rows.filter((pat) => {
+    pattern = this.props.patterns.data.rows.filter((pat) => {
       return pat.id === id;
     })[0];
 
@@ -112,12 +131,11 @@ const PatternPage = React.createClass({
 
             <div className="col s7 offset-s1 pattern-image-main">
               <img
-                className="pattern-main"
+                className="pattern-main pointer"
                 src={pattern.images[0][0]}
                 height="305px"
                 onTouchTap={this.openModal}
                 alt={pattern.images[0][1]}
-                className="pointer"
               />
             </div>
 
@@ -136,10 +154,32 @@ const PatternPage = React.createClass({
 
                   <h1 className="bold instructions">Instructions:</h1>
                     {pattern.steps.map((step) => {
-                      stepNumber += 1;
+
+
+
+          let newStep = reactStringReplace(step, /(figure:\s*\d+)/gi, (match, i) => {
+
+            const newNumber =
+             Number.parseInt(match.slice(match.indexOf(':')+1));
+            console.log(newNumber);
+
+            return <span
+              id={newNumber}
+              key={i}
+              style={{ color: 'blue', cursor: 'pointer' }}
+              onTouchTap={this.openModalInline}
+            >{match}</span>;
+          });
+
+
+
+                      // const newStep = <p>{step}</p>;
+
 
                       return <div className="instruction-tile">
-                        <p><span className="bold">Step {stepNumber}:</span> {step}</p>
+                        <p>
+                        {newStep}
+                        </p>
                       </div>
                     })}
                 </div>

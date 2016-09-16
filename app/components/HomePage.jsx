@@ -12,9 +12,9 @@ var masonryOptions = {
 
 const HomePage = React.createClass({
 
-  componentDidMount() {
-    $(window).scrollTop(0);
-  },
+  // componentDidMount() {
+  //   $(window).scrollTop(0);
+  // },
 
   render() {
 
@@ -65,6 +65,7 @@ const HomePage = React.createClass({
             <TextField
               inputStyle={styleTextField}
               underlineShow={false}
+              id="heroSearchInput"
             />
             <FlatButton
               label="Search"

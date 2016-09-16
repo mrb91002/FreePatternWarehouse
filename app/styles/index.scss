@@ -316,6 +316,8 @@ footer {
   height: 40px;
   background-color: #385D79;
   color: #fff;
+  // position: fixed;
+  // bottom: 100;
 }
 
 footer p {
@@ -376,46 +378,6 @@ p.upload-title {
     box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
 }
 
-
-.ui-sortable {
-  display: block;
-  position: relative;
-  overflow: visible;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-.ui-sortable:before,
-.ui-sortable:after{
-  content: " ";
-  display: table;
-}
-
-.ui-sortable:after{
-  clear: both;
-}
-
-.ui-sortable .ui-sortable-item {
-  float: left;
-  cursor: move;
-}
-
-.ui-sortable .ui-sortable-item.ui-sortable-dragging {
-  position: absolute;
-  z-index: 1688;
-}
-
-.ui-sortable .ui-sortable-placeholder {
-  display: none;
-}
-
-.ui-sortable .ui-sortable-placeholder.visible {
-  display: block;
-  z-index: -1;
-}
-
-
-.pointer:hover {
+.pointer {
   cursor: pointer;
 }
