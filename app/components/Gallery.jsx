@@ -1,78 +1,76 @@
-import React from 'react';
 import Masonry from 'react-masonry-component';
+import React from 'react';
 import { withRouter } from 'react-router';
 
-
-var masonryOptions = {
-    transitionDuration: 0
+const masonryOptions = {
+  transitionDuration: 0
 };
 
-var Gallery = React.createClass({
+const Gallery = React.createClass({
 
   handleTouchTap(event) {
     if (event.target.id) {
-        return this.props.router.push(`/pattern/${event.target.id}`);
+      return this.props.router.push(`/pattern/${event.target.id}`);
     }
 
-    this.props.router.push(`/profile/${event.target.getAttribute('profile')}`)
+    this.props.router.push(`/profile/${event.target.getAttribute('profile')}`);
   },
   handleProfilePage(event) {
     this.props.router.push(`/profile/${event.target.id}`);
   },
 
   handleLog() {
-    console.log('working');
+    // console.log('working');
   },
 
-    render() {
+  render() {
+    const shift = {
+      marginLeft: '20px'
+    };
 
-      const shift = {
-        marginLeft: '20px'
-      };
+    const patterns = this.props.patterns.rows;
 
-      console.log(this.props.patterns.rows);
-      let patterns  = this.props.patterns.rows;
+    const childElements = patterns.map((pattern) => {
+      return (
+        <li
+          className="image-element-class"
+          id={pattern.id}
+          key={pattern.id}
+          style={shift}
+        >
+          <div className="home-tile" id={pattern.id}>
+            <img
+              alt={pattern.images[0][1]}
+              className="pattern-image"
+              id={pattern.id}
+              src={pattern.images[0][0]}
+            />
+            <p id={pattern.id}>{pattern.patternName}</p>
+            <img
+              alt="default user image"
+              className="user-image-small"
+              profile={pattern.userName}
+              src={pattern.userImageUrl}
+            />
+            <h1 profile={pattern.userName}>{pattern.userName}</h1>
+          </div>
+        </li>
+      );
+    });
 
-        var childElements = patterns.map(function(pattern){
-           return (
-                <li
-                  id={pattern.id}
-                  className="image-element-class"
-                  style={shift}
-                  key={pattern.id}
-                >
-                  <div id={pattern.id} className="home-tile"
-                >
-                    <img src={pattern.images[0][0]}
-                      alt={pattern.images[0][1]}
-                      id={pattern.id}
-                      className="pattern-image"
-                    />
-                    <p id={pattern.id}>{pattern.patternName}</p>
-                    <img
-                      profile={pattern.userName}
-                      src={pattern.userImageUrl}
-                      alt="default user image"
-                      className="user-image-small"/>
-                    <h1  profile={pattern.userName}>{pattern.userName}</h1>
-                  </div>
-                </li>
-            );
-        });
-
-        return (
-            <Masonry
-                className={'my-gallery-class'} // default ''
-                elementType={'ul'} // default 'div'
-                options={masonryOptions} // default {}
-                disableImagesLoaded={false} // default false
-                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-                onTouchTap={this.handleTouchTap}
-            >
-                {childElements}
-            </Masonry>
-        );
-    }
+    return (
+      <Masonry
+        className={'my-gallery-class'} // default ''
+        disableImagesLoaded={false} // default false
+        elementType={'ul'} // default 'div'
+        onTouchTap={this.handleTouchTap}
+        options={masonryOptions} // default {}
+        updateOnEachImageLoad={false}
+      >
+        {childElements}
+      </Masonry>
+    );
+  }
 });
 
 export default withRouter(Gallery);

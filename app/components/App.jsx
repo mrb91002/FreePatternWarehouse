@@ -1,46 +1,36 @@
-import { withRouter } from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import axios from 'axios';
-import cookie from 'react-cookie';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from 'material-ui/FlatButton';
-import React from 'react';
 import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-// import {Navbar, NavItem} from 'react-materialize';
-// import {Grid, Row, Col} from 'react-flexbox-grid';
+import React from 'react';
 import TextField from 'material-ui/TextField';
-
-
+import axios from 'axios';
+import { withRouter } from 'react-router';
 
 const App = React.createClass({
   getInitialState() {
     return {
-      patterns: [],
-    }
+      patterns: []
+    };
   },
 
   componentWillMount() {
-    // Get the patterns from the API
-    // console.log('componentWillMount');
     axios.get('/api/patterns2')
       .then((patterns) => {
-        // console.log('data ');
-        this.setState({ patterns: patterns });
+        this.setState({ patterns });
         this.forceUpdate();
       })
-      .catch((err) => {
-        console.error(err.response || err);
+      .catch(() => {
+        // console.error(err.response || err);
       });
 
-      $(window).on('beforeunload', () => {
-        $(window).scrollTop(0);
-      });
+    $(window).on('beforeunload', () => {
+      $(window).scrollTop(0);
+    });
   },
 
   handleTitleTouchTap() {
-      this.props.router.push('/');
-    },
+    this.props.router.push('/');
+  },
 
   handleTouchTapLogin() {
     this.props.router.push('/login');
@@ -64,33 +54,30 @@ const App = React.createClass({
 
     props['/pattern/:id'] = props['/'];
     props['/add-pattern'] = props['/'];
+
     return props[matchPath];
   },
 
   render() {
-
-    const { pathname } = this.props.location;
+    // const { pathname } = this.props.location;
 
     const styleFlatButton = {
       height: '64px',
       lineHeight: '64px'
     };
 
-    const styleNavInput = {
-      borderRadius: '3px 0 0 3px',
-      height: '29px',
-      marginTop: '20px',
-      border: 'none',
-      padding: '9px',
-      width: '50%'
-    };
+    // const styleNavInput = {
+    //   borderRadius: '3px 0 0 3px',
+    //   height: '29px',
+    //   marginTop: '20px',
+    //   border: 'none',
+    //   padding: '9px',
+    //   width: '50%'
+    // };
 
     const styleAppBar = {
       backgroundColor: '#385D79',
-      position: "fixed",
-    };
-
-    const styleInputContainer = {
+      position: 'fixed'
     };
 
     const styleSearchButton = {
@@ -111,80 +98,76 @@ const App = React.createClass({
       border: 'none',
       padding: '10px',
       display: 'inline-block',
-      boxShadow: '1px 1px 3px #c6cab9 inset',
+      boxShadow: '1px 1px 3px #c6cab9 inset'
     };
 
-    const styleFooter = () => {
-      if (pathname === '/add-pattern') {
-        return {
-          position: 'fixed',
-          backgroundColor: 'blue',
-          bottom: '0',
-          display: 'block',
-          width: '100%',
-          zIndex: '10000'
-        }
-      }
-
-      return {
-        display: 'none'
-      }
-    }
+    // const styleFooter = () => {
+    //   if (pathname === '/add-pattern') {
+    //     return {
+    //       position: 'fixed',
+    //       backgroundColor: 'blue',
+    //       bottom: '0',
+    //       display: 'block',
+    //       width: '100%',
+    //       zIndex: '10000'
+    //     }
+    //   }
+    //
+    //   return {
+    //     display: 'none'
+    //   }
+    // }
 
     const styleTitle = {
       cursor: 'pointer'
     };
 
-
     // console.log(this.state.patterns);
     return <div>
-        <AppBar
-          zDepth={2}
-          iconElementLeft={<IconButton></IconButton>}
-          title="Free Pattern Warehouse"
-          titleStyle={styleTitle}
-          style={styleAppBar}
-          onTitleTouchTap={this.handleTitleTouchTap}
-        >
-        {/* <div style={styleInputContainer}> */}
-          {/* <input style={styleNavInput} /> */}
+      <AppBar
+        iconElementLeft={<IconButton />}
+        onTitleTouchTap={this.handleTitleTouchTap}
+        style={styleAppBar}
+        title="Free Pattern Warehouse"
+        titleStyle={styleTitle}
+        zDepth={2}
+      >
+      {/* <div style={styleInputContainer}> */}
+        {/* <input style={styleNavInput} /> */}
 
-          <TextField
-            inputStyle={styleTextField}
-            underlineShow={false}
-            id="topSearch"
-          />
-          <FlatButton
-            label="Search"
-            style={styleSearchButton}
-          />
+        <TextField
+          id="topSearch"
+          inputStyle={styleTextField}
+          underlineShow={false}
+        />
+        <FlatButton
+          label="Search"
+          style={styleSearchButton}
+        />
         {/* </div> */}
 
         <FlatButton
           label="Upload"
-          style={styleFlatButton}
           onTouchTap={this.handleTouchTapUpload}
+          style={styleFlatButton}
         />
         <FlatButton
           label="Login"
-          style={styleFlatButton}
           onTouchTap={this.handleTouchTapLogin}
+          style={styleFlatButton}
         />
         <FlatButton
           label="Register"
           style={styleFlatButton}
         />
-        </AppBar>
+      </AppBar>
 
-        {/* <footer style={styleFooter()}>
-          <p>footer text goes here</p>
-        </footer> */}
-
-
-      {/* React.cloneElement is the glue that passes in props to children created with React Router. React router instantiates classes for us, and cloning the existing instance is the only way to set props.
+      {/* React.cloneElement is the glue that passes in props to children
+          created with React Router. React router instantiates classes for
+          us, and cloning the existing instance is the only way to set props.
       */}
       {React.cloneElement(this.props.children, this.getChildrenProps())}
-    </div>
+    </div>;
   }
 });
 

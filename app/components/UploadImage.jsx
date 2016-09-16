@@ -1,8 +1,11 @@
+/* eslint-disable */
+
 import React from 'react';
 
 const UploadImage = React.createClass({
   render() {
-    return <svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    return <svg height="120px" version="1.1" viewBox="0 0 120 120"
+    width="120px" xmlns="http://www.w3.org/2000/svg">
 
           <defs>
               <rect id="path-1" x="0" y="0" width="120" height="120" rx="3"></rect>

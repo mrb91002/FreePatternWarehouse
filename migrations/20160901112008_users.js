@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.string('phone', 20).nullable();
     table.string('email').notNullable();
     table.string('user_name', 255).nullable();
-    table.string('user_image_url').notNullable().defaultTo('https://market.ionic.io/img/user-default.png');    
+    table.string('user_image_url').notNullable().defaultTo('https://market.ionic.io/img/user-default.png');
     table.specificType('hashed_password', 'char(60)').nullable();
   });
 };

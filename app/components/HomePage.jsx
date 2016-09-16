@@ -1,23 +1,10 @@
-import React from 'react';
-import PatternInSearch from 'components/PatternInSearch';
-import weakKey from 'weak-key';
-import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Gallery from 'components/Gallery';
-import Masonry from 'react-masonry-component';
-
-var masonryOptions = {
-    transitionDuration: 0
-};
+import React from 'react';
+import TextField from 'material-ui/TextField';
 
 const HomePage = React.createClass({
-
-  // componentDidMount() {
-  //   $(window).scrollTop(0);
-  // },
-
   render() {
-
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 0 0 3px',
@@ -25,7 +12,7 @@ const HomePage = React.createClass({
       marginTop: '18px',
       border: 'none',
       padding: '10px',
-      display: 'inline-block',
+      display: 'inline-block'
     };
 
     const styleSearchButton = {
@@ -40,22 +27,17 @@ const HomePage = React.createClass({
 
     const styleIcons = {
       fontSize: '130px',
-      color: '#AD5057',
-      // color: '#F3F5F6'
+      color: '#AD5057'
     };
 
-    let patterns  = this.props.patterns.data;
+    const patterns = this.props.patterns.data;
 
     if (!patterns) {
-      return <p>failed</p>
+      return <p>failed</p>;
     }
 
     return <div>
-      {/* <div className="upperHero">
-        <p>Explore</p>
-        <p>Trending</p>
-      </div> */}
-      <div className="spacer"></div>
+      <div className="spacer" />
 
       <div className="mainHero row">
         <div className="col s6">
@@ -63,9 +45,9 @@ const HomePage = React.createClass({
             <h1>Whatever your skill level,</h1>
             <h1>Find your next project here</h1>
             <TextField
+              id="heroSearchInput"
               inputStyle={styleTextField}
               underlineShow={false}
-              id="heroSearchInput"
             />
             <FlatButton
               label="Search"
@@ -74,7 +56,11 @@ const HomePage = React.createClass({
           </div>
         </div>
         <div className="col s4 heroImg">
-          <img src="images/beard.png" height="230px" width="10px" />
+          <img
+            height="230px"
+            src="images/beard.png"
+            width="10px"
+          />
         </div>
       </div>
 
@@ -97,7 +83,7 @@ const HomePage = React.createClass({
             </div>
             <div className="col s8 offset-s1">
               <p className="bold">  Print out your new pattern</p>
-              <p>No Download <br/> No login <br/> 100% free</p>
+              <p>No Download <br /> No login <br /> 100% free</p>
             </div>
           </div>
 
@@ -114,17 +100,17 @@ const HomePage = React.createClass({
         </div>
       </div>
 
-        <div className="row">
-          <div className="col s1 offset-s1">
-            <p>Explore</p>
-          </div>
+      <div className="row">
+        <div className="col s1 offset-s1">
+          <p>Explore</p>
         </div>
+      </div>
 
       <div className="row">
-        <div className = "col s10 offset-s1">
+        <div className="col s10 offset-s1">
 
           <Gallery
-          patterns={patterns}
+            patterns={patterns}
           />
 
         </div>
