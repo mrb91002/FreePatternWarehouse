@@ -5,16 +5,19 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import cookie from 'react-cookie';
 
 const App = React.createClass({
   getInitialState() {
     return {
-      patterns: []
+      patterns: [],
+      cookies: {}
     };
   },
 
   componentWillMount() {
-    axios.get('/api/patterns2')
+    axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
+      'Accept': 'application/json' }})
       .then((patterns) => {
         this.setState({ patterns });
         this.forceUpdate();
@@ -22,6 +25,22 @@ const App = React.createClass({
       .catch(() => {
         // console.error(err.response || err);
       });
+
+      const nextCookies = {
+        loggedIn: cookie.load('loggedIn')
+        // admin: cookie.load('admin')
+      };
+
+      this.setState({ cookies: nextCookies });
+
+    // axios.post('/api/auth', {userName: 'Ohsewmuch', password: 'Ohsewmuchadmin1!'}, {headers: {'Content-Type': 'application/json',
+    //   'Accept': 'application/json'}})
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err.response || err);
+    //   });
 
     $(window).on('beforeunload', () => {
       $(window).scrollTop(0);
@@ -38,6 +57,15 @@ const App = React.createClass({
 
   handleTouchTapUpload() {
     this.props.router.push('/add-pattern');
+  },
+
+  updateCookies() {
+    const nextCookies = {
+      loggedIn: cookie.load('loggedIn')
+      // admin: cookie.load('admin')
+    };
+
+    this.setState({ cookies: nextCookies })
   },
 
   getChildrenProps() {

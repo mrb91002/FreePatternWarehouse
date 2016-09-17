@@ -18,7 +18,8 @@ const cookieParser = require('cookie-parser');
 // const customers = require('./routes/customers');
 const patterns = require('./routes/patterns');
 
-// const token = require('./routes/token');
+const auth = require('./routes/auth');
+
 // const promos = require('./routes/promos');
 // const orders = require('./routes/orders');
 // const payment = require('./routes/payment');
@@ -55,11 +56,22 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CSRF protection (only JSON Accept headers to API routes)
+
+app.use('/api', (req, res, next) => {
+  if (/json/.test(req.get('Accept'))) {
+    return next();
+  }
+
+  res.sendStatus(406);
+});
+
 // Client Routes
 // app.use('/api', customers);
 app.use('/api', patterns);
 
-// app.use('/api', token);
+app.use('/api', auth);
+
 // app.use('/api', promos);
 // app.use('/api', orders);
 // app.use('/api', payment);

@@ -10,7 +10,7 @@ exports.up = function(knex) {
       .onDelete('CASCADE')
       .index();
     table.integer('display_order').unsigned().notNullable();
-    table.text('step_details').notNullable();
+    table.text('detail').notNullable();
     table.timestamps(true, true);
   });
 };

@@ -8,15 +8,15 @@ const AddPattern = React.createClass({
   getInitialState() {
     return {
       uploadImages: [
-        <UploadImage key="image" />,
-        <img
+        { img: <UploadImage key="image" />, altText: 'basic upload image' },
+        { img: <img
           key="image"
-          src="http://tutorials.knitpicks.com/wptutorials/wp-content/uploads/209/12/circular4.jpg"
-        />,
-        <img
+          src="http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$"
+        />, altText: 'Alt text 1' },
+        { img: <img
           key="image"
           src="http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg"
-        />
+        />, altText: 'Alt text 2' }
       ],
       materials: [],
       steps: [],
@@ -33,7 +33,7 @@ const AddPattern = React.createClass({
   },
 
   handleAddImage() {
-    const nextImages = this.state.uploadImages.concat(<UploadImage />);
+    const nextImages = this.state.uploadImages.concat({ img: <UploadImage /> });
 
     this.setState({ uploadImages: nextImages });
   },
@@ -113,20 +113,16 @@ const AddPattern = React.createClass({
   },
 
   handleSubmit() {
-    const uploadImages = [];
-    let title = '';
-    let materials;
-    let steps = '';
+    const insertImages = [];
+    const insertTitle = this.state.title;
+    const insertMaterials = this.state.materials;
+    const insertSteps = this.state.steps;
 
     for (let i = 1; i < this.state.uploadImages.length; i++) {
-      uploadImages.push(this.state.uploadImages[i].props.src);
+      insertImages.push(this.state.uploadImages[i].props.src);
     }
 
-    if (title && uploadImages && materials && steps) {
-      materials = this.state.materials;
-      title = this.state.title;
-      steps = this.state.steps;
-
+    if (insertTitle && insertImages && insertMaterials && insertSteps) {
       // console.log('win');
     }
   },
@@ -257,7 +253,7 @@ const AddPattern = React.createClass({
                   }
 
                   return <div key={index} style={styleImage}>
-                    {image}
+                    {image.img}
                   </div>;
                 })}
 
