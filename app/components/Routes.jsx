@@ -10,6 +10,7 @@ import HomePage from 'components/HomePage';
 import LoginPage from 'components/LoginPage';
 import PatternPage from 'components/PatternPage';
 import ProfilePage from 'components/ProfilePage';
+import RegisterPage from 'components/RegisterPage';
 import React from 'react';
 
 const Routes = React.createClass({
@@ -23,6 +24,7 @@ const Routes = React.createClass({
         <Route component={LoginPage} path="login" />
         <Route component={PatternPage} path="pattern/:id" />
         <Route component={ProfilePage} path="profile/:id" />
+        <Route component={RegisterPage} path="register" />
 
       </Route>
     </Router>;

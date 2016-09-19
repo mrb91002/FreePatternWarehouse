@@ -63,7 +63,7 @@ const LoginPage = React.createClass({
       return this.setState({ errors: nextErrors });
     }
 
-    axios.post('/api/token', this.state.login)
+    axios.post('/api/auth', this.state.login)
       .then(() => {
         this.props.updateCookies();
         this.props.router.push('/');

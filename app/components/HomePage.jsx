@@ -12,7 +12,8 @@ const HomePage = React.createClass({
       marginTop: '18px',
       border: 'none',
       padding: '10px',
-      display: 'inline-block'
+      display: 'inline-block',
+      boxShadow: '1px 1px 3px #c6cab9 inset'
     };
 
     const styleSearchButton = {

@@ -47,8 +47,24 @@ const App = React.createClass({
     });
   },
 
+  handleTouchTapLogout() {
+    axios.delete('/api/auth')
+      .then(() => {
+        this.updateCookies();
+        this.props.router.push('/');
+      })
+      .catch((err) => {
+        console.log('bad');
+        console.log(err);
+      });
+  },
+
   handleTitleTouchTap() {
     this.props.router.push('/');
+  },
+
+  handleTouchTapRegister() {
+    this.props.router.push('/register')
   },
 
   handleTouchTapLogin() {
@@ -61,8 +77,8 @@ const App = React.createClass({
 
   updateCookies() {
     const nextCookies = {
-      loggedIn: cookie.load('loggedIn')
-      // admin: cookie.load('admin')
+      loggedIn: cookie.load('loggedIn'),
+      admin: cookie.load('admin')
     };
 
     this.setState({ cookies: nextCookies })
@@ -77,22 +93,60 @@ const App = React.createClass({
     const props = {
       '/': {
         patterns: this.state.patterns
+      },
+      '/login': {
+        updateCookies: this.updateCookies
+      },
+      '/register': {
+        updateCookies: this.updateCookies
       }
     };
 
     props['/pattern/:id'] = props['/'];
     props['/add-pattern'] = props['/'];
-
     return props[matchPath];
   },
 
   render() {
-    // const { pathname } = this.props.location;
+    const { pathname } = this.props.location;
+    const { loggedIn, admin } = this.state.cookies;
 
     const styleFlatButton = {
       height: '64px',
       lineHeight: '64px'
     };
+
+    const showLogin = () => {
+      if (!loggedIn) {
+        return { display: 'block' };
+      }
+
+      return { display: 'none' };
+    };
+
+    const showRegister = () => {
+      if (!loggedIn && pathname !== '/register') {
+        return { display: 'block' };
+      }
+
+      return { display: 'none' };
+    };
+
+    const showUpload = () => {
+      if (!loggedIn && pathname !== '/add-pattern') {
+        return { display: 'none' };
+      }
+
+      return { display: 'block' };
+    };
+
+    const showLogout = () => {
+    if (loggedIn) {
+      return { display: 'block' };
+    }
+
+    return { display: 'none' };
+  };
 
     // const styleNavInput = {
     //   borderRadius: '3px 0 0 3px',
@@ -177,17 +231,23 @@ const App = React.createClass({
         <FlatButton
           label="Upload"
           onTouchTap={this.handleTouchTapUpload}
-          style={styleFlatButton}
+          style={Object.assign({}, styleFlatButton, showUpload())}
         />
         <FlatButton
           label="Login"
           onTouchTap={this.handleTouchTapLogin}
-          style={styleFlatButton}
+          style={Object.assign({}, styleFlatButton, showLogin())}
         />
         <FlatButton
           label="Register"
-          style={styleFlatButton}
+          onTouchTap={this.handleTouchTapRegister}
+          style={Object.assign({}, styleFlatButton, showRegister())}
         />
+        <FlatButton
+            label="Logout"
+            onTouchTap={this.handleTouchTapLogout}
+            style={Object.assign({}, styleFlatButton, showLogout())}
+          />
       </AppBar>
 
       {/* React.cloneElement is the glue that passes in props to children
