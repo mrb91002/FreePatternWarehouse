@@ -8,13 +8,13 @@ exports.seed = function(knex) {
     .then(() => {
       return knex('patterns').insert([{
         id: 1,
-        user_id: 1,
+        user_id: 2,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC'),
         pattern_name: 'test1'
       }, {
         id: 2,
-        user_id: 2,
+        user_id: 1,
         created_at: new Date('2015-01-26 14:26:16 UTC'),
         updated_at: new Date('2015-01-26 14:26:16 UTC'),
         pattern_name: 'test2'
@@ -39,8 +39,8 @@ exports.seed = function(knex) {
       }, {
         id: 6,
         user_id: 5,
-        created_at: new Date('2016-06-26 14:26:16 UTC'),
-        updated_at: new Date('2016-06-26 14:26:16 UTC'),
+        created_at: new Date('2016-06-27 14:26:16 UTC'),
+        updated_at: new Date('2016-06-27 14:26:16 UTC'),
         pattern_name: 'Crochet'
       }]);
     })

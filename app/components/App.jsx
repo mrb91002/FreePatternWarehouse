@@ -19,6 +19,7 @@ const App = React.createClass({
     axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
       'Accept': 'application/json' }})
       .then((patterns) => {
+        console.log(patterns);
         this.setState({ patterns });
         this.forceUpdate();
       })
@@ -125,7 +126,7 @@ const App = React.createClass({
     };
 
     const showRegister = () => {
-      if (!loggedIn && pathname !== '/register') {
+      if (!loggedIn) {
         return { display: 'block' };
       }
 

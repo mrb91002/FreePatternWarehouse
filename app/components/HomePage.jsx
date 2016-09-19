@@ -83,7 +83,7 @@ const HomePage = React.createClass({
               <i className="material-icons" style={styleIcons}>print</i>
             </div>
             <div className="col s8 offset-s1">
-              <p className="bold">  Print out your new pattern</p>
+              <p className="bold">  Print out your pattern</p>
               <p>No Download <br /> No login <br /> 100% free</p>
             </div>
           </div>

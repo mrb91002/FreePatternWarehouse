@@ -115,14 +115,14 @@ exports.seed = function(knex) {
         id: 16,
         pattern_id: 6,
         display_order: 2,
-        detail: 'STEP 2.',
+        detail: 'this should be step 2!',
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       }, {
         id: 17,
         pattern_id: 6,
         display_order: 1,
-        detail: 'STEP 1.',
+        detail: 'this should be step 1',
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       }]);
