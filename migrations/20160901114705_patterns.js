@@ -10,7 +10,7 @@ exports.up = function(knex) {
         .inTable('users')
         .onDelete('CASCADE')
         .index();
-    table.string('pattern_name', 10).notNullable();
+    table.string('pattern_name', 21).notNullable();
   });
 };
 

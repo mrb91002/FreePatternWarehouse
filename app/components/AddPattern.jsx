@@ -15,12 +15,13 @@ const AddPattern = React.createClass({
           ,altText: 'Alt text 1'
         }, {
           imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg"
-          ,altText: 'Alt text 2'
+          ,altText: 'Alt text 2',
         }
       ],
       materials: [],
       steps: [],
-      title: ''
+      title: '',
+      titleRemaining: 21
     };
   },
 
@@ -46,11 +47,11 @@ const AddPattern = React.createClass({
       return;
     }
 
-    if (newMaterial.length > 20) {
-      // console.log('too long');
-      // do something to notify the user
-      return;
-    }
+    // if (newMaterial.length > 20) {
+    //   // console.log('too long');
+    //   // do something to notify the user
+    //   return;
+    // }
 
     for (let i = 0; i < materialState.length; i++) {
       if (materialState[i] === newMaterial) {
@@ -156,9 +157,23 @@ const AddPattern = React.createClass({
   },
 
   handleUpdateTitle(event) {
-    const nextTitle = event.target.value;
+    const toTitleCase = (str) => {
+      return str.replace(/\w\S*/g, (txt) => {
+        return txt[0].toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    }
 
-    this.setState({ title: nextTitle });
+    const nextTitle = toTitleCase(event.target.value);
+    event.target.value = nextTitle
+
+    const newTitleRemaining = 21 - event.target.value.length;
+
+    if (event.target.value.length >= 22) {
+      event.target.value = event.target.value.substring(0,21);
+      return;
+    }
+
+    this.setState({ title: nextTitle, titleRemaining: newTitleRemaining });
   },
 
   render() {
@@ -301,9 +316,12 @@ const AddPattern = React.createClass({
                   <TextField
                     id="title"
                     inputStyle={styleTextField}
-                    onKeyUp={this.handleUpdateTitle}
+                    onChange={this.handleUpdateTitle}
                     underlineShow={false}
                   />
+                  <p style={{display: 'inline-block', marginLeft: '25px'}}>
+                    {this.state.titleRemaining}
+                  </p>
                 </div>
               </div>
               <div className="col s12">
