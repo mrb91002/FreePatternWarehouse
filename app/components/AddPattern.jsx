@@ -3,20 +3,20 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import UploadImage from 'components/UploadImage';
 import { withRouter } from 'react-router';
+import axios from 'axios';
 
 const AddPattern = React.createClass({
   getInitialState() {
     return {
       uploadImages: [
-        { img: <UploadImage key="image" />, altText: 'basic upload image' },
-        { img: <img
-          key="image"
-          src="http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$"
-        />, altText: 'Alt text 1' },
-        { img: <img
-          key="image"
-          src="http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg"
-        />, altText: 'Alt text 2' }
+        // { img: <UploadImage key="image" />, altText: 'basic upload image' },
+        {
+          imageUrl:"http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$"
+          ,altText: 'Alt text 1'
+        }, {
+          imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg"
+          ,altText: 'Alt text 2'
+        }
       ],
       materials: [],
       steps: [],
@@ -113,17 +113,45 @@ const AddPattern = React.createClass({
   },
 
   handleSubmit() {
-    const insertImages = [];
+    const config = {
+      headers: {
+        'Content-Type': 'application/json', Accept: 'application/json'
+      }
+    };
+
+    const insertImages = this.state.uploadImages;
     const insertTitle = this.state.title;
     const insertMaterials = this.state.materials;
     const insertSteps = this.state.steps;
 
-    for (let i = 1; i < this.state.uploadImages.length; i++) {
-      insertImages.push(this.state.uploadImages[i].props.src);
-    }
+    console.log(insertImages);
+
+    // for (let i = 0; i < this.state.uploadImages.length; i++) {
+    //   insertImages.push(this.state.uploadImages[i].img.props.src);
+    // }
 
     if (insertTitle && insertImages && insertMaterials && insertSteps) {
-      // console.log('win');
+      console.log('win');
+
+      const insertNewPattern = {
+        patternName: insertTitle,
+        steps: insertSteps,
+        imageUrls: insertImages,
+        materials: insertMaterials
+      };
+
+      console.log(insertNewPattern);
+
+      axios.post('/api/patterns', insertNewPattern, config)
+        .then((pattern) => {
+          console.log(pattern);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
+    else {
+      console.log('something that was needed was not set');
     }
   },
 
@@ -134,6 +162,7 @@ const AddPattern = React.createClass({
   },
 
   render() {
+
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 3px 3px 3px',
@@ -252,9 +281,12 @@ const AddPattern = React.createClass({
                     return <div />;
                   }
 
-                  return <div key={index} style={styleImage}>
-                    {image.img}
-                  </div>;
+                  return <img
+                    key={index}
+                    style={styleImage}
+                    src={image.imageUrl}
+                    alt={image.altText}
+                  />;
                 })}
 
               </div>

@@ -74,9 +74,11 @@ router.get('/patterns/:id', (req, res, next) => {
 });
 
 router.post('/patterns', checkAuth, (req, res, next) => {
-  const { patternName, steps, images, materials } = req.body;
+  const { patternName, steps, imageUrls, materials } = req.body;
+  console.log('IMAGES', imageUrls);
   const userId = req.token.userId;
   const insertPattern = { userId, patternName };
+  console.log('INSERT PATTERN', decamelizeKeys(insertPattern));
   let newPattern;
 
   knex.transaction((trx) => {
@@ -84,15 +86,20 @@ router.post('/patterns', checkAuth, (req, res, next) => {
       .insert(decamelizeKeys(insertPattern), '*')
       .transacting(trx)
       .then((pattern) => {
-        newPattern = camelizeKeys(pattern);
+        console.log('PATTERN HERE');
+        console.log(pattern);
+        console.log(pattern[0].id);
+        newPattern = camelizeKeys(pattern[0]);
 
-        const newImages = images.map((image) => {
-          image.patternId = pattern.id;
+        const newImages = imageUrls.map((image, index) => {
+          image.patternId = newPattern.id;
+          image.displayOrder = index;
 
           return image;
         });
+        console.log(newImages);
 
-        return knex('images')
+        return knex('pattern_images')
           .insert(decamelizeKeys(newImages), '*')
           .transacting(trx);
       })

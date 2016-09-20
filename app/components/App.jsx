@@ -19,7 +19,6 @@ const App = React.createClass({
     axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
       'Accept': 'application/json' }})
       .then((patterns) => {
-        console.log(patterns);
         this.setState({ patterns });
         this.forceUpdate();
       })

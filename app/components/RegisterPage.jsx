@@ -84,7 +84,8 @@ const RegisterPage = React.createClass({
       headers: {
         'Content-Type': 'application/json', Accept: 'application/json'
       }
-    }
+    };
+
     const reg = Object.assign({}, this.state.reg);
     const result = Joi.validate(reg, schema, {
       abortEarly: false,
