@@ -136,7 +136,7 @@ const PatternPage = React.createClass({
                     <span className="bold">
                       {materialNumber}:
                     </span>
-                    {material}
+                    {` ${material}`}
                   </p>;
                 })}
               </div>

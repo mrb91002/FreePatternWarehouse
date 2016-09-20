@@ -125,14 +125,11 @@ const AddPattern = React.createClass({
     const insertMaterials = this.state.materials;
     const insertSteps = this.state.steps;
 
-    console.log(insertImages);
-
     // for (let i = 0; i < this.state.uploadImages.length; i++) {
     //   insertImages.push(this.state.uploadImages[i].img.props.src);
     // }
 
     if (insertTitle && insertImages && insertMaterials && insertSteps) {
-      console.log('win');
 
       const insertNewPattern = {
         patternName: insertTitle,
@@ -141,15 +138,13 @@ const AddPattern = React.createClass({
         materials: insertMaterials
       };
 
-      console.log(insertNewPattern);
-
       axios.post('/api/patterns', insertNewPattern, config)
         .then((pattern) => {
           console.log(pattern);
         })
         .catch((err) => {
           console.error(err);
-        })
+        });
     }
     else {
       console.log('something that was needed was not set');
@@ -161,15 +156,15 @@ const AddPattern = React.createClass({
       return str.replace(/\w\S*/g, (txt) => {
         return txt[0].toUpperCase() + txt.substr(1).toLowerCase();
       });
-    }
+    };
 
     const nextTitle = toTitleCase(event.target.value);
-    event.target.value = nextTitle
-
     const newTitleRemaining = 21 - event.target.value.length;
 
+    event.target.value = nextTitle;
+
     if (event.target.value.length >= 22) {
-      event.target.value = event.target.value.substring(0,21);
+      event.target.value = event.target.value.substring(0, 21);
       return;
     }
 
@@ -177,7 +172,6 @@ const AddPattern = React.createClass({
   },
 
   render() {
-
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 3px 3px 3px',
