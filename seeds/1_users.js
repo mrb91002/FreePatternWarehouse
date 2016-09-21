@@ -15,7 +15,8 @@ exports.seed = function(knex) {
         phone: '4258821234',
         email: 'mrb91002@gmail.com',
         user_name: 'Ohsewmuch',
-        hashed_password: '$2a$12$B/am5U44mBPr7HA1xfcdsOCC0hvxoaLBsy/Tj3rbPIN5ADL0zj1vK'
+        hashed_password: '$2a$12$B/am5U44mBPr7HA1xfcdsOCC0hvxoaLBsy/Tj3rbPIN5ADL0zj1vK',
+        about_me: 'My name is Christine Benavides and the art of crafting, sewing and creating has always been among my favorite things to do. It is this passion that has brought me here today. It all started when I was a little child and my mother showed me how to sew. She started me off small, fixing a hem, repairing a button and eventualy adjusting a seam. As I continued to practice I was filled with a sense of accomplishment and self empowerment that still drives me today.'
       }, {
         id: 2,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
@@ -25,7 +26,8 @@ exports.seed = function(knex) {
         phone: '4238851264',
         email: 'guestasdfasdf@gmail.com',
         user_name: 'Guest1',
-        hashed_password: '$2a$12$BVsODe/K.En9Fhj/uOySNeFCN7Rfv7wfUZnBKX24Gj7sEx3B.xkyu'
+        hashed_password: '$2a$12$BVsODe/K.En9Fhj/uOySNeFCN7Rfv7wfUZnBKX24Gj7sEx3B.xkyu',
+        about_me: 'this is just a test to see that data is getting through'
       }, {
         id: 3,
         created_at: new Date('2016-06-26 14:26:16 UTC'),

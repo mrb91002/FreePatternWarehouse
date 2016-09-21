@@ -4,8 +4,8 @@ import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
-import { withRouter } from 'react-router';
 import cookie from 'react-cookie';
+import { withRouter } from 'react-router';
 
 const App = React.createClass({
   getInitialState() {
@@ -17,30 +17,19 @@ const App = React.createClass({
 
   componentWillMount() {
     axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
-      'Accept': 'application/json' }})
+      Accept: 'application/json' }})
       .then((patterns) => {
         this.setState({ patterns });
-        this.forceUpdate();
       })
       .catch(() => {
         // console.error(err.response || err);
       });
 
-      const nextCookies = {
-        loggedIn: cookie.load('loggedIn')
-        // admin: cookie.load('admin')
-      };
+    const nextCookies = {
+      loggedIn: cookie.load('loggedIn')
+    };
 
-      this.setState({ cookies: nextCookies });
-
-    // axios.post('/api/auth', {userName: 'Ohsewmuch', password: 'Ohsewmuchadmin1!'}, {headers: {'Content-Type': 'application/json',
-    //   'Accept': 'application/json'}})
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err.response || err);
-    //   });
+    this.setState({ cookies: nextCookies });
 
     $(window).on('beforeunload', () => {
       $(window).scrollTop(0);
@@ -53,10 +42,7 @@ const App = React.createClass({
         this.updateCookies();
         this.props.router.push('/');
       })
-      .catch((err) => {
-        console.log('bad');
-        console.log(err);
-      });
+      .catch();
   },
 
   handleTitleTouchTap() {
@@ -64,7 +50,7 @@ const App = React.createClass({
   },
 
   handleTouchTapRegister() {
-    this.props.router.push('/register')
+    this.props.router.push('/register');
   },
 
   handleTouchTapLogin() {
@@ -81,7 +67,7 @@ const App = React.createClass({
       admin: cookie.load('admin')
     };
 
-    this.setState({ cookies: nextCookies })
+    this.setState({ cookies: nextCookies });
   },
 
   getChildrenProps() {
@@ -104,12 +90,14 @@ const App = React.createClass({
 
     props['/pattern/:id'] = props['/'];
     props['/add-pattern'] = props['/'];
+    props['/profile/:id'] = props['/'];
+
     return props[matchPath];
   },
 
   render() {
     const { pathname } = this.props.location;
-    const { loggedIn, admin } = this.state.cookies;
+    const { loggedIn } = this.state.cookies;
 
     const styleFlatButton = {
       height: '64px',
@@ -141,21 +129,12 @@ const App = React.createClass({
     };
 
     const showLogout = () => {
-    if (loggedIn) {
-      return { display: 'block' };
-    }
+      if (loggedIn) {
+        return { display: 'block' };
+      }
 
-    return { display: 'none' };
-  };
-
-    // const styleNavInput = {
-    //   borderRadius: '3px 0 0 3px',
-    //   height: '29px',
-    //   marginTop: '20px',
-    //   border: 'none',
-    //   padding: '9px',
-    //   width: '50%'
-    // };
+      return { display: 'none' };
+    };
 
     const styleAppBar = {
       backgroundColor: '#385D79',
@@ -183,23 +162,6 @@ const App = React.createClass({
       boxShadow: '1px 1px 3px #c6cab9 inset'
     };
 
-    // const styleFooter = () => {
-    //   if (pathname === '/add-pattern') {
-    //     return {
-    //       position: 'fixed',
-    //       backgroundColor: 'blue',
-    //       bottom: '0',
-    //       display: 'block',
-    //       width: '100%',
-    //       zIndex: '10000'
-    //     }
-    //   }
-    //
-    //   return {
-    //     display: 'none'
-    //   }
-    // }
-
     const styleTitle = {
       cursor: 'pointer'
     };
@@ -214,8 +176,6 @@ const App = React.createClass({
         titleStyle={styleTitle}
         zDepth={2}
       >
-      {/* <div style={styleInputContainer}> */}
-        {/* <input style={styleNavInput} /> */}
 
         <TextField
           id="topSearch"
@@ -244,10 +204,10 @@ const App = React.createClass({
           style={Object.assign({}, styleFlatButton, showRegister())}
         />
         <FlatButton
-            label="Logout"
-            onTouchTap={this.handleTouchTapLogout}
-            style={Object.assign({}, styleFlatButton, showLogout())}
-          />
+          label="Logout"
+          onTouchTap={this.handleTouchTapLogout}
+          style={Object.assign({}, styleFlatButton, showLogout())}
+        />
       </AppBar>
 
       {/* React.cloneElement is the glue that passes in props to children

@@ -11,6 +11,20 @@ const bcrypt = require('bcrypt-as-promised');
 const ev = require('express-validation');
 const val = require('../validations/users');
 
+router.get('/users/:name', (req, res, next) => {
+  const profileName = req.params.name;
+
+  knex('users')
+    .where('user_name', profileName)
+    .first()
+    .then((user) => {
+      res.send(camelizeKeys(user));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.post('/users', ev(val.post), (req, res, next) => {
   const user = req.body;
 
@@ -40,7 +54,6 @@ router.post('/users', ev(val.post), (req, res, next) => {
         .insert(decamelizeKeys(user));
     })
     .then((newUsers) => {
-      console.log(newUsers);
       res.send(camelizeKeys(newUsers[0]));
     })
     .catch((err) => {

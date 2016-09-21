@@ -10,8 +10,8 @@ import HomePage from 'components/HomePage';
 import LoginPage from 'components/LoginPage';
 import PatternPage from 'components/PatternPage';
 import ProfilePage from 'components/ProfilePage';
-import RegisterPage from 'components/RegisterPage';
 import React from 'react';
+import RegisterPage from 'components/RegisterPage';
 
 const Routes = React.createClass({
 

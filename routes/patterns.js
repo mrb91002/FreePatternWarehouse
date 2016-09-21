@@ -7,8 +7,8 @@ const { checkAuth } = require('../modules/middleware');
 const router = express.Router(); //eslint-disable-line
 const knex = require('../knex');
 
-const boom = require('boom');
-const ev = require('express-validation');
+// const boom = require('boom');
+// const ev = require('express-validation');
 // const val = require('../validations/products');
 
 router.get('/patterns', (_req, res, next) => {
@@ -57,15 +57,18 @@ router.get('/patterns/:id', (req, res, next) => {
   const id = req.params.id;
 
   knex('patterns')
-    .where('patterns.id', id)
-    .orderBy('patterns.created_at', 'ASC')
+    .select('pattern_images.alt_text', 'pattern_images.image_url',
+      'patterns.id', 'patterns.created_at', 'patterns.pattern_name')
+    .where('patterns.user_id', id)
+    .andWhere('pattern_images.display_order', 1)
 
-    // .where('pattern_images.display_order', '1' )
-
-    .innerJoin('pattern_images', 'patterns.id', 'pattern_images.pattern_id')
+    // DB pattern insert orders shouldn't start at 0 - check later
+    .leftOuterJoin('pattern_images', function() {
+      // eslint-disable-next-line no-invalid-this
+      this
+        .on('patterns.id', '=', 'pattern_images.pattern_id');
+    })
     .then((patterns) => {
-      // resultPatterns = camelizeKeys(patterns);
-
       res.send(camelizeKeys(patterns));
     })
     .catch((err) => {
@@ -75,10 +78,8 @@ router.get('/patterns/:id', (req, res, next) => {
 
 router.post('/patterns', checkAuth, (req, res, next) => {
   const { patternName, steps, imageUrls, materials } = req.body;
-  console.log('IMAGES', imageUrls);
   const userId = req.token.userId;
   const insertPattern = { userId, patternName };
-  console.log('INSERT PATTERN', decamelizeKeys(insertPattern));
   let newPattern;
 
   knex.transaction((trx) => {
@@ -86,18 +87,14 @@ router.post('/patterns', checkAuth, (req, res, next) => {
       .insert(decamelizeKeys(insertPattern), '*')
       .transacting(trx)
       .then((pattern) => {
-        console.log('PATTERN HERE');
-        console.log(pattern);
-        console.log(pattern[0].id);
         newPattern = camelizeKeys(pattern[0]);
 
         const newImages = imageUrls.map((image, index) => {
           image.patternId = newPattern.id;
-          image.displayOrder = index;
+          image.displayOrder = index + 1;
 
           return image;
         });
-        console.log(newImages);
 
         return knex('pattern_images')
           .insert(decamelizeKeys(newImages), '*')
@@ -108,7 +105,7 @@ router.post('/patterns', checkAuth, (req, res, next) => {
 
         const newSteps = steps.map((step, index) => {
           return {
-            displayOrder: index,
+            displayOrder: index + 1,
             detail: step,
             patternId: newPattern.id
           };
@@ -123,7 +120,7 @@ router.post('/patterns', checkAuth, (req, res, next) => {
 
         const newMaterials = materials.map((material, index) => {
           return {
-            displayOrder: index,
+            displayOrder: index + 1,
             material,
             patternId: newPattern.id
           };

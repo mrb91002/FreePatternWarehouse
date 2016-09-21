@@ -159,8 +159,7 @@ h1, p {
   box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
 }
 
-
-.instruction-tile {
+.material-tile {
   box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
   border-radius: 5px;
   padding: 2px;
@@ -170,7 +169,15 @@ h1, p {
   -webkit-column-count: 3;
   -moz-column-count: 3;
   column-count: 3;
+}
 
+.instruction-tile {
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  border-radius: 5px;
+  padding: 2px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 17px;
 }
 
 .image-tile {
@@ -402,3 +409,8 @@ p.upload-title {
 // .form-button-row {
 //   margin-top: 50px;
 // }
+
+.no-top-margin {
+  margin-top: 0;
+
+}

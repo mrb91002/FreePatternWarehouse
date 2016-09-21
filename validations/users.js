@@ -2,17 +2,9 @@
 
 const Joi = require('joi');
 
-// The string must contain at least 1 lowercase alphabetical character
-// The string must contain at least 1 uppercase alphabetical character
-// The string must contain at least 1 numeric character
-// The string must contain at least one special character: ! @ # $ % ^ & *
-// The string must be eight characters or longer
-const pw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-
-// req.body: firstName, lastName, phone, email, [userName], [password], addressLine1, [addressLine2], addressCity, addressState, addressZip, addressCountry, shipFirstName, shipLastName, shipAddressLine1, [shipAddressLine2], shipAddressCity, shipAddressState, shipAddressZip, shipAddressCountry
 module.exports.post = {
-  options : {
-    allowUnknownBody: false,
+  options: {
+    allowUnknownBody: false
   },
 
   body: {
@@ -47,7 +39,7 @@ module.exports.post = {
       .optional(),
     password: Joi.string()
       .label('Password')
-      // .regex(pw, 'Strong Password')
+      // .regex(pw, 'Strong Password') - make better regex for this
       .min(8)
       .max(255)
       .trim()

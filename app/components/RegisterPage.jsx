@@ -1,15 +1,13 @@
-import { withRouter } from 'react-router';
-import axios from 'axios';
 import Cancel from 'material-ui/svg-icons/navigation/cancel';
 import Joi from 'joi';
+import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import React from 'react';
-import Paper from 'material-ui/Paper';
-import Snackbar from 'material-ui/Snackbar';
 import Send from 'material-ui/svg-icons/content/send';
+import Snackbar from 'material-ui/Snackbar';
 import TextField from 'material-ui/TextField';
-
-const pw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+import axios from 'axios';
+import { withRouter } from 'react-router';
 
 const schema = Joi.object({
   firstName: Joi.string()
@@ -36,11 +34,13 @@ const schema = Joi.object({
     .trim()
     .min(8)
     .max(255),
+
     // .regex(pw, '1 Cap, 1 Lower, 1 Special'),
   confirmPassword: Joi.string()
     .trim()
     .min(8)
-    .max(255),
+    .max(255)
+
     // .regex(pw, '1 Cap, 1 Lower, 1 Special'),
 });
 
@@ -121,22 +121,24 @@ const RegisterPage = React.createClass({
     }
 
     axios.post('/api/users', reg, config)
-      .then((res) => {
+      .then(() => {
         return axios.post('api/auth', {
           userName: reg.userName,
           password: reg.password
         }, config);
       })
-      .then((res) => {
+      .then(() => {
         this.props.updateCookies();
         this.props.router.push('/');
       })
       .catch((err) => {
         let msg;
-        if (!err.response) {
-          msg = 'failed';
-        } else {
+
+        if (err.response) {
           msg = err.response.data;
+        }
+        else {
+          msg = 'failed';
         }
 
         this.setState({
@@ -185,15 +187,11 @@ const RegisterPage = React.createClass({
       display: 'block'
     };
 
-    const styleRaisedButton = {
-      borderRadius: '3px'
-    };
-
     const stylePaper = {
       borderRadius: '5px'
     };
 
-    const  styleError = {
+    const styleError = {
       marginTop: '-20px'
     };
 
@@ -253,8 +251,8 @@ const RegisterPage = React.createClass({
                 name="email"
                 onBlur={this.handleBlur}
                 onChange={this.handleChange}
-                type="email"
                 style={styleTextField}
+                type="email"
                 value={reg.email}
               />
             </div>
@@ -342,10 +340,10 @@ const RegisterPage = React.createClass({
 
       </div>
       <Snackbar
-        open={this.state.open}
-        message={failMessage}
         autoHideDuration={3000}
+        message={failMessage}
         onRequestClose={this.handleRequestClose}
+        open={this.state.open}
       />
     </div>;
   }

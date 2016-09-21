@@ -2,8 +2,8 @@ import FlatButton from 'material-ui/FlatButton';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import UploadImage from 'components/UploadImage';
-import { withRouter } from 'react-router';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 const AddPattern = React.createClass({
   getInitialState() {
@@ -11,11 +11,11 @@ const AddPattern = React.createClass({
       uploadImages: [
         // { img: <UploadImage key="image" />, altText: 'basic upload image' },
         {
-          imageUrl:"http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$"
-          ,altText: 'Alt text 1'
+          imageUrl:"http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$",
+          altText: 'Alt text 1'
         }, {
-          imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg"
-          ,altText: 'Alt text 2',
+          imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg",
+          altText: 'Alt text 2'
         }
       ],
       materials: [],
@@ -46,12 +46,6 @@ const AddPattern = React.createClass({
     if (newMaterial === '') {
       return;
     }
-
-    // if (newMaterial.length > 20) {
-    //   // console.log('too long');
-    //   // do something to notify the user
-    //   return;
-    // }
 
     for (let i = 0; i < materialState.length; i++) {
       if (materialState[i] === newMaterial) {
@@ -125,12 +119,7 @@ const AddPattern = React.createClass({
     const insertMaterials = this.state.materials;
     const insertSteps = this.state.steps;
 
-    // for (let i = 0; i < this.state.uploadImages.length; i++) {
-    //   insertImages.push(this.state.uploadImages[i].img.props.src);
-    // }
-
     if (insertTitle && insertImages && insertMaterials && insertSteps) {
-
       const insertNewPattern = {
         patternName: insertTitle,
         steps: insertSteps,
@@ -165,6 +154,7 @@ const AddPattern = React.createClass({
 
     if (event.target.value.length >= 22) {
       event.target.value = event.target.value.substring(0, 21);
+
       return;
     }
 
@@ -291,10 +281,10 @@ const AddPattern = React.createClass({
                   }
 
                   return <img
-                    key={index}
-                    style={styleImage}
-                    src={image.imageUrl}
                     alt={image.altText}
+                    key={index}
+                    src={image.imageUrl}
+                    style={styleImage}
                   />;
                 })}
 
@@ -313,7 +303,7 @@ const AddPattern = React.createClass({
                     onChange={this.handleUpdateTitle}
                     underlineShow={false}
                   />
-                  <p style={{display: 'inline-block', marginLeft: '25px'}}>
+                  <p style={{ display: 'inline-block', marginLeft: '25px' }}>
                     {this.state.titleRemaining}
                   </p>
                 </div>

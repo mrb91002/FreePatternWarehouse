@@ -128,7 +128,7 @@ const PatternPage = React.createClass({
             <div className="col s12 pattern-directions">
               <h1 className="bold materials">Materials:</h1>
 
-              <div className="instruction-tile">
+              <div className="material-tile">
                 {pattern.materials.map((material) => {
                   materialNumber += 1;
 
