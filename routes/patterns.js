@@ -53,6 +53,28 @@ router.get('/patterns2', (_req, res, next) => {
     });
 });
 
+router.get('/patterns3', (_req, res, next) => {
+// eslint-disable-next-line max-len
+  knex.raw('SELECT p.created_at, p.user_id, p.pattern_name, materials, users.email, users.user_name, users.user_image_url, images, steps, p.id FROM patterns p JOIN (SELECT pattern_materials.pattern_id, array_agg(pattern_materials.material ORDER BY pattern_materials.display_order ASC) AS materials FROM pattern_materials GROUP BY pattern_materials.pattern_id) pattern_materials ON pattern_materials.pattern_id = P.id JOIN (SELECT pattern_images.pattern_id, json_agg( json_build_object(\'image\', pattern_images.image_url, \'alt\', pattern_images.alt_text)) ORDER BY pattern_images.display_order) AS images FROM pattern_images GROUP BY pattern_images.pattern_id) pattern_images ON pattern_images.pattern_id = P.id JOIN ( SELECT pattern_steps.pattern_id, array_agg(pattern_steps.detail ORDER BY pattern_steps.display_order ASC) AS steps FROM pattern_steps GROUP BY pattern_steps.pattern_id) pattern_steps ON pattern_steps.pattern_id = P.id LEFT OUTER JOIN (SELECT * FROM USERS) users ON users.id = P.user_id;')
+    .then((data) => {
+      res.send(camelizeKeys(data));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get('/patterns4', (_req, res, next) => {
+// eslint-disable-next-line max-len
+  knex.raw('SELECT p.created_at, p.user_id, p.pattern_name, materials, users.email, users.user_name, users.user_image_url, images, steps, p.id FROM patterns p JOIN (SELECT pattern_materials.pattern_id, array_agg(pattern_materials.material ORDER BY pattern_materials.display_order ASC) AS materials FROM pattern_materials GROUP BY pattern_materials.pattern_id) pattern_materials ON pattern_materials.pattern_id = P.id JOIN (SELECT pattern_images.pattern_id, json_agg( json_build_object(\'image\', pattern_images.image_url, \'alt\', pattern_images.alt_text)) ORDER BY pattern_images.display_order) AS images FROM pattern_images GROUP BY pattern_images.pattern_id) pattern_images ON pattern_images.pattern_id = P.id JOIN ( SELECT pattern_steps.pattern_id, array_agg(pattern_steps.detail ORDER BY pattern_steps.display_order ASC) AS steps FROM pattern_steps GROUP BY pattern_steps.pattern_id) pattern_steps ON pattern_steps.pattern_id = P.id LEFT OUTER JOIN (SELECT * FROM USERS) users ON users.id = P.user_id;')
+    .then((data) => {
+      res.send(camelizeKeys(data));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 router.get('/patterns/:id', (req, res, next) => {
   const id = req.params.id;
 

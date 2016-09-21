@@ -19,17 +19,23 @@ const App = React.createClass({
     axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
       Accept: 'application/json' }})
       .then((patterns) => {
-        this.setState({ patterns });
+        let loggedIn = cookie.load('loggedIn');
+
+        if (loggedIn) {
+          loggedIn = JSON.parse(loggedIn.substring(2));
+        }
+
+        const nextCookies = {
+          loggedIn
+        };
+
+        // const initialPatterns = patterns.data.rows;
+        // console.log(initialPatterns);
+        this.setState({ patterns, cookies: nextCookies });
       })
       .catch(() => {
         // console.error(err.response || err);
       });
-
-    const nextCookies = {
-      loggedIn: cookie.load('loggedIn')
-    };
-
-    this.setState({ cookies: nextCookies });
 
     $(window).on('beforeunload', () => {
       $(window).scrollTop(0);
@@ -43,6 +49,28 @@ const App = React.createClass({
         this.props.router.push('/');
       })
       .catch();
+  },
+
+  handleAddPattern(pattern) {
+    const nextPatterns = this.state.patterns;
+
+    pattern.data.images = pattern.data.images.map((image) => {
+      return [image.image_url, image.alt_text];
+    });
+
+    pattern.data.steps = pattern.data.steps.map((step) => {
+      return [step.detail];
+    });
+
+    pattern.data.materials = pattern.data.materials.map((material) => {
+      return [material.material];
+    });
+
+    pattern.data.userImageUrl = this.state.cookies.loggedIn.userImageUrl;
+    pattern.data.userName = this.state.cookies.loggedIn.userName;
+
+    nextPatterns.data.rows = this.state.patterns.data.rows.concat(pattern.data);
+    this.setState({ patterns: nextPatterns });
   },
 
   handleTitleTouchTap() {
@@ -62,9 +90,14 @@ const App = React.createClass({
   },
 
   updateCookies() {
+    let loggedIn = cookie.load('loggedIn');
+
+    if (loggedIn) {
+      loggedIn = JSON.parse(loggedIn.substring(2));
+    }
+
     const nextCookies = {
-      loggedIn: cookie.load('loggedIn'),
-      admin: cookie.load('admin')
+      loggedIn
     };
 
     this.setState({ cookies: nextCookies });
@@ -78,18 +111,22 @@ const App = React.createClass({
 
     const props = {
       '/': {
-        patterns: this.state.patterns
+        patterns: this.state.patterns,
+        cookies: this.state.cookies // doesn't actually need to be passed
       },
       '/login': {
         updateCookies: this.updateCookies
       },
       '/register': {
         updateCookies: this.updateCookies
+      },
+      '/add-pattern': {
+        patterns: this.state.patterns,
+        addPattern: this.handleAddPattern
       }
     };
 
     props['/pattern/:id'] = props['/'];
-    props['/add-pattern'] = props['/'];
     props['/profile/:id'] = props['/'];
 
     return props[matchPath];
@@ -98,6 +135,9 @@ const App = React.createClass({
   render() {
     const { pathname } = this.props.location;
     const { loggedIn } = this.state.cookies;
+
+    console.log('cookies', loggedIn);
+    console.log(this.state.cookies);
 
     const styleFlatButton = {
       height: '64px',

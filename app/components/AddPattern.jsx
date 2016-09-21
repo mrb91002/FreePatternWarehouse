@@ -118,6 +118,7 @@ const AddPattern = React.createClass({
     const insertTitle = this.state.title;
     const insertMaterials = this.state.materials;
     const insertSteps = this.state.steps;
+    let newPatternId;
 
     if (insertTitle && insertImages && insertMaterials && insertSteps) {
       const insertNewPattern = {
@@ -129,7 +130,9 @@ const AddPattern = React.createClass({
 
       axios.post('/api/patterns', insertNewPattern, config)
         .then((pattern) => {
-          console.log(pattern);
+          this.props.addPattern(pattern)
+          newPatternId = pattern.data.id;
+          this.props.router.push(`/pattern/${newPatternId}`);
         })
         .catch((err) => {
           console.error(err);
@@ -137,6 +140,8 @@ const AddPattern = React.createClass({
     }
     else {
       console.log('something that was needed was not set');
+
+      return;
     }
   },
 

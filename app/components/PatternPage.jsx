@@ -12,6 +12,12 @@ const PatternPage = React.createClass({
     return { modalIsOpen: false };
   },
 
+  componentWillMount() {
+    // const userPage = window.location.href.split('/').pop();
+
+    // need to do a query for basic data here
+  },
+
   componentDidMount() {
     $(window).scrollTop(0);
   },

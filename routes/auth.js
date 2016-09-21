@@ -34,6 +34,11 @@ router.post('/auth', ev(val.post), (req, res, next) => {
         expiresIn: '3h'
       });
 
+      // clean user data
+      delete user.hashedPassword;
+      delete user.phone;
+      delete user.updatedAt;
+
       res.cookie('accessToken', token, {
         httpOnly: true,
         expires: expiry,
@@ -42,7 +47,9 @@ router.post('/auth', ev(val.post), (req, res, next) => {
 
       res.cookie('loggedIn', {
         userId: user.id,
-        userName: user.userName
+        userName: user.userName,
+        userImageUrl: user.userImageUrl
+
       }, {
         expires: expiry,
         secure: router.get('env') === 'production'
