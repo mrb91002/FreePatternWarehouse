@@ -10,6 +10,7 @@ const ProfilePage = React.createClass({
       user: '',
       updatedUser: '',
       profilePatterns: '',
+      profileFavorites: '',
       lockEdit: true,
       display: 'none',
       blurHeight: '0px'
@@ -17,72 +18,81 @@ const ProfilePage = React.createClass({
   },
 
   componentWillMount() {
+    const headers = { headers:
+      { 'Content-Type': 'application/json', Accept: 'application/json' }
+    };
     const userPage = window.location.href.split('/').pop();
     let currentProfile;
 
-    axios.get(`/api/users/${userPage}`,
-      { headers:
-        { 'Content-Type': 'application/json', Accept: 'application/json' }
-      })
+    axios.get(`/api/users/${userPage}`, headers)
       .then((profile) => {
         currentProfile = profile.data;
-        console.log(currentProfile);
         const profileId = currentProfile.id;
+        const urls = [
+          `/api/patterns/${profileId}`,
+          `/api/favorites/${profileId}`
+          // `/api/SOMETHIRDQUERY/${profileId}`
+        ]
 
-        // console.log('currentProfile', currentProfile);
-        return axios.get(`/api/patterns/${profileId}`,
-          { headers:
-            { 'Content-Type': 'application/json', Accept: 'application/json' }
-          });
+        return Promise.all(urls.map((url) => {
+          return axios.get(url, headers);
+        }));
       })
       .then((profilePatterns) => {
-        // console.log('profilepatterns', profilePatterns);
+        console.log(profilePatterns);
+
         const newCurrentProfile = Object.assign({}, currentProfile);
 
         console.log('original', currentProfile);
         console.log('new', newCurrentProfile);
 
-        this.setState({ user: currentProfile,
-           updatedUser: newCurrentProfile, profilePatterns });
+        this.setState({
+          user: currentProfile,
+          updatedUser: newCurrentProfile,
+          profilePatterns: profilePatterns[0],
+          profileFavorites: profilePatterns[1]
+        });
       })
-      .catch(() => {
-        // console.error(err.response || err);
-      });
+      .catch();
   },
 
   componentWillReceiveProps() {
-    // $(window).scrollTop(0);
-
+    const headers = { headers:
+      { 'Content-Type': 'application/json', Accept: 'application/json' }
+    };
     const userPage = window.location.href.split('/').pop();
     let currentProfile;
 
-    axios.get(`/api/users/${userPage}`,
-      { headers:
-        { 'Content-Type': 'application/json', Accept: 'application/json' }
-      })
+    axios.get(`/api/users/${userPage}`, headers)
       .then((profile) => {
         currentProfile = profile.data;
         const profileId = currentProfile.id;
+        const urls = [
+          `/api/patterns/${profileId}`,
+          `/api/favorites/${profileId}`
+          // `/api/SOMETHIRDQUERY/${profileId}`
+        ]
 
-        // console.log('currentProfile', currentProfile);
-        return axios.get(`/api/patterns/${profileId}`,
-          { headers:
-            { 'Content-Type': 'application/json', Accept: 'application/json' }
-          });
+        return Promise.all(urls.map((url) => {
+          return axios.get(url, headers);
+        }));
       })
       .then((profilePatterns) => {
-        // console.log('profilepatterns', profilePatterns);
+        console.log(profilePatterns);
+
         const newCurrentProfile = Object.assign({}, currentProfile);
 
-        console.log('original2', currentProfile);
-        console.log('new2', newCurrentProfile);
+        console.log('original', currentProfile);
+        console.log('new', newCurrentProfile);
 
-        this.setState({ user: currentProfile,
-           updatedUser: newCurrentProfile, profilePatterns });
+        this.setState({
+          user: currentProfile,
+          updatedUser: newCurrentProfile,
+          profilePatterns: profilePatterns[0],
+          profileFavorites: profilePatterns[1]
+        });
       })
-      .catch(() => {
-        // console.error(err.response || err);
-      });
+      .catch();
   },
 
   handleEdit() {
@@ -93,30 +103,43 @@ const ProfilePage = React.createClass({
        display: 'block', blurHeight: newBlurHeight });
   },
 
-  handleEnter(event) {
-    if (event.which !== 13) {
-      return;
-    }
+  handleChange(event) {
+    const { name, value } = event.target
+    const nextUser = Object.assign({}, this.state.updatedUser, { [name]: value });
 
-    this.setState({ lockEdit: true });
+    this.setState({ updatedUser: nextUser });
   },
 
   handleLockField(event) {
-    const newAbout = event.target.value;
+    // const newAbout = event.target.value;
     const newUpdatedUser = this.state.updatedUser;
 
-    newUpdatedUser.aboutMe = newAbout;
+    // newUpdatedUser.aboutMe = newAbout;
 
-    this.setState({ lockEdit: true, updatedUser: newUpdatedUser,
-       display: 'none' });
+       console.log('LOCKED');
 
-    if (_.isEqual(this.state.user, this.state.updatedUser)) {
-      // console.log('OBJECTS ARE THE SAME');
-    }
-    else {
-      // console.log('OBJECT HAVE CHANGED');
-      Materialize.toast('You Updated Your Profile', 2000, 'rounded');
-    }
+      //  this.setState({ lockEdit: true, updatedUser: newUpdatedUser,
+      //    display: 'none' });
+
+       axios.patch('/api/users/', { aboutMe: this.state.updatedUser.aboutMe },
+         { headers:
+           { 'Content-Type': 'application/json', Accept: 'application/json' }
+         })
+         .then((update) => {
+           Materialize.toast('You Updated Your Profile', 2000, 'rounded');
+         })
+         .catch()
+
+         this.setState({ lockEdit: true,
+           display: 'none' });
+
+    // if (_.isEqual(this.state.user, this.state.updatedUser)) {
+    //   // console.log('OBJECTS ARE THE SAME');
+    // }
+    // else {
+    //   // console.log('OBJECT HAVE CHANGEd');
+    //   Materialize.toast('You Updated Your Profile', 2000, 'rounded');
+    // }
   },
 
   handlePatternClick(event) {
@@ -136,12 +159,12 @@ const ProfilePage = React.createClass({
 
     // console.log(this.state.user);
 
-    if (_.isEqual(this.state.user, this.state.updatedUser)) {
-      // console.log('OBJECTS ARE THE SAME');
-    }
-    else {
-      console.log('OBJECT HAVE CHANGED');
-    }
+    // if (_.isEqual(this.state.user, this.state.updatedUser)) {
+    //   // console.log('OBJECTS ARE THE SAME');
+    // }
+    // else {
+    //   console.log('OBJECT HAVE CHANGED');
+    // }
 
     const urlPage = window.location.href.split('/').pop();
 
@@ -165,7 +188,7 @@ const ProfilePage = React.createClass({
     return <div>
       <div className="spacer" />
       <div className="pattern-title col s8 offset-s2">
-        <h1>{this.state.user.userName} - Profile</h1>
+        <h1>{this.state.updatedUser.userName} - Profile</h1>
       </div>
       <div className="row pattern-space">
         <div className="container">
@@ -175,7 +198,7 @@ const ProfilePage = React.createClass({
                 <img src="https://market.ionic.io/img/user-default.png" />
               </div>
               <div className="col s4">
-                <p>{this.state.user.userName}</p>
+                <p>{this.state.updatedUser.userName}</p>
                 <p>Website</p>
               </div>
             </div>
@@ -187,7 +210,7 @@ const ProfilePage = React.createClass({
                   style={{
                     backgroundColor: 'rgba(256,256,256,.7)',
                     display: `${this.state.display}`,
-                    height: `${this.state.blurHeight}`,
+                    height: `${this.state.blurHeight + 'px'}`,
                     left: 0,
                     position: 'absolute',
                     top: 0,
@@ -213,13 +236,15 @@ const ProfilePage = React.createClass({
                   </p>
                   <h1>About</h1>
                   <TextField
-                    value={this.state.user.aboutMe}
+                    value={this.state.updatedUser.aboutMe}
+                    // defaultValue={this.state.user.aboutMe}
                     disabled={this.state.lockEdit}
+                    name="aboutMe"
                     fullWidth={true}
                     id={'aboutText'}
                     multiLine={true}
                     onBlur={this.handleLockField}
-                    onKeyUp={this.handleEnter}
+                    onChange={this.handleChange}
                     textareaStyle={{ color: 'black', cursor: 'default' }}
                     underlineShow={false}
                   />
@@ -258,18 +283,27 @@ const ProfilePage = React.createClass({
           <div className="col s4 space-20">
             <div className="col s12 pattern-square">
               <h5>My favorites</h5>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
+
+              { this.state.profileFavorites.data.map((pattern, index) => {
+                return <div
+                  className="col s6"
+                  key={index}
+                  onTouchTap={this.handlePatternClick}
+                >
+                  <img
+                    alt={pattern.altText}
+                    id={pattern.id}
+                    src={pattern.imageUrl}
+                  />
+                  <p
+                    className="center no-top-margin"
+                    id={pattern.id}
+                  >
+                    {pattern.patternName}
+                  </p>
+                </div>;
+              })}
+
             </div>
           </div>
           <div className="col s4 space-20">

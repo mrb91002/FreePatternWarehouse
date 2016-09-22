@@ -46,3 +46,16 @@ module.exports.post = {
       .optional()
   }
 };
+
+module.exports.patch = {
+  options: {
+    allowUnknownBody: false
+  },
+
+  body: {
+    aboutMe: Joi.string()
+      .label('aboutMe')
+      .trim()
+      .optional()
+  }
+};

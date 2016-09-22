@@ -15,8 +15,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 // Client Routes
-const users = require('./routes/users');
+const favorites = require('./routes/favorites')
 const patterns = require('./routes/patterns');
+const users = require('./routes/users');
 
 const auth = require('./routes/auth');
 
@@ -69,7 +70,7 @@ app.use('/api', (req, res, next) => {
 // Client Routes
 app.use('/api', users);
 app.use('/api', patterns);
-
+app.use('/api', favorites);
 app.use('/api', auth);
 
 // app.use('/api', promos);

@@ -1,5 +1,14 @@
 'use strict';
 
+const returnColumns = [
+  'first_name',
+  'last_name',
+  'phone',
+  'email',
+  'user_name',
+  'user_image_url',
+  'about_me'
+];
 const express = require('express');
 
 // eslint-disable-next-line new-cap
@@ -10,6 +19,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 const bcrypt = require('bcrypt-as-promised');
 const ev = require('express-validation');
 const val = require('../validations/users');
+const { checkAuth } = require('../modules/middleware');
 
 router.get('/users/:name', (req, res, next) => {
   const profileName = req.params.name;
@@ -55,6 +65,35 @@ router.post('/users', ev(val.post), (req, res, next) => {
     })
     .then((newUsers) => {
       res.send(camelizeKeys(newUsers[0]));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.patch('/users', checkAuth, ev(val.patch), (req, res, next) => {
+  const id = req.token.userId;
+  const { aboutMe } = req.body;
+
+  if (!Object.keys(req.body).length) {
+    throw boom.notAcceptable('Must have data to update');
+  }
+
+  knex('users')
+    .where('id', id)
+    .first()
+    .then((exists) => {
+      if (!exists) {
+        throw boom.notAuthorized('Invalid user Id');
+      }
+
+      return knex('users')
+        .where('id', id)
+        .returning(returnColumns)
+        .update(decamelizeKeys({ aboutMe }));
+    })
+    .then((users) => {
+      res.send(camelizeKeys(users[0]));
     })
     .catch((err) => {
       next(err);
