@@ -1,5 +1,6 @@
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import React from 'react';
 import TextField from 'material-ui/TextField';
@@ -87,6 +88,10 @@ const App = React.createClass({
 
   handleTouchTapUpload() {
     this.props.router.push('/add-pattern');
+  },
+
+  handleTouchTapProfile() {
+    this.props.router.push(`/profile/${this.state.cookies.loggedIn.userName}`);
   },
 
   updateCookies() {
@@ -242,6 +247,12 @@ const App = React.createClass({
           label="Register"
           onTouchTap={this.handleTouchTapRegister}
           style={Object.assign({}, styleFlatButton, showRegister())}
+        />
+        <FlatButton
+          label="Profile"
+          icon={<FontIcon className="material-icons">account_circle</FontIcon>}
+          onTouchTap={this.handleTouchTapProfile}
+          style={Object.assign({}, styleFlatButton, showLogout())}
         />
         <FlatButton
           label="Logout"
