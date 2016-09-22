@@ -91,7 +91,11 @@ const PatternPage = React.createClass({
 
       <div className="pattern-title col s8 offset-s2">
         <h1>{pattern.patternName} - By:
-          <span id={pattern.userName} onTouchTap={this.handleProfilePage}>
+          <span
+            className="pointer"
+            id={pattern.userName}
+            onTouchTap={this.handleProfilePage}
+          >
             {pattern.userName}
           </span>
         </h1>
@@ -106,6 +110,8 @@ const PatternPage = React.createClass({
               <div className="col s10 offset-s1">
                 <img
                   className="pointer"
+                  id={pattern.userName}
+                  onTouchTap={this.handleProfilePage}
                   src={pattern.userImageUrl}
                 />
                 <p

@@ -118,28 +118,25 @@ const ProfilePage = React.createClass({
 
        console.log('LOCKED');
 
-      //  this.setState({ lockEdit: true, updatedUser: newUpdatedUser,
-      //    display: 'none' });
+      if (_.isEqual(this.state.user, this.state.updatedUser)) {
+          Materialize.toast('NO UPDATE', 2000, 'rounded');
+    }
+    else {
+      axios.patch('/api/users/', { aboutMe: this.state.updatedUser.aboutMe },
+        { headers:
+          { 'Content-Type': 'application/json', Accept: 'application/json' }
+        })
+        .then((update) => {
+          Materialize.toast('Profile Updated', 2000, 'rounded');
+        })
+        .catch()
+    }
 
-       axios.patch('/api/users/', { aboutMe: this.state.updatedUser.aboutMe },
-         { headers:
-           { 'Content-Type': 'application/json', Accept: 'application/json' }
-         })
-         .then((update) => {
-           Materialize.toast('You Updated Your Profile', 2000, 'rounded');
-         })
-         .catch()
+    this.setState({ lockEdit: true, user: newUpdatedUser, updatedUser: newUpdatedUser,
+      display: 'none' });
 
-         this.setState({ lockEdit: true,
-           display: 'none' });
-
-    // if (_.isEqual(this.state.user, this.state.updatedUser)) {
-    //   // console.log('OBJECTS ARE THE SAME');
-    // }
-    // else {
-    //   // console.log('OBJECT HAVE CHANGEd');
-    //   Materialize.toast('You Updated Your Profile', 2000, 'rounded');
-    // }
+    // this.setState({ lockEdit: true,
+    //   display: 'none' });
   },
 
   handlePatternClick(event) {
@@ -260,7 +257,7 @@ const ProfilePage = React.createClass({
 
               { this.state.profilePatterns.data.map((pattern, index) => {
                 return <div
-                  className="col s6"
+                  className="col s6 pointer"
                   key={index}
                   onTouchTap={this.handlePatternClick}
                 >
@@ -269,6 +266,7 @@ const ProfilePage = React.createClass({
                     id={pattern.id}
                     src={pattern.imageUrl}
                   />
+                  <div className="heart">liked</div>
                   <p
                     className="center no-top-margin"
                     id={pattern.id}
@@ -286,7 +284,7 @@ const ProfilePage = React.createClass({
 
               { this.state.profileFavorites.data.map((pattern, index) => {
                 return <div
-                  className="col s6"
+                  className="col s6 pointer"
                   key={index}
                   onTouchTap={this.handlePatternClick}
                 >
