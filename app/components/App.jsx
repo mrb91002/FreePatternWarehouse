@@ -25,6 +25,9 @@ const App = React.createClass({
         if (loggedIn) {
           loggedIn = JSON.parse(loggedIn.substring(2));
         }
+        else {
+          loggedIn = '';
+        }
 
         const nextCookies = {
           loggedIn
@@ -140,9 +143,6 @@ const App = React.createClass({
   render() {
     const { pathname } = this.props.location;
     const { loggedIn } = this.state.cookies;
-
-    console.log('cookies', loggedIn);
-    console.log(this.state.cookies);
 
     const styleFlatButton = {
       height: '64px',

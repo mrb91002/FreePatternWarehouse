@@ -2,6 +2,7 @@ import FontIcon from 'material-ui/FontIcon';
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
 const ProfilePage = React.createClass({
   getInitialState() {
@@ -25,33 +26,71 @@ const ProfilePage = React.createClass({
       })
       .then((profile) => {
         currentProfile = profile.data;
+        console.log(currentProfile);
         const profileId = currentProfile.id;
 
+        // console.log('currentProfile', currentProfile);
         return axios.get(`/api/patterns/${profileId}`,
           { headers:
             { 'Content-Type': 'application/json', Accept: 'application/json' }
           });
       })
       .then((profilePatterns) => {
+        // console.log('profilepatterns', profilePatterns);
         const newCurrentProfile = Object.assign({}, currentProfile);
 
-        this.setState({ user: currentProfile, updatedUser: newCurrentProfile, profilePatterns });
+        console.log('original', currentProfile);
+        console.log('new', newCurrentProfile);
 
+        this.setState({ user: currentProfile,
+           updatedUser: newCurrentProfile, profilePatterns });
       })
       .catch(() => {
         // console.error(err.response || err);
       });
   },
 
-  componentDidMount() {
-    $(window).scrollTop(0);
+  componentWillReceiveProps() {
+    // $(window).scrollTop(0);
+
+    const userPage = window.location.href.split('/').pop();
+    let currentProfile;
+
+    axios.get(`/api/users/${userPage}`,
+      { headers:
+        { 'Content-Type': 'application/json', Accept: 'application/json' }
+      })
+      .then((profile) => {
+        currentProfile = profile.data;
+        const profileId = currentProfile.id;
+
+        // console.log('currentProfile', currentProfile);
+        return axios.get(`/api/patterns/${profileId}`,
+          { headers:
+            { 'Content-Type': 'application/json', Accept: 'application/json' }
+          });
+      })
+      .then((profilePatterns) => {
+        // console.log('profilepatterns', profilePatterns);
+        const newCurrentProfile = Object.assign({}, currentProfile);
+
+        console.log('original2', currentProfile);
+        console.log('new2', newCurrentProfile);
+
+        this.setState({ user: currentProfile,
+           updatedUser: newCurrentProfile, profilePatterns });
+      })
+      .catch(() => {
+        // console.error(err.response || err);
+      });
   },
 
   handleEdit() {
-    console.log('edit mode activated');
+    // console.log('edit mode activated');
     const newBlurHeight = $(document).height();
 
-    this.setState({ lockEdit: false, display: 'block', blurHeight: newBlurHeight });
+    this.setState({ lockEdit: false,
+       display: 'block', blurHeight: newBlurHeight });
   },
 
   handleEnter(event) {
@@ -64,33 +103,41 @@ const ProfilePage = React.createClass({
 
   handleLockField(event) {
     const newAbout = event.target.value;
-    let newUpdatedUser = this.state.updatedUser;
+    const newUpdatedUser = this.state.updatedUser;
 
     newUpdatedUser.aboutMe = newAbout;
 
-    this.setState({ lockEdit: true, updatedUser: newUpdatedUser, display: 'none' });
+    this.setState({ lockEdit: true, updatedUser: newUpdatedUser,
+       display: 'none' });
 
     if (_.isEqual(this.state.user, this.state.updatedUser)) {
-      console.log('OBJECTS ARE THE SAME');
+      // console.log('OBJECTS ARE THE SAME');
     }
     else {
-      console.log('OBJECT HAVE CHANGED');
+      // console.log('OBJECT HAVE CHANGED');
       Materialize.toast('You Updated Your Profile', 2000, 'rounded');
+    }
+  },
 
+  handlePatternClick(event) {
+    if (!event.target.id) {
+      return;
     }
 
+    this.props.router.push(`/pattern/${event.target.id}`);
   },
 
   render() {
+    // console.log('state', this.state);
     if (this.state.user.length === 0) {
-      console.log('returned empty BAD');
+      // console.log('returned empty BAD');
       return <div />;
     }
 
-    console.log(this.state.user);
+    // console.log(this.state.user);
 
     if (_.isEqual(this.state.user, this.state.updatedUser)) {
-      console.log('OBJECTS ARE THE SAME');
+      // console.log('OBJECTS ARE THE SAME');
     }
     else {
       console.log('OBJECT HAVE CHANGED');
@@ -99,8 +146,13 @@ const ProfilePage = React.createClass({
     const urlPage = window.location.href.split('/').pop();
 
     const showEdit = () => {
+
+    if (this.props.cookies.loggIn !== '') {
       if (this.props.cookies.loggedIn.userName === urlPage) {
-          return { display: 'block' };
+        return { display: 'block' };
+      }
+
+        return { display: 'none' };
       }
     }
 
@@ -108,9 +160,7 @@ const ProfilePage = React.createClass({
       color: 'rgb(173, 80, 87)',
       cursor: 'pointer',
       display: 'none'
-    }
-
-    console.log('cookies', this.props.cookies);
+    };
 
     return <div>
       <div className="spacer" />
@@ -131,27 +181,27 @@ const ProfilePage = React.createClass({
             </div>
             <div className="col s7 profile-main">
               <div className="col s12">
-                <div className="blurIt" style={{
-                  backgroundColor: 'rgba(256,256,256,.7)',
-                  // filter: blur('5px'),
-                  // filter:invert('100%'),
-                  position: 'absolute',
-                  width: '100%',
-                  height: `${this.state.blurHeight}`,
-                  top:0,
-                  left:0,
-                  zIndex: 0,
-                  display: `${this.state.display}`
-                }}
-                onTouchTap={this.handleLockField}
-                ></div>
-                <div className="col s12 profile-about white"
+                <div
+                  className="blurIt"
+                  onTouchTap={this.handleLockField}
                   style={{
-                    zIndex:998,
+                    backgroundColor: 'rgba(256,256,256,.7)',
+                    display: `${this.state.display}`,
+                    height: `${this.state.blurHeight}`,
+                    left: 0,
+                    position: 'absolute',
+                    top: 0,
+                    width: '100%',
+                    zIndex: 0
+                  }}
+                />
+                <div
+                  className="col s12 profile-about white"
+                  style={{
                     backgroundColor: 'white',
                     position: 'relative'
                   }}
-                  >
+                >
                   <p style={{ float: 'right' }}>
                     <FontIcon
                       className="material-icons"
@@ -163,18 +213,15 @@ const ProfilePage = React.createClass({
                   </p>
                   <h1>About</h1>
                   <TextField
-                    defaultValue={this.state.user.aboutMe}
+                    value={this.state.user.aboutMe}
                     disabled={this.state.lockEdit}
                     fullWidth={true}
+                    id={'aboutText'}
                     multiLine={true}
-                    textareaStyle={{ color: 'black', cursor: 'default',
-                    // zIndex: 999,
-                    // position: 'relative',
-                    // backgroundColor: 'white'
-                    }}
-                    underlineShow={false}
                     onBlur={this.handleLockField}
                     onKeyUp={this.handleEnter}
+                    textareaStyle={{ color: 'black', cursor: 'default' }}
+                    underlineShow={false}
                   />
                 </div>
               </div>
@@ -187,9 +234,22 @@ const ProfilePage = React.createClass({
               <h5>My patterns</h5>
 
               { this.state.profilePatterns.data.map((pattern, index) => {
-                return <div className="col s6" key={index}>
-                  <img alt={pattern.altText} src={pattern.imageUrl} />
-                  <p className="center no-top-margin">{pattern.patternName}</p>
+                return <div
+                  className="col s6"
+                  key={index}
+                  onTouchTap={this.handlePatternClick}
+                >
+                  <img
+                    alt={pattern.altText}
+                    id={pattern.id}
+                    src={pattern.imageUrl}
+                  />
+                  <p
+                    className="center no-top-margin"
+                    id={pattern.id}
+                  >
+                    {pattern.patternName}
+                  </p>
                 </div>;
               })}
 
@@ -238,4 +298,4 @@ const ProfilePage = React.createClass({
   }
 });
 
-export default ProfilePage;
+export default withRouter(ProfilePage);
