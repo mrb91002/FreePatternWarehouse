@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const boom = require('boom');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 const { checkAuth } = require('../modules/middleware');
 
@@ -31,4 +32,49 @@ router.get('/favorites/:id', (req, res, next) => {
     });
 });
 
+router.post('/favorites', checkAuth, (req, res, next) => {
+  const { patternId } = req.body;
+  const userId = req.token.userId;
+  const insertFavorite = { userId, patternId };
+  let patternImage;
+
+  knex('user_favorites')
+    .select('patterns.id')
+    .where('user_favorites.user_id', userId)
+      .innerJoin('patterns', 'user_favorites.pattern_id', 'patterns.id')
+    .then((patterns) => {
+      const alreadyFavorite = patterns.filter((pattern) => {
+        if (pattern.id === parseInt(patternId)) {
+          return pattern;
+        }
+
+        return;
+      });
+
+      if (alreadyFavorite.length) {
+        throw boom.conflict('already a favorite');
+      }
+
+      return knex('pattern_images')
+        .select('image_url', 'alt_text')
+        .first()
+        .where('pattern_id', patternId)
+        .andWhere('display_order', '1');
+    })
+    .then((image) => {
+      patternImage = camelizeKeys(image);
+
+      return knex('user_favorites')
+        .insert(decamelizeKeys(insertFavorite), '*');
+    })
+    .then((favorites) => {
+      const newfavorite =
+        Object.assign(camelizeKeys(favorites[0]), patternImage);
+
+      res.send(camelizeKeys(newfavorite));
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 module.exports = router;

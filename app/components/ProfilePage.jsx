@@ -6,6 +6,10 @@ import { withRouter } from 'react-router';
 
 let hoveredPattern;
 
+const headers = { headers:
+  { 'Content-Type': 'application/json', Accept: 'application/json' }
+};
+
 const ProfilePage = React.createClass({
   getInitialState() {
     return {
@@ -35,19 +39,14 @@ const ProfilePage = React.createClass({
           `/api/patterns/${profileId}`,
           `/api/favorites/${profileId}`
           // `/api/SOMETHIRDQUERY/${profileId}`
-        ]
+        ];
 
         return Promise.all(urls.map((url) => {
           return axios.get(url, headers);
         }));
       })
       .then((profilePatterns) => {
-        console.log(profilePatterns);
-
         const newCurrentProfile = Object.assign({}, currentProfile);
-
-        console.log('original', currentProfile);
-        console.log('new', newCurrentProfile);
 
         this.setState({
           user: currentProfile,
@@ -74,19 +73,14 @@ const ProfilePage = React.createClass({
           `/api/patterns/${profileId}`,
           `/api/favorites/${profileId}`
           // `/api/SOMETHIRDQUERY/${profileId}`
-        ]
+        ];
 
         return Promise.all(urls.map((url) => {
           return axios.get(url, headers);
         }));
       })
       .then((profilePatterns) => {
-        console.log(profilePatterns);
-
         const newCurrentProfile = Object.assign({}, currentProfile);
-
-        console.log('original', currentProfile);
-        console.log('new', newCurrentProfile);
 
         this.setState({
           user: currentProfile,
@@ -137,9 +131,6 @@ const ProfilePage = React.createClass({
 
     this.setState({ lockEdit: true, user: newUpdatedUser, updatedUser: newUpdatedUser,
       display: 'none' });
-
-    // this.setState({ lockEdit: true,
-    //   display: 'none' });
   },
 
   handlePatternClick(event) {
@@ -163,14 +154,29 @@ const ProfilePage = React.createClass({
     }
 
     if (event.target.getAttribute('clicked') === 'false' ) {
+      // if not logged in send user to logged in page
+      if (!this.props.cookies.loggedIn) {
+        this.props.router.push('/login');
+      }
       event.target.setAttribute('style', 'color: gold');
       event.target.setAttribute('clicked', true);
+      let newFave = event.target.parentElement.getAttribute('data-patternId')
+
+      axios.post('/api/favorites', { patternId: newFave }, headers)
+        .then((favorite) => {
+
+          // conditional logic to see if they are logged in and on there page.
+
+          Materialize.toast('Favorite Added', 2000, 'rounded');
+        })
+        .catch((err) => {
+          Materialize.toast('Already A Favorite', 2000, 'rounded');
+        });
     }
     else {
       event.target.setAttribute('style', 'color: rgb(173, 80, 87)');
       event.target.setAttribute('clicked', false);
     }
-
   },
 
   handleMouseLeave() {
@@ -287,21 +293,25 @@ const ProfilePage = React.createClass({
           <div className="col s4 space-20">
             <div className="col s12 pattern-square">
               <h5>My patterns</h5>
+              <div className="col s11">
 
               { this.state.profilePatterns.data.map((pattern, index) => {
                 return <div
-                  className="col s6 pointer"
+                  className="col s5 offset-s1 pointer"
+                  style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', paddingTop: '10px', marginBottom: '20px' }}
                   onMouseEnter={this.handleMouseEnter}
                   onMouseLeave={this.handleMouseLeave}
                   key={index}
                   onTouchTap={this.handlePatternClick}
                 >
-                <div style={{
-                  display: 'none'
-                }}>
+                <div
+                  style={{ display: 'none' }}
+                  data-patternId={pattern.id}
+                >
                   <FontIcon
                     className="material-icons"
                     clicked="false"
+                    data-patternId={pattern.id}
                     style={{ color: 'rgb(173, 80, 87)' }}
                     onTouchTap={this.handleClickStar}
                   >
@@ -322,6 +332,7 @@ const ProfilePage = React.createClass({
                   </p>
                 </div>;
               })}
+              </div>
 
             </div>
           </div>
