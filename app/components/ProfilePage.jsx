@@ -4,6 +4,8 @@ import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import { withRouter } from 'react-router';
 
+let hoveredPattern;
+
 const ProfilePage = React.createClass({
   getInitialState() {
     return {
@@ -13,6 +15,7 @@ const ProfilePage = React.createClass({
       profileFavorites: '',
       lockEdit: true,
       display: 'none',
+      displayHeart: 'none',
       blurHeight: '0px'
     };
   },
@@ -147,8 +150,38 @@ const ProfilePage = React.createClass({
     this.props.router.push(`/pattern/${event.target.id}`);
   },
 
+  handleMouseEnter(event) {
+    hoveredPattern = event.target.firstChild;
+    hoveredPattern.setAttribute('style',
+    'display: block; background-color: #fff; position: absolute; margin-top: 10px; margin-left: 10px; border-radius: 5px; padding: 5px 5px 2px 5px; box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px');
+  },
+
+  handleClickStar(event) {
+
+    if (!event.target.getAttribute('clicked')) {
+      event.target.setAttribute('clicked', false);
+    }
+
+    if (event.target.getAttribute('clicked') === 'false' ) {
+      event.target.setAttribute('style', 'color: gold');
+      event.target.setAttribute('clicked', true);
+    }
+    else {
+      event.target.setAttribute('style', 'color: rgb(173, 80, 87)');
+      event.target.setAttribute('clicked', false);
+    }
+
+  },
+
+  handleMouseLeave() {
+    console.log('mouse leave');
+    hoveredPattern.setAttribute('style', 'display: none;');
+
+  },
+
   render() {
     // console.log('state', this.state);
+
     if (this.state.user.length === 0) {
       // console.log('returned empty BAD');
       return <div />;
@@ -258,15 +291,29 @@ const ProfilePage = React.createClass({
               { this.state.profilePatterns.data.map((pattern, index) => {
                 return <div
                   className="col s6 pointer"
+                  onMouseEnter={this.handleMouseEnter}
+                  onMouseLeave={this.handleMouseLeave}
                   key={index}
                   onTouchTap={this.handlePatternClick}
                 >
+                <div style={{
+                  display: 'none'
+                }}>
+                  <FontIcon
+                    className="material-icons"
+                    clicked="false"
+                    style={{ color: 'rgb(173, 80, 87)' }}
+                    onTouchTap={this.handleClickStar}
+                  >
+                    stars
+                  </FontIcon>
+                </div>
+
                   <img
                     alt={pattern.altText}
                     id={pattern.id}
                     src={pattern.imageUrl}
                   />
-                  <div className="heart">liked</div>
                   <p
                     className="center no-top-margin"
                     id={pattern.id}
