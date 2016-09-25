@@ -11,9 +11,11 @@ const AddPattern = React.createClass({
       uploadImages: [
         // { img: <UploadImage key="image" />, altText: 'basic upload image' },
         {
+          // eslint-disable-next-line
           imageUrl:"http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$",
           altText: 'Alt text 1'
         }, {
+          // eslint-disable-next-line
           imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg",
           altText: 'Alt text 2'
         }
@@ -64,7 +66,7 @@ const AddPattern = React.createClass({
 
     const nextMaterials = this.state.materials.filter((material) => {
       if (material === remove) {
-        return;
+        return false;
       }
 
       return material;
@@ -98,7 +100,7 @@ const AddPattern = React.createClass({
 
     const nextSteps = this.state.steps.filter((step) => {
       if (step === remove) {
-        return;
+        return false;
       }
 
       return step;
@@ -130,7 +132,7 @@ const AddPattern = React.createClass({
 
       axios.post('/api/patterns', insertNewPattern, config)
         .then((pattern) => {
-          this.props.addPattern(pattern)
+          this.props.addPattern(pattern);
           newPatternId = pattern.data.id;
           this.props.router.push(`/pattern/${newPatternId}`);
         })
@@ -200,6 +202,7 @@ const AddPattern = React.createClass({
       borderRadius: '3px 3px 3px 3px',
       display: 'inline-block',
       marginLeft: '40px',
+      // eslint-disable-next-line
       boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
     };
 
@@ -211,6 +214,7 @@ const AddPattern = React.createClass({
       borderRadius: '3px 3px 3px 3px',
       display: 'inline-block',
       marginLeft: '20px',
+      // eslint-disable-next-line
       boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
     };
 
@@ -226,6 +230,7 @@ const AddPattern = React.createClass({
       borderRadius: '3px 3px 3px 3px',
       display: 'inline-block',
       margin: '40px 20px',
+      // eslint-disable-next-line
       boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
     };
 
@@ -256,6 +261,7 @@ const AddPattern = React.createClass({
       marginBottom: '22px',
       marginLeft: '10px',
       paddingLeft: '10px',
+      // eslint-disable-next-line
       boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
     };
 
@@ -385,7 +391,10 @@ const AddPattern = React.createClass({
 
               </div>
             </div>
-            {/* <div className="g-recaptcha" data-sitekey="6LczYAcUAAAAADnrynsB9YkpUrlF6CJvz8y6jQ2Q"></div> */}
+            {/* <div
+                  className="g-recaptcha"
+                  data-sitekey="6LczYAcUAAAAADnrynsB9YkpUrlF6CJvz8y6jQ2Q">
+                </div> */}
             <div className="col s12 center">
               <FlatButton
                 label="Submit"

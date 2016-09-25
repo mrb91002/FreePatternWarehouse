@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 const HomePage = React.createClass({
   render() {
     // this.state.cookies
-    
+
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 0 0 3px',
@@ -35,12 +35,12 @@ const HomePage = React.createClass({
 
     //
     if (this.props.patterns.length === 0) {
-
-      return <div />
+      return <div />;
     }
-    console.log(this.props);
+    console.log('props here', this.props);
 
     const patterns = this.props.patterns.data;
+
     console.log(patterns);
     if (!patterns) {
       return <p>failed</p>;

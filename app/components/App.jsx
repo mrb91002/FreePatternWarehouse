@@ -8,34 +8,52 @@ import axios from 'axios';
 import cookie from 'react-cookie';
 import { withRouter } from 'react-router';
 
+const headers = { headers:
+  { 'Content-Type': 'application/json', Accept: 'application/json' }
+};
+
 const App = React.createClass({
   getInitialState() {
     return {
       patterns: [],
-      cookies: {}
+      cookies: {},
+      favorites: []
     };
   },
 
   componentWillMount() {
-    axios.get('/api/patterns2', { headers: { 'Content-Type': 'application/json',
-      Accept: 'application/json' }})
+    axios.get('/api/patterns2', headers)
       .then((patterns) => {
         let loggedIn = cookie.load('loggedIn');
+        let loggedInTest = cookie.load('loggedIn');
+        let favorites;
 
         if (loggedIn) {
           loggedIn = JSON.parse(loggedIn.substring(2));
+          console.log('LOGGED IN',loggedIn);
         }
         else {
           loggedIn = '';
         }
-
         const nextCookies = {
           loggedIn
         };
 
-        // const initialPatterns = patterns.data.rows;
-        // console.log(initialPatterns);
-        this.setState({ patterns, cookies: nextCookies });
+        if (loggedInTest) {
+          axios.get(`/api/favorites/${loggedIn.userId}`, headers)
+          .then((userFavorites) => {
+            favorites = userFavorites.data;
+            console.log('axios Favorites', favorites);
+            this.setState({ patterns, favorites, cookies: nextCookies });
+            console.log('state', this.state);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        }
+        else {
+          this.setState({ patterns, cookies: nextCookies });
+        }
       })
       .catch(() => {
         // console.error(err.response || err);
@@ -111,6 +129,12 @@ const App = React.createClass({
     this.setState({ cookies: nextCookies });
   },
 
+  updateFavorites(newfavorites) { // not working
+    const favorites = newfavorites.data;
+
+    this.setState({ favorites })
+  },
+
   getChildrenProps() {
     const matchPath = this.props.routes.reduce((accum, route) => {
       // Sometimes route.path is undefined, so default to empty string
@@ -120,10 +144,14 @@ const App = React.createClass({
     const props = {
       '/': {
         patterns: this.state.patterns,
-        cookies: this.state.cookies // doesn't actually need to be passed
+        cookies: this.state.cookies, // doesn't actually need to be passed
+        favorites: this.state.favorites,
+        updateFavorites: this.updateFavorites
       },
       '/login': {
-        updateCookies: this.updateCookies
+        updateCookies: this.updateCookies,
+        updateFavorites: this.updateFavorites,
+        cookies: this.state.cookies
       },
       '/register': {
         updateCookies: this.updateCookies
@@ -249,8 +277,8 @@ const App = React.createClass({
           style={Object.assign({}, styleFlatButton, showRegister())}
         />
         <FlatButton
-          label="Profile"
           icon={<FontIcon className="material-icons">account_circle</FontIcon>}
+          label="Profile"
           onTouchTap={this.handleTouchTapProfile}
           style={Object.assign({}, styleFlatButton, showLogout())}
         />

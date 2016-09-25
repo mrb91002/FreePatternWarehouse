@@ -39,6 +39,7 @@ module.exports.post = {
       .optional(),
     password: Joi.string()
       .label('Password')
+
       // .regex(pw, 'Strong Password') - make better regex for this
       .min(8)
       .max(255)

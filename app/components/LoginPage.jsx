@@ -18,6 +18,10 @@ const schema = Joi.object({
     .max(255)
 });
 
+const headers = { headers:
+  { 'Content-Type': 'application/json', Accept: 'application/json' }
+};
+
 const LoginPage = React.createClass({
   contextTypes: {
     muiTheme: React.PropTypes.object.isRequired
@@ -66,6 +70,13 @@ const LoginPage = React.createClass({
     axios.post('/api/auth', this.state.login)
       .then(() => {
         this.props.updateCookies();
+
+        axios.get(`/api/favorites/${this.props.cookies.loggedIn.userId}`, headers)
+        .then((data) => {
+          console.log(data);
+          this.props.updateFavorites(data);
+        })
+
         this.props.router.push('/');
       })
       .catch((err) => {

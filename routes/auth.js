@@ -54,7 +54,7 @@ router.post('/auth', ev(val.post), (req, res, next) => {
         expires: expiry,
         secure: router.get('env') === 'production'
       });
-
+      // res.send(user)
       res.sendStatus(200);
     })
     .catch(bcrypt.MISMATCH_ERROR, () => {

@@ -24,8 +24,6 @@ const Gallery = React.createClass({
   },
 
   render() {
-    console.log(this.props);
-    
     const shift = {
       marginLeft: '20px'
     };

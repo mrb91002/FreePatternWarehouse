@@ -18,10 +18,13 @@ router.get('/favorites/:id', (req, res, next) => {
   const id = req.params.id;
 
   knex('user_favorites')
-    .select('pattern_images.alt_text', 'pattern_images.image_url', 'patterns.id', 'patterns.pattern_name', 'patterns.created_at')
+    .select('pattern_images.alt_text', 'pattern_images.image_url',
+      'patterns.id', 'patterns.pattern_name', 'patterns.created_at')
     .where('user_favorites.user_id', id)
+
     // DB pattern insert orders shouldn't start at 0 - check later
-    .innerJoin('pattern_images', 'user_favorites.pattern_id', 'pattern_images.pattern_id')
+    .innerJoin('pattern_images', 'user_favorites.pattern_id',
+      'pattern_images.pattern_id')
       .innerJoin('patterns', 'user_favorites.pattern_id', 'patterns.id')
     .andWhere('pattern_images.display_order', 1)
     .then((patterns) => {
@@ -32,6 +35,7 @@ router.get('/favorites/:id', (req, res, next) => {
     });
 });
 
+// Route that checks a pattern against user favorites and adds if not a favorite
 router.post('/favorites', checkAuth, (req, res, next) => {
   const { patternId } = req.body;
   const userId = req.token.userId;
@@ -45,10 +49,10 @@ router.post('/favorites', checkAuth, (req, res, next) => {
     .then((patterns) => {
       const alreadyFavorite = patterns.filter((pattern) => {
         if (pattern.id === parseInt(patternId)) {
-          return pattern;
+          return true;
         }
 
-        return;
+        return false;
       });
 
       if (alreadyFavorite.length) {
@@ -77,4 +81,28 @@ router.post('/favorites', checkAuth, (req, res, next) => {
       next(err);
     });
 });
+
+router.delete('/favorites/:id', checkAuth, (req, res, next) => {
+  console.log(req.params.id);
+  const patternId = req.params.id;
+  const userId = req.token.userId;
+  console.log('patternId', patternId, 'userId', userId);
+
+  knex('user_favorites')
+    .del()
+    .where('user_id', userId)
+    .andWhere('pattern_id', patternId)
+    .then((deleted) => {
+      if (deleted === 1) {
+        res.send('Favorite Deleted');
+      }
+      else {
+        res.send('Favorite already deleted');
+      }
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 module.exports = router;

@@ -15,7 +15,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 // Client Routes
-const favorites = require('./routes/favorites')
+const favorites = require('./routes/favorites');
 const patterns = require('./routes/patterns');
 const users = require('./routes/users');
 
