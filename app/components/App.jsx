@@ -129,10 +129,24 @@ const App = React.createClass({
     this.setState({ cookies: nextCookies });
   },
 
-  updateFavorites(newfavorites) { // not working
-    const favorites = newfavorites.data;
+  addFavorite(newFavorites) {
+    console.log('newFavorites in app.jsx', newFavorites);
+    const updatedFavorites = this.state.favorites.concat(newFavorites);
 
-    this.setState({ favorites })
+    this.setState({ favorites: updatedFavorites });
+  },
+
+  removeFavorite(removedFavorite) {
+    const updatedFavorites = this.state.favorites.filter((favorite) => {
+      console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
+      if (parseInt(removedFavorite) === parseInt(favorite.patternId)) {
+        return false;
+      }
+
+      return true;
+    })
+
+    this.setState({ favorites: updatedFavorites });
   },
 
   getChildrenProps() {
@@ -146,11 +160,12 @@ const App = React.createClass({
         patterns: this.state.patterns,
         cookies: this.state.cookies, // doesn't actually need to be passed
         favorites: this.state.favorites,
-        updateFavorites: this.updateFavorites
+        addFavorite: this.addFavorite,
+        removeFavorite: this.removeFavorite
       },
       '/login': {
         updateCookies: this.updateCookies,
-        updateFavorites: this.updateFavorites,
+        addFavorite: this.addFavorite,
         cookies: this.state.cookies
       },
       '/register': {

@@ -28,7 +28,13 @@ router.get('/favorites/:id', (req, res, next) => {
       .innerJoin('patterns', 'user_favorites.pattern_id', 'patterns.id')
     .andWhere('pattern_images.display_order', 1)
     .then((patterns) => {
-      res.send(camelizeKeys(patterns));
+      const moddedPatterns = patterns.map((pattern) => {
+        pattern.display = 'none';
+        pattern.clicked = 'false';
+        return pattern;
+      })
+
+      res.send(camelizeKeys(moddedPatterns));
     })
     .catch((err) => {
       next(err);
@@ -60,10 +66,11 @@ router.post('/favorites', checkAuth, (req, res, next) => {
       }
 
       return knex('pattern_images')
-        .select('image_url', 'alt_text')
+        .select('image_url', 'alt_text', 'pattern_name')
         .first()
         .where('pattern_id', patternId)
-        .andWhere('display_order', '1');
+        .andWhere('display_order', '1')
+        .innerJoin('patterns', 'pattern_images.pattern_id', 'patterns.id');
     })
     .then((image) => {
       patternImage = camelizeKeys(image);
@@ -93,8 +100,9 @@ router.delete('/favorites/:id', checkAuth, (req, res, next) => {
     .where('user_id', userId)
     .andWhere('pattern_id', patternId)
     .then((deleted) => {
+      console.log(deleted);
       if (deleted === 1) {
-        res.send('Favorite Deleted');
+        res.send(req.params.id);
       }
       else {
         res.send('Favorite already deleted');

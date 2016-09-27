@@ -23,7 +23,14 @@ const Routes = React.createClass({
         <Route component={AddPattern} path="add-pattern" />
         <Route component={LoginPage} path="login" />
         <Route component={PatternPage} path="pattern/:id" />
-        <Route component={ProfilePage} path="profile/:id" />
+
+        <Route component={ProfilePage} path="profile/:id" >
+          {/* <IndexRoute component={favorites} /> */}
+
+          {/* <Route component={} path="/mypatterns" /> */}
+
+        </Route>
+
         <Route component={RegisterPage} path="register" />
 
       </Route>

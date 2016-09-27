@@ -6,6 +6,9 @@ import { withRouter } from 'react-router';
 
 let hoveredPattern;
 
+let hoveredId;
+let hoveredStateLocation;
+
 const headers = { headers:
   { 'Content-Type': 'application/json', Accept: 'application/json' }
 };
@@ -16,6 +19,7 @@ const ProfilePage = React.createClass({
       user: '',
       updatedUser: '',
       profilePatterns: '',
+      profileFavorites: '',
       lockEdit: true,
       display: 'none',
       displayHeart: 'none',
@@ -37,8 +41,8 @@ const ProfilePage = React.createClass({
         currentProfile = profile.data;
         const profileId = currentProfile.id;
         const urls = [
-          `/api/patterns/${profileId}`
-
+          `/api/patterns/${profileId}`,
+          `/api/favorites/${profileId}`
           // `/api/SOMETHIRDQUERY/${profileId}`
         ];
 
@@ -53,16 +57,18 @@ const ProfilePage = React.createClass({
           user: currentProfile,
           updatedUser: newCurrentProfile,
           profilePatterns: profilePatterns[0],
+          profileFavorites: profilePatterns[1]
         });
       })
       .catch();
   },
 
-  componentWillReceiveProps() {
-    if (!this.props.favorites.length) {
+  componentWillReceiveProps(nextProps) {
+    console.log('RECEIVING PROPS HIT RE QUERY');
+    if (!nextProps.favorites.length) {
       console.log('no favorites');
     }
-    console.log('props', this.props);
+    console.log('props', nextProps);
 
     const userPage = window.location.href.split('/').pop();
     let currentProfile;
@@ -72,8 +78,8 @@ const ProfilePage = React.createClass({
         currentProfile = profile.data;
         const profileId = currentProfile.id;
         const urls = [
-          `/api/patterns/${profileId}`
-
+          `/api/patterns/${profileId}`,
+          `/api/favorites/${profileId}`
           // `/api/SOMETHIRDQUERY/${profileId}`
         ];
 
@@ -88,7 +94,10 @@ const ProfilePage = React.createClass({
           user: currentProfile,
           updatedUser: newCurrentProfile,
           profilePatterns: profilePatterns[0],
+          profileFavorites: profilePatterns[1]
         });
+
+        this.forceUpdate();
       })
       .catch();
   },
@@ -137,9 +146,33 @@ const ProfilePage = React.createClass({
   },
 
   handleMouseEnter(event) {
-    hoveredPattern = event.target.firstChild;
-    // eslint-disable-next-line
-    hoveredPattern.setAttribute('style', 'display: block; background-color: #fff; position: absolute; margin-top: 10px; margin-left: 10px; border-radius: 5px; padding: 5px 5px 2px 5px; box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px');
+     hoveredId = event.currentTarget.id;
+     hoveredStateLocation =
+      event.currentTarget.getAttribute('data-statelocation');
+
+    const updatedState = this.state[hoveredStateLocation].data.map((pattern) =>
+    {
+      if (parseInt(pattern.id) === parseInt(hoveredId)) {
+        pattern.display = 'block';
+      }
+
+      return pattern;
+    });
+
+    this.setState({ hoveredStateLocation: updatedState });
+  },
+
+  handleMouseLeave() {
+    const updatedState = this.state[hoveredStateLocation].data.map((pattern) =>
+    {
+      if (parseInt(pattern.id) === parseInt(hoveredId)) {
+        pattern.display = 'none';
+      }
+
+      return pattern;
+    });
+
+    this.setState({ hoveredStateLocation: updatedState });
   },
 
   handleClickStar(event) {
@@ -152,25 +185,30 @@ const ProfilePage = React.createClass({
         return this.props.router.push('/login');
       }
 
-      event.target.setAttribute('style', 'color: gold');
-      event.target.setAttribute('data-clicked', 'true');
+      // event.target.setAttribute('style', 'color: gold');
+      // event.target.setAttribute('data-clicked', 'true');
 
       axios.post('/api/favorites', { patternId: fav }, headers)
         .then((favorite) => {
-          // conditional logic to see if they are logged in and on there page.
+          // console.log('db favorite response', favorite);
+          // console.log(favorite.data.patternId);
           Materialize.toast('Favorite Added', 2000, 'rounded');
+          favorite.data.display = 'none';
+
+          this.props.addFavorite(favorite.data);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           Materialize.toast('An Error has occured, please send us an email', 2000, 'rounded');
         });
     }
     else {
       // Delete favorite
       axios.delete(`/api/favorites/${fav}`, headers)
-        .then(() => {
-          eventTarget.setAttribute('style', 'color: rgb(173, 80, 87)');
-          eventTarget.setAttribute('data-clicked', 'false');
+        .then((deleted) => {
+          console.log('deleted', deleted.data);
           Materialize.toast('Favorite Removed', 2000, 'rounded');
+          this.props.removeFavorite(deleted.data);
         })
         .catch((err) => {
           console.log('hard fail', err)
@@ -178,16 +216,20 @@ const ProfilePage = React.createClass({
     }
   },
 
-  handleMouseLeave() {
-    console.log('mouse leave');
-    hoveredPattern.setAttribute('style', 'display: none;');
-  },
-
   render() {
+    console.log('NEWEST RENDER');
+
     if (this.state.user.length === 0) {
       // console.log('returned empty BAD');
       return <div />;
     }
+
+    if (!this.props.favorites) {
+      console.log('killed bad props');
+      return <div />
+    }
+
+    console.log('SHOULD LOG AFTER FORCE');
 
     // console.log(this.props);
 
@@ -283,10 +325,35 @@ const ProfilePage = React.createClass({
               <div className="col s11">
 
               { this.state.profilePatterns.data.map((pattern, index) => {
+                console.log('Current Favorites', this.props.favorites);
+                let clicked;
+                let starColor;
+                // check each pattern against the logged in user's favorites
+                const favoriteCheck =
+                  this.props.favorites.filter((favorite) => {
+                  if (favorite.patternName === pattern.patternName) {
+                    return true
+                  }
+                  else {
+                    return false
+                  }
+                });
+
+                if (favoriteCheck.length) {
+                  clicked = 'true';
+                  starColor = 'gold';
+                }
+                else {
+                  clicked = 'false';
+                  starColor = 'rgb(173, 80, 87)';
+                }
+
                 return <div
+                  data-stateLocation="profilePatterns"
+                  id={pattern.id}
                   className="col s5 offset-s1 pointer"
                   key={index}
-                  onMouseEnter={this.handleMouseEnter}
+                  onMouseOver={this.handleMouseEnter}
                   onMouseLeave={this.handleMouseLeave}
                   onTouchTap={this.handlePatternClick}
                   // eslint-disable-next-line
@@ -294,14 +361,23 @@ const ProfilePage = React.createClass({
                 >
                   <div
                     data-patternId={pattern.id}
-                    style={{ display: 'none' }}
-                  >
+                    style={{ display: `${pattern.display}`,
+                            backgroundColor: '#fff',
+                            position: 'absolute',
+                            marginTop: '10px',
+                            marginLeft: '10px',
+                            borderRadius: '5px',
+                            padding: '5px 5px 2px 5px',
+                            boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
+                    }}>
                     <FontIcon
                       className="material-icons"
-                      data-clicked="false"
+                      // data-clicked="false"
+                      data-clicked={clicked}
                       data-patternId={pattern.id}
                       onTouchTap={this.handleClickStar}
-                      style={{ color: 'rgb(173, 80, 87)' }}
+                      style={{ color: starColor }}
+
                     >
                       stars
                     </FontIcon>
@@ -320,6 +396,7 @@ const ProfilePage = React.createClass({
                   </p>
                 </div>;
               })}
+
               </div>
 
             </div>
@@ -328,11 +405,38 @@ const ProfilePage = React.createClass({
             <div className="col s12 pattern-square">
               <h5>My favorites</h5>
 
-              { this.props.favorites.map((pattern, index) => {
+{/* // if logged in and your profile use this.favortites else, use this.props */}
+
+              {this.state.profileFavorites.data.map((pattern, index) => {
+                let clicked;
+                let starColor
+
+                // check each pattern against the logged in user's favorites
+                const favoriteCheck =
+                  this.props.favorites.filter((favorite) => {
+                  if (favorite.patternName === pattern.patternName) {
+                    return true
+                  }
+                  else {
+                    return false
+                  }
+                });
+
+                if (favoriteCheck.length) {
+                  clicked = 'true';
+                  starColor = 'gold';
+                }
+                else {
+                  clicked = 'false';
+                  starColor = 'rgb(173, 80, 87)';
+                }
+
                 return <div
+                  data-stateLocation="profileFavorites"
+                  id={pattern.id}
                   className="col s5 offset-s1 pointer"
                   key={index}
-                  onMouseEnter={this.handleMouseEnter}
+                  onMouseOver={this.handleMouseEnter}
                   onMouseLeave={this.handleMouseLeave}
                   onTouchTap={this.handlePatternClick}
                   // eslint-disable-next-line
@@ -340,14 +444,22 @@ const ProfilePage = React.createClass({
                 >
                   <div
                     data-patternId={pattern.id}
-                    style={{ display: 'none' }}
-                  >
+                    style={{ display: pattern.display,
+                            backgroundColor: '#fff',
+                            position: 'absolute',
+                            marginTop: '10px',
+                            marginLeft: '10px',
+                            borderRadius: '5px',
+                            padding: '5px 5px 2px 5px',
+                            boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
+                    }}>
                     <FontIcon
                       className="material-icons"
-                      data-clicked="false"
+                      data-clicked={clicked}
                       data-patternId={pattern.id}
                       onTouchTap={this.handleClickStar}
-                      style={{ color: 'rgb(173, 80, 87)' }}
+                      style={{ color: starColor }}
+
                     >
                       stars
                     </FontIcon>

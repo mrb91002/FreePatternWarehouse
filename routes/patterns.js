@@ -91,7 +91,13 @@ router.get('/patterns/:id', (req, res, next) => {
         .on('patterns.id', '=', 'pattern_images.pattern_id');
     })
     .then((patterns) => {
-      res.send(camelizeKeys(patterns));
+      const moddedPatterns = patterns.map((pattern) => {
+        pattern.display = 'none';
+        pattern.clicked = 'false';
+        return pattern;
+      })
+
+      res.send(camelizeKeys(moddedPatterns));
     })
     .catch((err) => {
       next(err);
