@@ -72,11 +72,10 @@ const LoginPage = React.createClass({
         this.props.updateCookies();
 
         axios.get(`/api/favorites/${this.props.cookies.loggedIn.userId}`, headers)
-        .then((data) => {
-          console.log(data);
-          this.props.updateFavorites(data);
+        .then((favorites) => {
+          console.log('logged in data', favorites);
+          this.props.addFavorite(favorites.data);
         })
-
         this.props.router.push('/');
       })
       .catch((err) => {

@@ -30,7 +30,6 @@ const App = React.createClass({
 
         if (loggedIn) {
           loggedIn = JSON.parse(loggedIn.substring(2));
-          console.log('LOGGED IN',loggedIn);
         }
         else {
           loggedIn = '';
@@ -43,9 +42,7 @@ const App = React.createClass({
           axios.get(`/api/favorites/${loggedIn.userId}`, headers)
           .then((userFavorites) => {
             favorites = userFavorites.data;
-            console.log('axios Favorites', favorites);
             this.setState({ patterns, favorites, cookies: nextCookies });
-            console.log('state', this.state);
           })
           .catch((err) => {
             console.log(err);
@@ -138,15 +135,33 @@ const App = React.createClass({
 
   removeFavorite(removedFavorite) {
     const updatedFavorites = this.state.favorites.filter((favorite) => {
-      console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
-      if (parseInt(removedFavorite) === parseInt(favorite.patternId)) {
+      // console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
+      let check;
+
+      // issue: two different objects objects coming in...
+      if (favorite.patternId) {
+        check = favorite.patternId;
+      }
+      else {
+        check = favorite.id;
+      }
+
+      if (parseInt(removedFavorite) === parseInt(check)) {
         return false;
       }
 
       return true;
     })
 
+    // console.log('updated Favorites ***:', updatedFavorites);
     this.setState({ favorites: updatedFavorites });
+  },
+
+  handlePatternHover(updatedPatterns) {
+    const newUpdatedPaterns = this.state.patterns
+    newUpdatedPaterns.data.rows = updatedPatterns;
+
+    this.setState({ patterns: newUpdatedPaterns});
   },
 
   getChildrenProps() {
@@ -161,7 +176,8 @@ const App = React.createClass({
         cookies: this.state.cookies, // doesn't actually need to be passed
         favorites: this.state.favorites,
         addFavorite: this.addFavorite,
-        removeFavorite: this.removeFavorite
+        removeFavorite: this.removeFavorite,
+        handlePatternHover: this.handlePatternHover
       },
       '/login': {
         updateCookies: this.updateCookies,
@@ -184,6 +200,13 @@ const App = React.createClass({
   },
 
   render() {
+    if (Array.isArray(this.state.patterns)) {
+      return <div />;
+    }
+
+    console.log('current Favorites', this.state.favorites);
+
+    console.log('first!', this.state.patterns);
     const { pathname } = this.props.location;
     const { loggedIn } = this.state.cookies;
 

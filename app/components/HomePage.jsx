@@ -4,9 +4,11 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 
 const HomePage = React.createClass({
-  render() {
-    // this.state.cookies
+  // componentWillReceiveProps() {
+  //   this.forceUpdate();
+  // },
 
+  render() {
     const styleTextField = {
       backgroundColor: '#fff',
       borderRadius: '3px 0 0 3px',
@@ -37,11 +39,8 @@ const HomePage = React.createClass({
     if (this.props.patterns.length === 0) {
       return <div />;
     }
-    console.log('props here', this.props);
-
     const patterns = this.props.patterns.data;
 
-    console.log(patterns);
     if (!patterns) {
       return <p>failed</p>;
     }
@@ -121,6 +120,11 @@ const HomePage = React.createClass({
 
           <Gallery
             patterns={patterns}
+            favorites={this.props.favorites}
+            addFavorite={this.props.addFavorite}
+            removeFavorite={this.props.removeFavorite}
+            handlePatternHover={this.props.handlePatternHover}
+            cookies={this.props.cookies}
           />
 
         </div>
