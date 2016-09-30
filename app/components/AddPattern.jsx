@@ -4,22 +4,13 @@ import TextField from 'material-ui/TextField';
 import UploadImage from 'components/UploadImage';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import cloudinary from 'cloudinary';
+import Dropzone from 'react-dropzone';
 
 const AddPattern = React.createClass({
   getInitialState() {
     return {
-      uploadImages: [
-        // { img: <UploadImage key="image" />, altText: 'basic upload image' },
-        {
-          // eslint-disable-next-line
-          imageUrl:"http://s7d2.scene7.com/is/image/UrbanOutfitters/14847305_30_b?$prodmain$",
-          altText: 'Alt text 1'
-        }, {
-          // eslint-disable-next-line
-          imageUrl:"http://www.threadsmagazine.com/assets/uploads/posts/5152/SST1-knits-wovens-02.jpg",
-          altText: 'Alt text 2'
-        }
-      ],
+      uploadImages: [],
       materials: [],
       steps: [],
       title: '',
@@ -30,6 +21,28 @@ const AddPattern = React.createClass({
   componentDidMount() {
     $(window).scrollTop(0);
   },
+
+    onDrop(files) {
+      const form = new FormData();
+
+      form.append('file', files[0])
+      form.append('upload_preset', 'FPW_TEST')
+
+      const url = 'https://api.cloudinary.com/v1_1/freepatternwarehouse/image/upload';
+      axios.post(url, form)
+      .then((cloudinaryRes) => {
+          console.log('this is the cloudinary response', cloudinaryRes);
+
+          const newImage = { imageUrl: cloudinaryRes.data.secure_url, altText: 'test' }
+          const updatedImages = this.state.uploadImages.concat(newImage)
+          this.setState({ uploadImages: updatedImages });
+
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+    },
 
   handleCancel() {
     this.props.router.push('/');
@@ -242,11 +255,12 @@ const AddPattern = React.createClass({
     };
 
     const styleImage = {
-      marginLeft: '20px',
+      // marginLeft: '20px',
       display: 'inline-block',
       cursor: 'pointer',
-      width: '120px',
-      border: '1px dashed grey'
+      // width: '120px',
+      borderRadius: '5px 5px 0 0'
+      // border: '1px dashed grey'
     };
 
     const styleAdd = {
@@ -284,20 +298,62 @@ const AddPattern = React.createClass({
                 Add Image
                 </span>
               </p>
-              <div className="col s12">
+
+              <div className="col s2">
+
+                            <Dropzone
+                              style = {{
+                                height: '150px',
+                                width: '150px',
+                                padding: '10px',
+                                border:'2px dashed rgb(102, 102, 102)',
+                                borderRadius: '5px',
+                                display: 'inline-block',
+                                marginLeft: '20px'
+                              }}
+                              onDrop={this.onDrop}
+                              // accept="image/*"
+                            >
+                              <div>Try dropping some files here, or click to select files to upload.
+                              </div>
+                              {/* <img src={file[0].preview} /> */}
+                            </Dropzone>
+              </div>
+
+              <div className="col s9 offset-s1">
 
                 {this.state.uploadImages.map((image, index) => {
                   if (!image || image.length === 0) {
                     return <div />;
                   }
 
-                  return <img
-                    alt={image.altText}
-                    key={index}
-                    src={image.imageUrl}
-                    style={styleImage}
-                  />;
+                  return <div style={{ display: 'inline-block' }}>
+                    <div style={{
+                      display: 'inline-block',
+                      width: '145px',
+                      boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px',
+                      borderRadius: '5px',
+                      marginBottom: '17px',
+                      marginLeft: '20px',
+                      cursor: 'pointer'
+                      }}>
+                      <img
+                        alt={image.altText}
+                        key={index}
+                        src={image.imageUrl}
+                        style={styleImage}
+                      />
+                      <p stye={{
+                        // margin: '0 auto', width: '70px',
+                        className: 'center'
+                      }}>
+                        Figure: 1
+                      </p>
+                    </div>
+                  </div>
                 })}
+
+{/*  make sure that only images are being uploaded */}
 
               </div>
             </div>

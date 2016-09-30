@@ -93,38 +93,6 @@ const Gallery = React.createClass({
           console.log('hard fail', err)
         });
     }
-
-    //
-    // const fav = event.target.parentElement.getAttribute('data-patternId');
-    // const eventTarget = event.target;
-    //
-    // if (event.target.getAttribute('data-clicked') === 'false') {
-    //   // Add favorite
-    //   axios.post('/api/favorites', { patternId: fav }, headers)
-    //     .then((favorite) => {
-    //       Materialize.toast('Favorite Added', 2000, 'rounded');
-    //       favorite.data.display = 'none';
-    //
-    //       // need mutator to update
-    //       this.props.addFavorite(favorite.data);
-    //     })
-    //     .catch((err) => {
-    //       Materialize.toast('An Error has occured, please send us an email', 2000, 'rounded');
-    //     });
-    // }
-    // else {
-    //   // Delete favorite
-    //   axios.delete(`/api/favorites/${fav}`, headers)
-    //     .then((deleted) => {
-    //       Materialize.toast('Favorite Removed', 2000, 'rounded');
-    //
-    //       // need mutator to update
-    //       this.props.removeFavorite(deleted.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log('hard fail', err)
-    //     });
-    // }
   },
 
   handlePatternClick(event) {

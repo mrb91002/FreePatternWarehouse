@@ -129,11 +129,13 @@ const App = React.createClass({
   addFavorite(newFavorites) {
     console.log('newFavorites in app.jsx', newFavorites);
     const updatedFavorites = this.state.favorites.concat(newFavorites);
-
+    console.log('old', this.state.favorites, 'new', updatedFavorites);
     this.setState({ favorites: updatedFavorites });
+    console.log('newest', this.state.favorites);
   },
 
   removeFavorite(removedFavorite) {
+    // console.log('top', removedFavorite, this.state.favorites);
     const updatedFavorites = this.state.favorites.filter((favorite) => {
       // console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
       let check;
@@ -155,6 +157,8 @@ const App = React.createClass({
 
     // console.log('updated Favorites ***:', updatedFavorites);
     this.setState({ favorites: updatedFavorites });
+    // console.log('bottom', this.state.favorites);
+
   },
 
   handlePatternHover(updatedPatterns) {
