@@ -11,8 +11,6 @@ let pattern;
 
 let starColor;
 let clicked;
-let display = 'block';
-let favoriteCheck = [];
 let hoveredId;
 
 const headers = { headers:
@@ -25,65 +23,6 @@ const PatternPage = React.createClass({
       modalIsOpen: false,
       display: 'none'
       };
-  },
-
-  componentWillMount() {
-    const patternPage = window.location.href.split('/').pop();
-
-    if (this.props.favorites.length) {
-      let favoriteCheck = this.props.favorites.filter((fav) => {
-        if (fav.id === parseInt(patternPage)) {
-          return true;
-        }
-
-        return false;
-      });
-      if (favoriteCheck.length) {
-        clicked = 'true';
-        starColor = 'gold';
-      }
-      else {
-        clicked = 'false';
-        starColor = 'rgb(173, 80, 87)';
-      }
-    }
-    else {
-      console.log('fail');
-    }
-    // need to do a query for basic data here
-  },
-
-  componentWillReceiveProps() {
-    console.log('recieving props');
-    const patternPage = window.location.href.split('/').pop();
-    console.log('*******favorites', this.props.favorites);
-    if (this.props.favorites.length) {
-      console.log('props has length');
-      let favoriteCheck = this.props.favorites.filter((fav) => {
-        console.log();
-        if (fav.id === parseInt(patternPage)) {
-          return true;
-        }
-
-        return false;
-      });
-
-      console.log(favoriteCheck);
-      if (favoriteCheck.length) {
-        clicked = 'true';
-        starColor = 'gold';
-      }
-      else {
-        clicked = 'false';
-        starColor = 'rgb(173, 80, 87)';
-      }
-    }
-    else {
-      console.log('fail');
-    }
-
-    console.log(clicked, starColor);
-    this.forceUpdate();
   },
 
   componentDidMount() {
@@ -134,12 +73,44 @@ const PatternPage = React.createClass({
     }
   },
 
-  handleMouseEnter() {
-    this.setState({ display: 'block'});
+  handleMouseEnter(event) {
+    console.log(this.props.patterns.data.rows);
+    const patterns = this.props.patterns.data.rows;
+
+     hoveredId = event.currentTarget.id;
+
+    const updatedState = patterns.map((pattern) =>
+    {
+      if (parseInt(pattern.id) === parseInt(hoveredId)) {
+        pattern.display = 'block';
+      }
+
+      return pattern;
+    });
+    console.log('galler.jsx hover', updatedState);
+    // call state mutator to update the app.jsx state
+    // this.setState({ hoveredStateLocation: updatedState });
+    this.props.handlePatternHover(updatedState)
   },
 
+  // handleMouseLeave() {
+  //   this.setState({ display: 'none'});
+  // },
+
   handleMouseLeave() {
-    this.setState({ display: 'none'});
+    console.log('mouse leave');
+    const patterns = this.props.patterns.data.rows;
+    const updatedState = patterns.map((pattern) =>
+    {
+      if (parseInt(pattern.id) === parseInt(hoveredId)) {
+        pattern.display = 'none';
+      }
+
+      return pattern;
+    });
+    //
+
+    this.props.handlePatternHover(updatedState)
   },
 
   handleOpenModal(event) {
@@ -186,6 +157,32 @@ const PatternPage = React.createClass({
     if (this.props.patterns.length === 0) {
       return <div />;
     }
+
+    const patternPage = window.location.href.split('/').pop();
+
+    let favoriteCheck = this.props.favorites.filter((fav) => {
+      let checkFav;
+
+      if (fav.patternId) {
+        checkFav = fav.patternId;
+      }else {
+        checkFav = fav.id;
+      }
+
+        if (checkFav === parseInt(patternPage)) {
+          return true;
+        }
+
+        return false;
+      });
+      if (favoriteCheck.length) {
+        clicked = 'true';
+        starColor = 'gold';
+      }
+      else {
+        clicked = 'false';
+        starColor = 'rgb(173, 80, 87)';
+      }
 
     const customStyles = {
       content: {
@@ -267,7 +264,7 @@ const PatternPage = React.createClass({
               data-patternId={pattern.id}
               onTouchTap={this.handleClickStar}
               style={{
-                display: `${this.state.display}`,
+                display: `${pattern.display}`,
                 backgroundColor: '#fff',
                 position: 'absolute',
                 marginTop: '20px',

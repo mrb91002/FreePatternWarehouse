@@ -135,7 +135,7 @@ const App = React.createClass({
   },
 
   removeFavorite(removedFavorite) {
-    // console.log('top', removedFavorite, this.state.favorites);
+    console.log('top', removedFavorite, this.state.favorites);
     const updatedFavorites = this.state.favorites.filter((favorite) => {
       // console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
       let check;
@@ -309,6 +309,7 @@ const App = React.createClass({
           style={Object.assign({}, styleFlatButton, showUpload())}
         />
         <FlatButton
+          // className="login"
           label="Login"
           onTouchTap={this.handleTouchTapLogin}
           style={Object.assign({}, styleFlatButton, showLogin())}

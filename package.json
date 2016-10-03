@@ -46,6 +46,7 @@
     "node-uuid": "^1.4.7",
     "pg": "^6.1.0",
     "postcss-brunch": "^2.0.2",
+    "radium": "^0.18.1",
     "react": "^15.3.1",
     "react-anything-sortable": "^1.6.1",
     "react-cookie": "^0.4.8",

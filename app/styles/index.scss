@@ -168,7 +168,7 @@ img {
 }
 
 .modal-image {
-  // width: 500px;
+  width: 400px;
 }
 
 .no-top-margin {
@@ -393,3 +393,15 @@ p.upload-title {
 //   border-bottom: 1px solid #F44336;
 //   box-shadow: 0 1px 0 0 #F44336;
 // }
+
+@media only screen and (max-width: 900px) {
+    body {
+        background-color:lightblue;
+    }
+    // .login {
+    //   display: none;
+    //   background-color: purple;
+    //   color: red;
+    //   border: 3px solid green;
+    // }
+}
