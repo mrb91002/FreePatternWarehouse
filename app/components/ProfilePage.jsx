@@ -250,7 +250,9 @@ console.log(this.props.favorites);
               </div>
               <div className="col s4">
                 <p>{this.state.updatedUser.userName}</p>
-                <p>Website</p>
+                <p><a
+                target="_blank"
+                href="https://mrb91002-ohsewmuch.herokuapp.com/">Website</a></p>
               </div>
             </div>
             <div className="col s7 profile-main">
