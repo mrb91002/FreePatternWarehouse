@@ -31,7 +31,7 @@ const HomePage = React.createClass({
     };
 
     const styleIcons = {
-      fontSize: '130px',
+      fontSize: '110px',
       color: '#AD5057'
     };
 
@@ -68,7 +68,6 @@ const HomePage = React.createClass({
           <img
             height="230px"
             src="images/yarn2.png"
-            // width="10px"
           />
         </div>
       </div>
@@ -77,30 +76,30 @@ const HomePage = React.createClass({
         <div className="col s10 offset-s1 about-inner">
 
           <div className="col s4">
-            <div className="col s3">
+            <div className="col s4">
               <i className="material-icons" style={styleIcons}>search</i>
             </div>
-            <div className="col s8 offset-s1">
+            <div className="col s8">
               <p className="bold">Find Something you Love</p>
               <p>Our community has what you need to be inspired</p>
             </div>
           </div>
 
           <div className="col s4">
-            <div className="col s3">
+            <div className="col s4">
               <i className="material-icons" style={styleIcons}>print</i>
             </div>
-            <div className="col s8 offset-s1">
+            <div className="col s8">
               <p className="bold">  Print out your pattern</p>
               <p>No Download <br /> No login <br /> 100% free</p>
             </div>
           </div>
 
           <div className="col s4">
-            <div className="col s3">
+            <div className="col s4">
               <i className="material-icons" style={styleIcons}>done_all</i>
             </div>
-            <div className="col s8 offset-s1">
+            <div className="col s8">
               <p className="bold">Create something new</p>
               <p>Our community has what you need to be inspired</p>
             </div>
