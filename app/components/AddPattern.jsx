@@ -48,12 +48,6 @@ const AddPattern = React.createClass({
     this.props.router.push('/');
   },
 
-  handleAddImage() {
-    const nextImages = this.state.uploadImages.concat({ img: <UploadImage /> });
-
-    this.setState({ uploadImages: nextImages });
-  },
-
   handleAddMaterial() {
     const newMaterial = document.getElementById('material').value;
     const materialState = this.state.materials;
@@ -263,11 +257,6 @@ const AddPattern = React.createClass({
       // border: '1px dashed grey'
     };
 
-    const styleAdd = {
-      color: 'blue',
-      cursor: 'pointer'
-    };
-
     const styleMaterial = {
       borderRadius: '5px',
       display: 'inline-block',
@@ -293,10 +282,7 @@ const AddPattern = React.createClass({
           <div className="col s12 upload-main">
             <div className="col s12">
               <p className="upload-title">Photos</p>
-              <p className="right20">Add at least one photo -
-                <span onTouchTap={this.handleAddImage} style={styleAdd}>
-                Add Image
-                </span>
+              <p className="right20">Add at least one photo
               </p>
 
               <div className="col s2">

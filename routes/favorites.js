@@ -31,8 +31,9 @@ router.get('/favorites/:id', (req, res, next) => {
       const moddedPatterns = patterns.map((pattern) => {
         pattern.display = 'none';
         pattern.clicked = 'false';
+
         return pattern;
-      })
+      });
 
       res.send(camelizeKeys(moddedPatterns));
     })
@@ -90,17 +91,14 @@ router.post('/favorites', checkAuth, (req, res, next) => {
 });
 
 router.delete('/favorites/:id', checkAuth, (req, res, next) => {
-  console.log(req.params.id);
   const patternId = req.params.id;
   const userId = req.token.userId;
-  console.log('patternId', patternId, 'userId', userId);
 
   knex('user_favorites')
     .del()
     .where('user_id', userId)
     .andWhere('pattern_id', patternId)
     .then((deleted) => {
-      console.log(deleted);
       if (deleted === 1) {
         res.send(req.params.id);
       }
