@@ -203,10 +203,6 @@ const PatternPage = React.createClass({
       return pat.id === id;
     })[0];
 
-    console.log('PATTERM PAGE pattern', pattern);
-
-    // console.log(pattern);
-
     return <div>
       <div className="spacer" />
 
@@ -249,14 +245,14 @@ const PatternPage = React.createClass({
             </div>
 
             <div
-            className="image-element-class"
-            data-patternId={pattern.id}
-            id={pattern.id}
-            key={pattern.id}
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-            style={shift}
-            className="col s7 offset-s1 pattern-image-main">
+              className="image-element-class col s7 offset-s1 pattern-image-main"
+              data-patternId={pattern.id}
+              id={pattern.id}
+              key={pattern.id}
+              onMouseEnter={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+              style={shift}
+            >
             {/*  star popup */}
 
             <div
@@ -319,7 +315,7 @@ const PatternPage = React.createClass({
 
                     return <span
                       id={newNumber}
-                      key={stepIndex}
+                      key={i}
                       onTouchTap={this.handleOpenModalInline}
                       style={{ color: 'blue', cursor: 'pointer' }}
                     >
