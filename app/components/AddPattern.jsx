@@ -301,23 +301,23 @@ const AddPattern = React.createClass({
 
               <div className="col s2">
 
-                            <Dropzone
-                              style = {{
-                                height: '150px',
-                                width: '150px',
-                                padding: '10px',
-                                border:'2px dashed rgb(102, 102, 102)',
-                                borderRadius: '5px',
-                                display: 'inline-block',
-                                marginLeft: '20px'
-                              }}
-                              onDrop={this.onDrop}
-                              // accept="image/*"
-                            >
-                              <div>Try dropping some files here, or click to select files to upload.
-                              </div>
-                              {/* <img src={file[0].preview} /> */}
-                            </Dropzone>
+                <Dropzone
+                  style = {{
+                    height: '150px',
+                    width: '150px',
+                    padding: '10px',
+                    border:'2px dashed rgb(102, 102, 102)',
+                    borderRadius: '5px',
+                    display: 'inline-block',
+                    marginLeft: '20px'
+                  }}
+                  onDrop={this.onDrop}
+                  // accept="image/*"
+                >
+                  <div>Try dropping some files here, or click to select files to upload.
+                  </div>
+                  {/* <img src={file[0].preview} /> */}
+                </Dropzone>
               </div>
 
               <div className="col s9 offset-s1">
@@ -343,11 +343,8 @@ const AddPattern = React.createClass({
                         src={image.imageUrl}
                         style={styleImage}
                       />
-                      <p stye={{
-                        // margin: '0 auto', width: '70px',
-                        className: 'center'
-                      }}>
-                        Figure: 1
+                      <p className = "center">
+                        Figure: {index + 1}
                       </p>
                     </div>
                   </div>
