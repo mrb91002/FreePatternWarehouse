@@ -325,7 +325,10 @@ const PatternPage = React.createClass({
 
                 return <div className="instruction-tile" key={step}>
                   <p>
-                    {newStep}
+                    <span style={{ fontWeight: 'bold' }}>
+                      Step {stepIndex + 1}
+                    </span>
+                    : {newStep}
                   </p>
                 </div>;
               })}
