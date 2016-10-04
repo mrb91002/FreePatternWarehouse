@@ -325,6 +325,8 @@ const RegisterPage = React.createClass({
               labelPosition="before"
               onTouchTap={this.handleTouchTapReg}
               primary={true}
+              style={{ marginBottom: '20px' }}
+
             />
 
             <RaisedButton
@@ -334,6 +336,7 @@ const RegisterPage = React.createClass({
               labelPosition="before"
               onTouchTap={this.handleTouchTapCancel}
               primary={true}
+              style={{ marginBottom: '20px' }}
             />
           </div>
         </Paper>

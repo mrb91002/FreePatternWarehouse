@@ -13,8 +13,8 @@ const muiTheme = getMuiTheme({
 
   palette: {
     accent1Color: blue500,
-    primary1Color: '#952727',
-    primary2Color: '#F110EC'
+    primary1Color: 'rgb(173, 80, 87)',
+    primary2Color: 'rgb(173, 80, 87)'
   },
 
   flatButton: {

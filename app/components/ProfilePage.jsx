@@ -251,6 +251,7 @@ console.log(this.props.favorites);
               <div className="col s4">
                 <p>{this.state.updatedUser.userName}</p>
                 <p><a
+                style={{ color: '#2a5cb9', fontWeight: 'bold'}}
                 target="_blank"
                 href="https://mrb91002-ohsewmuch.herokuapp.com/">Website</a></p>
               </div>

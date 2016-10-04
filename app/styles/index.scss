@@ -55,12 +55,14 @@ h1, p {
 }
 
 .heroImg img {
-  height: 230px;
-  width: auto;
+  // height: 196px;
+  // width: 700px;
+  // margin-top:34px;
+  // margin-left: 0px;
 }
 
 .heroSearch {
-  margin-top: 30px;
+  margin-top: 85px;
   margin-left: 50px;
 }
 
@@ -394,14 +396,8 @@ p.upload-title {
 //   box-shadow: 0 1px 0 0 #F44336;
 // }
 
-@media only screen and (max-width: 900px) {
-    body {
-        background-color:lightblue;
-    }
-    // .login {
-    //   display: none;
-    //   background-color: purple;
-    //   color: red;
-    //   border: 3px solid green;
-    // }
-}
+// @media only screen and (max-width: 900px) {
+//     body {
+//         background-color:lightblue;
+//     }
+// }

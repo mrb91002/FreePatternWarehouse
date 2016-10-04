@@ -168,6 +168,7 @@ const LoginPage = React.createClass({
               labelPosition="before"
               onTouchTap={this.handleTouchTapLogin}
               primary={true}
+              style={{ marginBottom: '20px' }}
             />
 
             <RaisedButton
@@ -177,6 +178,7 @@ const LoginPage = React.createClass({
               labelPosition="before"
               onTouchTap={this.handleTouchTapCancel}
               primary={true}
+              style={{ marginBottom: '20px' }}
             />
           </div>
         </Paper>

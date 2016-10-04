@@ -53,7 +53,7 @@ const HomePage = React.createClass({
           <div className="heroSearch">
             <h1>Whatever your skill level,</h1>
             <h1>Find your next project here</h1>
-            <TextField
+            {/* <TextField
               id="heroSearchInput"
               inputStyle={styleTextField}
               underlineShow={false}
@@ -61,14 +61,14 @@ const HomePage = React.createClass({
             <FlatButton
               label="Search"
               style={styleSearchButton}
-            />
+            /> */}
           </div>
         </div>
-        <div className="col s4 heroImg">
+        <div className="col s6 heroImg">
           <img
             height="230px"
-            src="images/beard.png"
-            width="10px"
+            src="images/yarn2.png"
+            // width="10px"
           />
         </div>
       </div>
