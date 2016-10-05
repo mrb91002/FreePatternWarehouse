@@ -301,12 +301,12 @@ const PatternPage = React.createClass({
                   materialUrl = materialUrl + material.replace(/\s+/g, '+');
 
                   return <p key={materialKey}>
-                  <a href={materialUrl} target="_blank">
+                  {/* <a href={materialUrl} target="_blank"> */}
                     <span className="bold">
                       {materialNumber}:
                     </span>
                     {` ${material}`}
-                    </a>
+                    {/* </a> */}
                   </p>;
 
                 })}
