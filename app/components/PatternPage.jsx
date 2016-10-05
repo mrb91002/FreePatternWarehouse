@@ -294,6 +294,12 @@ const PatternPage = React.createClass({
 
               <div className="material-tile">
                 {pattern.materials.map((material, materialKey) => {
+
+                  if (Array.isArray(material)) {
+                    material = material[0];
+                  }
+                  
+                  console.log(material);
                   materialNumber += 1;
 
                   let materialUrl = 'https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=craft+'
@@ -301,12 +307,12 @@ const PatternPage = React.createClass({
                   materialUrl = materialUrl + material.replace(/\s+/g, '+');
 
                   return <p key={materialKey}>
-                  {/* <a href={materialUrl} target="_blank"> */}
+                  <a href={materialUrl} target="_blank">
                     <span className="bold">
                       {materialNumber}:
                     </span>
                     {` ${material}`}
-                    {/* </a> */}
+                    </a>
                   </p>;
 
                 })}
