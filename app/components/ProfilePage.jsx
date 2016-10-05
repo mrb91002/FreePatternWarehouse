@@ -237,6 +237,7 @@ console.log(this.props.favorites);
     };
 
     return <div>
+    {console.log(this.state.updatedUser.userImageUrl)}
       <div className="spacer" />
       <div className="pattern-title col s8 offset-s2">
         <h1>{this.state.updatedUser.userName} - Profile</h1>
@@ -246,7 +247,7 @@ console.log(this.props.favorites);
           <div className="col s12 pattern-artist">
             <div className="col s5 profile-main">
               <div className="col s8">
-                <img src="https://market.ionic.io/img/user-default.png" />
+                <img src={this.state.updatedUser.userImageUrl} />
               </div>
               <div className="col s4">
                 <p>{this.state.updatedUser.userName}</p>

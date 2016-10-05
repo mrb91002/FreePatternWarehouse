@@ -130,7 +130,7 @@ exports.seed = function(knex) {
         id: 16,
         pattern_id: 6,
         display_order: 1,
-        image_url: 'http://tutorials.knitpicks.com/wptutorials/wp-content/uploads/2009/12/circular4.jpg',
+        image_url: 'https://img1.etsystatic.com/011/0/6443461/il_570xN.429203925_o2iw.jpg',
         alt_text: 'hands kniting something pink',
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
