@@ -296,12 +296,19 @@ const PatternPage = React.createClass({
                 {pattern.materials.map((material, materialKey) => {
                   materialNumber += 1;
 
+                  let materialUrl = 'https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&field-keywords=craft+'
+
+                  materialUrl = materialUrl + material.replace(/\s+/g, '+');
+
                   return <p key={materialKey}>
+                  <a href={materialUrl} target="_blank">
                     <span className="bold">
                       {materialNumber}:
                     </span>
                     {` ${material}`}
+                    </a>
                   </p>;
+
                 })}
               </div>
 
