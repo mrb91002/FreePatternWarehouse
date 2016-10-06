@@ -101,7 +101,7 @@ const HomePage = React.createClass({
             </div>
             <div className="col s8">
               <p className="bold">Create something new</p>
-              <p>Our community has what you need to be inspired</p>
+              <p>Share it with the community and those you love</p>
             </div>
           </div>
 
