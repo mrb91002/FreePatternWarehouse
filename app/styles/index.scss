@@ -405,6 +405,8 @@ input[type=date]:focus:not([readonly]) {
 
   .pattern-title {
     padding-bottom: 110px !important;
+    box-shadow: white 0px 0px 0px !important;
+    border-bottom: 3px solid black;
   }
 
   .material-tile, .instruction-tile, .image-tile {
