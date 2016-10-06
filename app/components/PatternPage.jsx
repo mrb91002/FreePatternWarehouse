@@ -216,13 +216,20 @@ const PatternPage = React.createClass({
             {pattern.userName}
           </span>
         </h1>
+        <div
+          className="print center"
+          style={{ fontSize: '20px', marginTop: '10px', fontWeight: 'bold'}}
+        >
+          https://mrb91002-ohsewmuch.herokuapp.com/
+        </div>
       </div>
+
 
       <div className="row pattern-space">
         {/* <div className="col s10 offset-s1"> */}
         <div className="container">
 
-          <div className="col s9">
+          <div className="col s9 printFull">
             <div className="col s4 pattern-artist">
               <div className="col s10 offset-s1">
                 <img
@@ -245,7 +252,7 @@ const PatternPage = React.createClass({
             </div>
 
             <div
-              className="image-element-class col s7 offset-s1 pattern-image-main"
+              className="image-element-class col s7 offset-s1 pattern-image-main printFull"
               data-patternId={pattern.id}
               id={pattern.id}
               key={pattern.id}
@@ -256,6 +263,7 @@ const PatternPage = React.createClass({
             {/*  star popup */}
 
             <div
+              className="noPrint"
               data-clicked={clicked}
               data-patternId={pattern.id}
               onTouchTap={this.handleClickStar}
@@ -298,7 +306,7 @@ const PatternPage = React.createClass({
                   if (Array.isArray(material)) {
                     material = material[0];
                   }
-                  
+
                   console.log(material);
                   materialNumber += 1;
 
@@ -348,8 +356,8 @@ const PatternPage = React.createClass({
             </div>
           </div>
 
-          <div className="col s3">
-            <div className="col s10 offset-s1">
+          <div className="col s3 printFull">
+            <div className="col s10 offset-s1 printFull">
 
               {pattern.images.map((img, imgIndex) => {
                 if (imageNumber === 0) {
@@ -390,7 +398,7 @@ const PatternPage = React.createClass({
           </div>
         </div>
       </div>
-    </div>;
+    </div>
   }
 });
 

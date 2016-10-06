@@ -284,6 +284,7 @@ const App = React.createClass({
     // console.log(this.state.patterns);
     return <div>
       <AppBar
+        className="appBar"
         iconElementLeft={<IconButton />}
         onTitleTouchTap={this.handleTitleTouchTap}
         style={styleAppBar}
