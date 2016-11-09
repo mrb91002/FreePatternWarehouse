@@ -64,10 +64,6 @@ Connecting to Cloudinary so the images could be stored and and the proper URL co
 ![Image of Uploaded Image]
 (./app/assets/images/uploaded-image.png)
 
-###Uploaded Image:
-![Image of Uploaded Image]
-(./app/assets/images/uploaded-image.png)
-
 ###Filled Out Pattern Details:
 ![Image of Filled Out Pattern Details]
 (./app/assets/images/filled-out-pattern-details.png)
