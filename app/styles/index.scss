@@ -54,13 +54,6 @@ h1, p {
   font-family: 'Libre Baskerville', serif;
 }
 
-.heroImg img {
-  // height: 196px;
-  // width: 700px;
-  // margin-top:34px;
-  // margin-left: 0px;
-}
-
 .heroSearch {
   margin-top: 85px;
   margin-left: 50px;
@@ -252,8 +245,6 @@ p.upload-title {
 .profile-main {
   margin-top: 20px;
   margin-bottom: 20px;
-  // padding-left: 5px;
-  // padding-right: 5px;
 }
 
 .profile-main img {
@@ -316,8 +307,6 @@ p.upload-title {
 }
 
 .upload-main p {
-  // margin-bottom: 0px;
-  // margin-top: 5px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -359,14 +348,6 @@ input[type=date]:focus:not([readonly]) {
     display: none !important;
   }
 
-  .printFull {
-    // align-content: left;
-    // box-shadow: white 0px 0px 0px !important;
-    // border: 40px solid green;
-    // margin-left: 100px !important;
-    // width: 100%;
-  }
-
   .noPrint {
     display: none !important;
   }
@@ -395,10 +376,6 @@ input[type=date]:focus:not([readonly]) {
   }
 
   .printAuto {
-    // width: auto !important;
-    // align-content: center !important;
-    // align-self: center !important;
-    // align-items: center !important;
     width: 100%;
     border: 5px solid green;
   }
@@ -411,7 +388,6 @@ input[type=date]:focus:not([readonly]) {
 
   .material-tile, .instruction-tile, .image-tile {
     box-shadow: white 0px 0px 0px !important;
-    // padding: 8px 0 0 0;
   }
 
   .instruction-tile {
