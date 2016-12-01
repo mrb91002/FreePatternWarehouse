@@ -1,9 +1,4 @@
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
 import React from 'react';
-import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import { withRouter } from 'react-router';
@@ -251,11 +246,6 @@ const App = React.createClass({
       return { display: 'none' };
     };
 
-    const styleAppBar = {
-      backgroundColor: '#385D79',
-      position: 'fixed'
-    };
-
     const styleSearchButton = {
       backgroundColor: '#AD5057',
       height: '30px',
@@ -281,64 +271,102 @@ const App = React.createClass({
       cursor: 'pointer'
     };
 
-    // console.log(this.state.patterns);
     return <div>
-      <AppBar
-        className="appBar"
-        iconElementLeft={<IconButton />}
+      <div className="nav">
+        <h1 onTouchTap={this.handleTitleTouchTap}>Free Pattern Warehouse</h1>
+
+        <div className="nav-right">
+          <div className="search">
+            <input type="text" />
+            <button type="button">Search</button>
+          </div>
+          <button
+            label="Upload"
+            type="button"
+            onTouchTap={this.handleTouchTapUpload}
+            style={showUpload()}
+          />
+          <button
+            label="Login"
+            type="button"
+            onTouchTap={this.handleTouchTapLogin}
+            style={showLogin()}
+          >Login</button>
+          <button
+            label="Register"
+            type="button"
+            onTouchTap={this.handleTouchTapRegister}
+            style={showRegister()}
+          >Register</button>
+          <buton
+            label="Profile"
+            type="button"
+            onTouchTap={this.handleTouchTapProfile}
+            style={showLogout()}
+          />
+          <button
+            label="Logout"
+            type="button"
+            onTouchTap={this.handleTouchTapLogout}
+            style={showLogout()}
+          />
+        </div>
+      </div>
+      {/* <div
+        className="appbar"
         onTitleTouchTap={this.handleTitleTouchTap}
-        style={styleAppBar}
         title="Free Pattern Warehouse"
         titleStyle={styleTitle}
         zDepth={2}
       >
 
-        <TextField
+        <input
           id="topSearch"
           inputStyle={styleTextField}
           underlineShow={false}
         />
-        <FlatButton
+        <button
           label="Search"
           style={styleSearchButton}
-        />
-        {/* </div> */}
+          type="button"
+        >
+          TEST
+        </button>
+        </div>
 
-        <FlatButton
+        <button
           label="Upload"
           onTouchTap={this.handleTouchTapUpload}
           style={Object.assign({}, styleFlatButton, showUpload())}
         />
-        <FlatButton
-          // className="login"
+        <button
           label="Login"
           onTouchTap={this.handleTouchTapLogin}
           style={Object.assign({}, styleFlatButton, showLogin())}
         />
-        <FlatButton
+        <button
           label="Register"
           onTouchTap={this.handleTouchTapRegister}
           style={Object.assign({}, styleFlatButton, showRegister())}
         />
-        <FlatButton
-          icon={<FontIcon className="material-icons">account_circle</FontIcon>}
+        <buton
           label="Profile"
           onTouchTap={this.handleTouchTapProfile}
           style={Object.assign({}, styleFlatButton, showLogout())}
         />
-        <FlatButton
+        <button
           label="Logout"
           onTouchTap={this.handleTouchTapLogout}
           style={Object.assign({}, styleFlatButton, showLogout())}
-        />
-      </AppBar>
-
-      {/* React.cloneElement is the glue that passes in props to children
+        /> */}
+        {/* React.cloneElement is the glue that passes in props to children
           created with React Router. React router instantiates classes for
           us, and cloning the existing instance is the only way to set props.
-      */}
-      {React.cloneElement(this.props.children, this.getChildrenProps())}
-    </div>;
+          */}
+        {React.cloneElement(this.props.children, this.getChildrenProps())}
+      </div>;
+
+    // </div>;
   }
 });
 

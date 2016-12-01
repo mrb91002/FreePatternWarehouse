@@ -32,19 +32,6 @@ const HomePage = React.createClass({
       color: '#AD5057'
     };
 
-    const styles = {
-      title: {
-        '@media (min-width: 320px)': {
-          width: '100%',
-
-          ':hover': {
-            background: 'white'
-          }
-        }
-      }
-    };
-
-    //
     if (this.props.patterns.length === 0) {
       return <div />;
     }

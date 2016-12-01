@@ -342,6 +342,61 @@ input[type=date]:focus:not([readonly]) {
   display: none;
 }
 
+// CURRENT REVAMP
+.nav {
+  background-color: #385D79;
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  z-index: 1;
+  // font-family: Libre Baskerville, serif;
+}
+
+.nav-right {
+  display: flex;
+}
+
+.nav h1 {
+  color: #fff;
+  font-size: 24px;
+  // font-family: Libre Baskerville,serif;
+}
+
+.search input {
+  height: 35px;
+  align-self: center;
+  border: none;
+  border-radius: 3px 0 0 3px;
+  box-shadow: rgb(198, 202, 185) 1px 1px 3px inset;
+  width: 300px;
+}
+
+button {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: #fff;
+}
+
+.search button {
+  height: 35px;
+  align-self: center;
+  border: none;
+  border-radius: 0 3px 3px 0;
+  background-color: rgb(173, 80, 87);
+  color: #fff;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.search {
+  display: flex;
+}
+
+// END CURRENT REVAMP
+
 @media print {
   .appBar, .pattern-artist {
     display: none !important;
