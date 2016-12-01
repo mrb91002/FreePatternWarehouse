@@ -356,8 +356,8 @@ const PatternPage = React.createClass({
             </div>
           </div>
 
-          <div className="col s3 printFull">
-            <div className="col s10 offset-s1 printFull">
+          <div className="col s3">
+            <div className="col s10 offset-s1">
 
               {pattern.images.map((img, imgIndex) => {
                 if (imageNumber === 0) {

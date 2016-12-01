@@ -9,12 +9,18 @@
 }
 
 .about {
-  height: 150px;
   background-color: #79A2C1;
+  display: flex;
+  justify-content: space-around;
 }
 
-.about-inner {
-  margin-top: 10px;
+.about-container {
+  display: flex;
+}
+
+.about-detail {
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -52,16 +58,6 @@ footer {
 
 h1, p {
   font-family: 'Libre Baskerville', serif;
-}
-
-.heroSearch {
-  margin-top: 85px;
-  margin-left: 50px;
-}
-
-.heroSearch h1 {
-  font-size: 40px;
-  line-height: 30px;
 }
 
 .home-tile {
@@ -111,10 +107,6 @@ h1, p {
   width: 70px;
 }
 
-img {
-  width: 100%;
-}
-
 .inline {
   display: inline-block;
 }
@@ -141,9 +133,15 @@ img {
   margin-bottom: 20px;
 }
 
-.mainHero {
+.main-hero {
   background-color: #edf7fc;
-  height: 230px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-hero img {
+  max-height: 200px;
 }
 
 .materials {
@@ -271,7 +269,7 @@ p.upload-title {
 }
 
 .spacer {
-  height: 30px;
+  height: 45px;
 }
 
 .space-20 {
@@ -292,6 +290,7 @@ p.upload-title {
   background-color: rgb(173, 80, 87);
 }
 
+// possibly delete this
 .upperHero {
   background-color: #79A2C1;
   width: 100%;

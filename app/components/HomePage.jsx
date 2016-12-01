@@ -1,12 +1,9 @@
-import FlatButton from 'material-ui/FlatButton';
 import Gallery from 'components/Gallery';
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import Radium from 'radium';
 
 const HomePage = React.createClass({
-  // componentWillReceiveProps() {
-  //   this.forceUpdate();
-  // },
 
   render() {
     const styleTextField = {
@@ -35,6 +32,18 @@ const HomePage = React.createClass({
       color: '#AD5057'
     };
 
+    const styles = {
+      title: {
+        '@media (min-width: 320px)': {
+          width: '100%',
+
+          ':hover': {
+            background: 'white'
+          }
+        }
+      }
+    };
+
     //
     if (this.props.patterns.length === 0) {
       return <div />;
@@ -48,63 +57,38 @@ const HomePage = React.createClass({
     return <div>
       <div className="spacer" />
 
-      <div className="mainHero row">
-        <div className="col s6">
-          <div className="heroSearch">
-            <h1>Whatever your skill level,</h1>
-            <h1>Find your next project here</h1>
-            {/* <TextField
-              id="heroSearchInput"
-              inputStyle={styleTextField}
-              underlineShow={false}
-            />
-            <FlatButton
-              label="Search"
-              style={styleSearchButton}
-            /> */}
-          </div>
+      <div className="main-hero">
+        <div>
+          <h1>Whatever your skill level,</h1>
+          <h1>Find your next project here</h1>
         </div>
-        <div className="col s6 heroImg">
-          <img
-            height="230px"
-            src="images/yarn2.png"
-          />
-        </div>
+          <img src="images/yarn2.png" />
       </div>
 
-      <div className="row about">
-        <div className="col s10 offset-s1 about-inner">
+      <div className="about">
 
-          <div className="col s4">
-            <div className="col s4">
-              <i className="material-icons" style={styleIcons}>search</i>
-            </div>
-            <div className="col s8">
-              <p className="bold">Find Something you Love</p>
-              <p>Our community has what you need to be inspired</p>
-            </div>
+        <div className="about-container">
+            <i className="material-icons" style={styleIcons}>search</i>
+            <div className="about-detail">
+            <p className="bold">Find Something you Love</p>
+            <p>Our community has what <br /> you need to be inspired</p>
           </div>
+        </div>
 
-          <div className="col s4">
-            <div className="col s4">
-              <i className="material-icons" style={styleIcons}>print</i>
-            </div>
-            <div className="col s8">
-              <p className="bold">  Print out your pattern</p>
-              <p>No Download <br /> No login <br /> 100% free</p>
-            </div>
+        <div className="about-container">
+          <i className="material-icons" style={styleIcons}>print</i>
+          <div className="about-detail">
+            <p className="bold">  Print out your pattern</p>
+            <p>No Download <br /> No login <br /> 100% free</p>
           </div>
+        </div>
 
-          <div className="col s4">
-            <div className="col s4">
-              <i className="material-icons" style={styleIcons}>done_all</i>
-            </div>
-            <div className="col s8">
-              <p className="bold">Create something new</p>
-              <p>Share it with the community and those you love</p>
-            </div>
+        <div className="about-container">
+          <i className="material-icons" style={styleIcons}>done_all</i>
+          <div className="about-detail">
+            <p className="bold">Create something new</p>
+            <p>Share it with the community <br /> and those you love</p>
           </div>
-
         </div>
       </div>
 
@@ -132,4 +116,4 @@ const HomePage = React.createClass({
   }
 });
 
-export default HomePage;
+export default Radium(HomePage);
