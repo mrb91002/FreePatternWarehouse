@@ -48,7 +48,7 @@ const App = React.createClass({
         }
       })
       .catch(() => {
-        // console.error(err.response || err);
+        console.error(err.response || err);
       });
 
     $(window).on('beforeunload', () => {
@@ -132,10 +132,8 @@ const App = React.createClass({
   removeFavorite(removedFavorite) {
     console.log('top', removedFavorite, this.state.favorites);
     const updatedFavorites = this.state.favorites.filter((favorite) => {
-      // console.log('THIS IS THE FAVORITE THAT IS GETTING CHECKED', favorite);
       let check;
 
-      // issue: two different objects objects coming in...
       if (favorite.patternId) {
         check = favorite.patternId;
       }
@@ -150,10 +148,7 @@ const App = React.createClass({
       return true;
     })
 
-    // console.log('updated Favorites ***:', updatedFavorites);
     this.setState({ favorites: updatedFavorites });
-    // console.log('bottom', this.state.favorites);
-
   },
 
   handlePatternHover(updatedPatterns) {
@@ -203,16 +198,8 @@ const App = React.createClass({
       return <div />;
     }
 
-    console.log('current Favorites', this.state.favorites);
-
-    console.log('first!', this.state.patterns);
     const { pathname } = this.props.location;
     const { loggedIn } = this.state.cookies;
-
-    const styleFlatButton = {
-      height: '64px',
-      lineHeight: '64px'
-    };
 
     const showLogin = () => {
       if (!loggedIn) {
@@ -244,31 +231,6 @@ const App = React.createClass({
       }
 
       return { display: 'none' };
-    };
-
-    const styleSearchButton = {
-      backgroundColor: '#AD5057',
-      height: '30px',
-      lineHeight: '27px',
-      border: 'none',
-      borderRadius: '0 3px 3px 0',
-      display: 'inline-block',
-      marginTop: '18px'
-    };
-
-    const styleTextField = {
-      backgroundColor: '#fff',
-      borderRadius: '3px 0 0 3px',
-      height: '10px',
-      marginTop: '18px',
-      border: 'none',
-      padding: '10px',
-      display: 'inline-block',
-      boxShadow: '1px 1px 3px #c6cab9 inset'
-    };
-
-    const styleTitle = {
-      cursor: 'pointer'
     };
 
     return <div>
@@ -312,53 +274,7 @@ const App = React.createClass({
           />
         </div>
       </div>
-      {/* <div
-        className="appbar"
-        onTitleTouchTap={this.handleTitleTouchTap}
-        title="Free Pattern Warehouse"
-        titleStyle={styleTitle}
-        zDepth={2}
-      >
 
-        <input
-          id="topSearch"
-          inputStyle={styleTextField}
-          underlineShow={false}
-        />
-        <button
-          label="Search"
-          style={styleSearchButton}
-          type="button"
-        >
-          TEST
-        </button>
-        </div>
-
-        <button
-          label="Upload"
-          onTouchTap={this.handleTouchTapUpload}
-          style={Object.assign({}, styleFlatButton, showUpload())}
-        />
-        <button
-          label="Login"
-          onTouchTap={this.handleTouchTapLogin}
-          style={Object.assign({}, styleFlatButton, showLogin())}
-        />
-        <button
-          label="Register"
-          onTouchTap={this.handleTouchTapRegister}
-          style={Object.assign({}, styleFlatButton, showRegister())}
-        />
-        <buton
-          label="Profile"
-          onTouchTap={this.handleTouchTapProfile}
-          style={Object.assign({}, styleFlatButton, showLogout())}
-        />
-        <button
-          label="Logout"
-          onTouchTap={this.handleTouchTapLogout}
-          style={Object.assign({}, styleFlatButton, showLogout())}
-        /> */}
         {/* React.cloneElement is the glue that passes in props to children
           created with React Router. React router instantiates classes for
           us, and cloning the existing instance is the only way to set props.
