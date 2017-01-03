@@ -41,6 +41,13 @@ body {
   padding-top: 20px;
 }
 
+// .flexbox {
+//   display: flex;
+//   background-color: blue;
+//   justify-content: center;
+//   flex-direction: row;
+// }
+
 footer {
   margin-top: 40px;
   height: 40px;
@@ -265,7 +272,9 @@ p.upload-title {
 }
 
 .row {
-  margin-bottom: 0;
+  margin: 0 auto;
+  width: 85%;
+  padding-left: 3%;
 }
 
 .row .col.form-button {
@@ -368,7 +377,11 @@ input[type=date]:focus:not([readonly]) {
 .nav h1 {
   color: #fff;
   font-size: 24px;
-  // font-family: Libre Baskerville,serif;
+  font-family: Libre Baskerville, serif;
+}
+
+.nav h1:hover {
+  cursor: pointer;
 }
 
 .search input {
@@ -473,6 +486,43 @@ button:hover {
   }
 }
 
+.styleIcons {
+  font-size: 110px;
+  color: #ad5057;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.title-long {
+  display:inline-block;
+}
+
+.title-short {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 1365px) {
   .main-hero img {
     min-height: 200px;
@@ -492,6 +542,40 @@ button:hover {
   }
 }
 
+@media (max-width: 1000px) {
+  .styleIcons {
+    font-size: 70px;
+    align-self: center;
+  }
+
+}
+
+@media (max-width: 900px) {
+  .about-container {
+    align-self: center;
+  }
+
+  .about {
+    flex-direction: column;
+  }
+
+  .title-long {
+    display: none;
+  }
+
+  .title-short {
+    display: inline-block;
+  }
+
+}
+
+
 li {
   list-style-type: none;
+}
+
+
+
+ul {
+  -webkit-padding-start: 0px;
 }

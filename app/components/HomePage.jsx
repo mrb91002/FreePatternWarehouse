@@ -26,10 +26,6 @@ const HomePage = React.createClass({
       marginTop: '18px'
     };
 
-    const styleIcons = {
-      fontSize: '110px',
-      color: '#AD5057'
-    };
 
     if (this.props.patterns.length === 0) {
       return <div />;
@@ -54,7 +50,7 @@ const HomePage = React.createClass({
       <div className="about">
 
         <div className="about-container">
-            <i className="material-icons" style={styleIcons}>search</i>
+            <i className="material-icons styleIcons">search</i>
             <div className="about-detail">
             <p className="bold">Find Something you Love</p>
             <p>Our community has what <br /> you need to be inspired</p>
@@ -62,7 +58,7 @@ const HomePage = React.createClass({
         </div>
 
         <div className="about-container">
-          <i className="material-icons" style={styleIcons}>print</i>
+          <i className="material-icons styleIcons">print</i>
           <div className="about-detail">
             <p className="bold">  Print out your pattern</p>
             <p>No Download <br /> No login <br /> 100% free</p>
@@ -70,7 +66,7 @@ const HomePage = React.createClass({
         </div>
 
         <div className="about-container">
-          <i className="material-icons" style={styleIcons}>done_all</i>
+          <i className="material-icons styleIcons">done_all</i>
           <div className="about-detail">
             <p className="bold">Create something new</p>
             <p>Share it with the community <br /> and those you love</p>
@@ -78,26 +74,20 @@ const HomePage = React.createClass({
         </div>
       </div>
 
-      <div className="row">
-        <div className="col s1 offset-s1">
-          <p>Explore</p>
-        </div>
-      </div>
+      <p>Explore</p>
 
       <div className="row">
-        <div className="col s10 offset-s1">
+        <Gallery
+          patterns={patterns}
+          favorites={this.props.favorites}
+          addFavorite={this.props.addFavorite}
+          removeFavorite={this.props.removeFavorite}
+          handlePatternHover={this.props.handlePatternHover}
+          cookies={this.props.cookies}
+        />
 
-          <Gallery
-            patterns={patterns}
-            favorites={this.props.favorites}
-            addFavorite={this.props.addFavorite}
-            removeFavorite={this.props.removeFavorite}
-            handlePatternHover={this.props.handlePatternHover}
-            cookies={this.props.cookies}
-          />
-
-        </div>
       </div>
+
     </div>;
   }
 });

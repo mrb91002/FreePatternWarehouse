@@ -231,7 +231,8 @@ const App = React.createClass({
 
     return <div>
       <div className="nav">
-        <h1 onTouchTap={this.handleTitleTouchTap}>Free Pattern Warehouse</h1>
+        <h1 className="title-long" onTouchTap={this.handleTitleTouchTap}>Free Pattern Warehouse</h1>
+        <h1 className="title-short" onTouchTap={this.handleTitleTouchTap}>FPW</h1>
 
         <div className="nav-right">
           <div className="search">
