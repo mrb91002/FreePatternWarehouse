@@ -430,10 +430,6 @@ const AddPattern = React.createClass({
 
               </div>
             </div>
-            {/* <div
-                  className="g-recaptcha"
-                  data-sitekey="6LczYAcUAAAAADnrynsB9YkpUrlF6CJvz8y6jQ2Q">
-                </div> */}
             <div className="col s12 center">
               <FlatButton
                 label="Submit"

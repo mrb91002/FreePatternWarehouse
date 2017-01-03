@@ -136,8 +136,12 @@ h1, p {
 .main-hero {
   background-color: #edf7fc;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+}
+
+.tagline {
+  margin-left: 7%;
 }
 
 .main-hero img {
@@ -343,6 +347,10 @@ input[type=date]:focus:not([readonly]) {
 }
 
 // CURRENT REVAMP
+
+
+
+
 .nav {
   background-color: #385D79;
   position: fixed;
@@ -463,4 +471,27 @@ button:hover {
     margin-left: 250px;
     font-size: 17px;
   }
+}
+
+@media (max-width: 1365px) {
+  .main-hero img {
+    min-height: 200px;
+    width: 600px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .main-hero {
+    background-color: #edf7fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-hero img {
+    display: none;
+  }
+}
+
+li {
+  list-style-type: none;
 }

@@ -1,7 +1,6 @@
 import Gallery from 'components/Gallery';
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import Radium from 'radium';
 
 const HomePage = React.createClass({
 
@@ -45,7 +44,7 @@ const HomePage = React.createClass({
       <div className="spacer" />
 
       <div className="main-hero">
-        <div>
+        <div className="tagline">
           <h1>Whatever your skill level,</h1>
           <h1>Find your next project here</h1>
         </div>
@@ -103,4 +102,4 @@ const HomePage = React.createClass({
   }
 });
 
-export default Radium(HomePage);
+export default HomePage;

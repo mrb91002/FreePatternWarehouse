@@ -29,9 +29,6 @@ const Gallery = React.createClass({
 
       return pattern;
     });
-    console.log('galler.jsx hover', updatedState);
-    // call state mutator to update the app.jsx state
-    // this.setState({ hoveredStateLocation: updatedState });
     this.props.handlePatternHover(updatedState)
   },
 
@@ -115,10 +112,8 @@ const Gallery = React.createClass({
       if (!pattern.display) {
         pattern.display = 'none'
       }
-      // console.log('Current Favorites', this.props.favorites);
       let clicked;
       let starColor;
-      // check each pattern against the logged in user's favorites
       const favoriteCheck =
         this.props.favorites.filter((favorite) => {
         if (favorite.patternName === pattern.patternName) {
