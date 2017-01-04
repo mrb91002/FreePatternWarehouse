@@ -1,8 +1,8 @@
 import axios from 'axios';
+import FontIcon from 'material-ui/FontIcon';
 import Masonry from 'react-masonry-component';
 import React from 'react';
 import { withRouter } from 'react-router';
-import FontIcon from 'material-ui/FontIcon';
 
 const masonryOptions = {
   transitionDuration: 0
@@ -69,13 +69,13 @@ const Gallery = React.createClass({
       // Add favorite
       axios.post('/api/favorites', { patternId: fav }, headers)
         .then((favorite) => {
-          Materialize.toast('Favorite Added', 2000, 'rounded');
-          favorite.data.display = 'none';
+          // Materialize.toast('Favorite Added', 2000, 'rounded');
+          // favorite.data.display = 'none';
 
           this.props.addFavorite(favorite.data);
         })
         .catch((err) => {
-          Materialize.toast('An Error has occured, please send us an email', 2000, 'rounded');
+          // Materialize.toast('An Error has occured, please send us an email', 2000, 'rounded');
         });
     }
     else {
@@ -83,7 +83,7 @@ const Gallery = React.createClass({
       axios.delete(`/api/favorites/${fav}`, headers)
         .then((deleted) => {
           console.log('deleted', deleted.data);
-          Materialize.toast('Favorite Removed', 2000, 'rounded');
+          // Materialize.toast('Favorite Removed', 2000, 'rounded');
           this.props.removeFavorite(deleted.data);
         })
         .catch((err) => {

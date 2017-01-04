@@ -85,7 +85,7 @@ const App = React.createClass({
         this.props.router.push('/');
       })
       .catch();
-      
+
     this.checkWidth();
   },
 
