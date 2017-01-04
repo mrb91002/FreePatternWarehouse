@@ -107,6 +107,12 @@ const App = React.createClass({
     this.props.router.push(`/profile/${this.state.cookies.loggedIn.userName}`);
   },
 
+  handleTouchTapMenu() {
+      var sideNav = document.getElementById('side-nav');
+
+      sideNav.classList.toggle('side-nav-show');
+  },
+
   updateCookies() {
     let loggedIn = cookie.load('loggedIn');
 
@@ -199,7 +205,7 @@ const App = React.createClass({
 
     const showLogin = () => {
       if (!loggedIn) {
-        return { display: 'block' };
+        return { display: 'inline-block' };
       }
 
       return { display: 'none' };
@@ -207,7 +213,7 @@ const App = React.createClass({
 
     const showRegister = () => {
       if (!loggedIn) {
-        return { display: 'block' };
+        return { display: 'inline-block' };
       }
 
       return { display: 'none' };
@@ -218,12 +224,12 @@ const App = React.createClass({
         return { display: 'none' };
       }
 
-      return { display: 'block' };
+      return { display: 'inline-block' };
     };
 
     const showLogout = () => {
       if (loggedIn) {
-        return { display: 'block' };
+        return { display: 'inline-block' };
       }
 
       return { display: 'none' };
@@ -234,42 +240,94 @@ const App = React.createClass({
         <h1 className="title-long" onTouchTap={this.handleTitleTouchTap}>Free Pattern Warehouse</h1>
         <h1 className="title-short" onTouchTap={this.handleTitleTouchTap}>FPW</h1>
 
+        <div className="search">
+          <input type="text" />
+          <button>Search</button>
+        </div>
+
         <div className="nav-right">
-          <div className="search">
-            <input type="text" />
-            <button type="button">Search</button>
-          </div>
+
           <button
-            label="Upload"
-            type="button"
             onTouchTap={this.handleTouchTapUpload}
             style={showUpload()}
-          />
+          >
+            <span>Upload</span>
+          </button>
+
           <button
-            label="Login"
-            type="button"
             onTouchTap={this.handleTouchTapLogin}
             style={showLogin()}
-          >Login</button>
+          >
+            Login
+          </button>
+
           <button
-            label="Register"
-            type="button"
             onTouchTap={this.handleTouchTapRegister}
             style={showRegister()}
-          >Register</button>
-          <buton
-            label="Profile"
-            type="button"
+          >
+            Register
+          </button>
+
+          <button
             onTouchTap={this.handleTouchTapProfile}
             style={showLogout()}
-          />
+          >
+            Profile
+          </button>
+
           <button
-            label="Logout"
-            type="button"
             onTouchTap={this.handleTouchTapLogout}
             style={showLogout()}
-          />
+          >
+            Logout
+          </button>
         </div>
+
+        <i className="material-icons menu"
+          id="menu"
+          onTouchTap={this.handleTouchTapMenu}
+        >
+          menu
+        </i>
+        <div className="side-nav" id="side-nav">
+
+          <button
+            onTouchTap={this.handleTouchTapUpload}
+            style={showUpload()}
+          >
+            <span>Upload</span>
+          </button>
+
+          <button
+            onTouchTap={this.handleTouchTapLogin}
+            style={showLogin()}
+          >
+            Login
+          </button>
+
+          <button
+            onTouchTap={this.handleTouchTapRegister}
+            style={showRegister()}
+          >
+            Register
+          </button>
+
+          <button
+            onTouchTap={this.handleTouchTapProfile}
+            style={showLogout()}
+          >
+            Profile
+          </button>
+
+          <button
+            onTouchTap={this.handleTouchTapLogout}
+            style={showLogout()}
+          >
+            Logout
+          </button>
+
+        </div>
+
       </div>
 
         {/* React.cloneElement is the glue that passes in props to children
