@@ -532,26 +532,31 @@ button:hover {
   display: none;
 }
 
-
 .side-nav {
-  // display: none;
   visibility: hidden;
   z-index: 999;
   position: absolute;
   top: 61px;
-  right: 0;
+  right: -150px;
   height: 100vh;
   width: 150px;
-  display: flex;
-  background-color: green;
-  justify-content: center;
-  flex-wrap: wrap;
-  // align-items: flex-start;
+  background-color: #1E415F;
+  transition: 1s;
+}
+
+.side-nav button{
+  width: 100%;
+}
+
+.side-nav button:hover{
+  background-color: rgba(25, 118, 210, 0.2);
 }
 
 .side-nav-show {
   visibility: visible;
+  right: 0;
 }
+
 
 
 
@@ -590,6 +595,12 @@ button:hover {
     display: none;
   }
 
+}
+
+@media (min-width:1000px) {
+  .side-nav {
+    visibility: hidden;
+  }
 }
 
 @media (max-width: 900px) {
