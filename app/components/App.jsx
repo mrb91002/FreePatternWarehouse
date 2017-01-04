@@ -56,6 +56,28 @@ const App = React.createClass({
     });
   },
 
+  checkWidth() {
+    function getWidth() {
+      if (self.innerWidth) {
+        return self.innerWidth;
+      }
+
+      if (document.documentElement && document.documentElement.clientWidth) {
+        return document.documentElement.clientWidth;
+      }
+
+      if (document.body) {
+        return document.body.clientWidth;
+      }
+    }
+
+    if(getWidth() <= 1000) {
+      var sideNav = document.getElementById('side-nav');
+
+      sideNav.classList.toggle('side-nav-show');
+    }
+  },
+
   handleTouchTapLogout() {
     axios.delete('/api/auth')
       .then(() => {
@@ -63,6 +85,8 @@ const App = React.createClass({
         this.props.router.push('/');
       })
       .catch();
+      
+    this.checkWidth();
   },
 
   handleAddPattern(pattern) {
@@ -93,18 +117,22 @@ const App = React.createClass({
 
   handleTouchTapRegister() {
     this.props.router.push('/register');
+    this.checkWidth();
   },
 
   handleTouchTapLogin() {
     this.props.router.push('/login');
+    this.checkWidth();
   },
 
   handleTouchTapUpload() {
     this.props.router.push('/add-pattern');
+    this.checkWidth();
   },
 
   handleTouchTapProfile() {
     this.props.router.push(`/profile/${this.state.cookies.loggedIn.userName}`);
+    this.checkWidth();
   },
 
   handleTouchTapMenu() {
