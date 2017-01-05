@@ -209,7 +209,7 @@ const PatternPage = React.createClass({
     })[0];
 
     return <div>
-      <div className="spacer" />
+      <div className="spacer">spacer</div>
 
       <div className="pattern-title">
         <h1>{pattern.patternName} - By:
@@ -229,82 +229,89 @@ const PatternPage = React.createClass({
         </div>
       </div>
 
-      <div className="pattern-body row" style={{marginTop: '30px'}}>
-      <div className="pattern-left">
-{/* ARTIST SIDE */}
-        {/* <div className="flexbox pattern-left"> */}
-        <div className="flexbox">
-          <div className="pattern-artist">
-            <img
-              className="pointer"
-              id={pattern.userName}
-              onTouchTap={this.handleProfilePage}
-              src={pattern.userImageUrl}
-            />
-            <p
-              className="pointer"
-              id={pattern.userName}
-              onTouchTap={this.handleProfilePage}
-            >
-              {pattern.userName}
-            </p>
-            <p className="pointer">
-              Website
-            </p>
-          </div>
-{/* image next to picture !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
-          <div
-            className="image-element-class pattern-image-main printFull shift"
-            data-patternId={pattern.id}
-            id={pattern.id}
-            key={pattern.id}
-            onMouseEnter={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-          >
-            {/*  star popup */}
+      <div className="pattern-body row" style={{ marginTop: '30px' }}>
+        <div className="pattern-left">
 
-            <div
-              className="noPrint"
-              data-clicked={clicked}
-              data-patternId={pattern.id}
-              onTouchTap={this.handleClickStar}
-              style={{
-                display: `${pattern.display}`,
-                backgroundColor: '#fff',
-                boxShadow: `rgba(0, 0, 0, 0.156863) 0px 3px 10px,
-                  rgba(0, 0, 0, 0.227451) 0px 3px 10px`,
-                position: 'absolute',
-                marginTop: '20px',
-                marginLeft: '20px',
-                borderRadius: '5px',
-                padding: '5px 5px 2px 5px',
-                cursor: 'pointer'
-              }}
-            >
-              <FontIcon
-                className="material-icons"
-                data-clicked={clicked}
-                data-patternId={pattern.id}
-                style={{ color: starColor, fontSize: '35px' }}
-              >
-                stars
-              </FontIcon>
+          {/* ARTIST SIDE */}
+          {/* <div className="flexbox pattern-left"> */}
+          <div className="flexbox">
+            <div className="pattern-artist">
+              <img
+                className="pointer"
+                id={pattern.userName}
+                onTouchTap={this.handleProfilePage}
+                src={pattern.userImageUrl}
+              />
+              <div className="pattern-user-info">
+                <p
+                  className="pointer"
+                  id={pattern.userName}
+                  onTouchTap={this.handleProfilePage}
+                >
+                  {pattern.userName}
+                </p>
+                <p className="pointer">
+                  Website
+                </p>
+              </div>
             </div>
 
-            <img
-              alt={pattern.images[0][1]}
-              className="pattern-main-image pointer"
-              height="305px"
-              onTouchTap={this.handleOpenModal}
-              src={pattern.images[0][0]}
-            />
+            {/* image next to picture !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
+            <div className="flex-center">
+              <div
+                className="image-element-class pattern-image-main shift"
+                data-patternId={pattern.id}
+                id={pattern.id}
+                key={pattern.id}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+              >
+                {/*  star popup */}
+
+                <div
+                  className="noPrint"
+                  data-clicked={clicked}
+                  data-patternId={pattern.id}
+                  onTouchTap={this.handleClickStar}
+                  style={{
+                    display: `${pattern.display}`,
+                    backgroundColor: '#fff',
+                    boxShadow: `rgba(0, 0, 0, 0.156863) 0px 3px 10px,
+                      rgba(0, 0, 0, 0.227451) 0px 3px 10px`,
+                    position: 'absolute',
+                    marginTop: '20px',
+                    marginLeft: '20px',
+                    borderRadius: '5px',
+                    padding: '5px 5px 2px 5px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <FontIcon
+                    className="material-icons"
+                    data-clicked={clicked}
+                    data-patternId={pattern.id}
+                    style={{ color: starColor, fontSize: '35px' }}
+                  >
+                    stars
+                  </FontIcon>
+                </div>
+
+                <img
+                  alt={pattern.images[0][1]}
+                  height="305px"
+                  onTouchTap={this.handleOpenModal}
+                  src={pattern.images[0][0]}
+                  style={{ boxShadow: `rgba(0,0,0,.156863) 0 3px 10px,
+                    rgba(0,0,0,.227451) 0 3px 10px`,
+                      cursor: 'pointer',
+                      borderRadius: '5px'
+                  }}
+                />
+              </div>
+            </div>
           </div>
-        </div>
 
-
-
-{/*  bottom of left */}
-
+          {/*  bottom of left */}
 
           <div className="pattern-directions">
             <h1 className="bold materials">Materials:</h1>
@@ -322,7 +329,7 @@ const PatternPage = React.createClass({
 
                 materialUrl += material.replace(/\s+/g, '+');
 
-                return <p key={materialKey}>
+                return <p className="material" key={materialKey}>
                   <a
                     href={materialUrl}
                     rel="noopener noreferrer"
@@ -367,9 +374,6 @@ const PatternPage = React.createClass({
           </div>
         </div>
 
-
-
-
         <div className="pattern-right">
           {pattern.images.map((img, imgIndex) => {
             if (imageNumber === 0) {
@@ -408,13 +412,6 @@ const PatternPage = React.createClass({
 
         </div>
       </div>
-
-
-
-
-
-
-
     </div>;
   }
 });
