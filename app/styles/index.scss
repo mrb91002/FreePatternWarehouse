@@ -704,6 +704,7 @@ button:hover {
   }
 
   .flexbox {
+    // display: flex;
     flex-wrap: wrap;
   }
 
@@ -772,6 +773,7 @@ ul {
   justify-content: space-between;
   padding: 25px;
   border-radius: 5px;
+  box-shadow: rgba(0,0,0,.156863) 0 3px 10px, rgba(0,0,0,.227451) 0 3px 10px;
 }
 
 .align-vert-center {
@@ -788,4 +790,24 @@ ul {
 
 textarea {
   border: none;
+}
+
+
+.profile-pattern-container {
+  box-sizing: border-box;
+  margin-top: 20px;
+  width: 360px;
+  min-height: 350px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+}
+
+.profile-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

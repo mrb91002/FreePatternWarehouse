@@ -254,37 +254,10 @@ const ProfilePage = React.createClass({
 
     {/* {console.log(this.state.updatedUser.userImageUrl)} */}
       <div className="spacer" ></div>
-      <div className="pattern-title col s8 offset-s2">
+      <div className="pattern-title">
         <h1>{this.state.updatedUser.userName} - Profile</h1>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* BEGIN MAIN PAGE */}
-
-
-
-
-
-
-
-
-
-
-      <div className="row" style={{ marginTop: '30px', display: 'flex' }}>
+      <div className="row" style={{ marginTop: '30px', display: 'flex', flexWrap: 'wrap' }}>
 
 
         <div className="profile-top">
@@ -307,9 +280,7 @@ const ProfilePage = React.createClass({
             </div>
           </div>
 
-
           <div className="profile-text-box">
-            {/* this div below creates about blur affect */}
             <div
               onTouchTap={this.handleLockField}
               style={{
@@ -321,7 +292,8 @@ const ProfilePage = React.createClass({
                 top: 0,
                 width: '100%'
               }}
-            />
+            >
+            </div>
             <div
               className="profile-about white"
               style={{
@@ -353,7 +325,6 @@ const ProfilePage = React.createClass({
           </div>
         </div>
 
-      </div>
 
 
 
@@ -365,90 +336,96 @@ const ProfilePage = React.createClass({
 
 
 
-      <div className="container">
+      {/* <div className="container"> */}
 
-        {/* { this.state.profilePatterns.data.map((pattern, index) => {
-          // console.log('Current Favorites', this.props.favorites);
-          let clicked;
-          let starColor;
-          // check each pattern against the logged in user's favorites
-          const favoriteCheck =
-            this.props.favorites.filter((favorite) => {
-            if (favorite.patternName === pattern.patternName) {
-              return true
+      <div className="profile-bottom">
+
+
+        <div className="profile-pattern-container">
+
+          <h1 style={{ margin: '0 auto 20px auto' }}>My Patterns</h1>
+
+          { this.state.profilePatterns.data.map((pattern, index) => {
+            // console.log('Current Favorites', this.props.favorites);
+            let clicked;
+            let starColor;
+            // check each pattern against the logged in user's favorites
+            const favoriteCheck =
+              this.props.favorites.filter((favorite) => {
+              if (favorite.patternName === pattern.patternName) {
+                return true
+              }
+              else {
+                return false
+              }
+            });
+
+            if (favoriteCheck.length) {
+              clicked = 'true';
+              starColor = 'gold';
             }
             else {
-              return false
+              clicked = 'false';
+              starColor = 'rgb(173, 80, 87)';
             }
-          });
 
-          if (favoriteCheck.length) {
-            clicked = 'true';
-            starColor = 'gold';
-          }
-          else {
-            clicked = 'false';
-            starColor = 'rgb(173, 80, 87)';
-          }
-
-          return <div
-            data-stateLocation="profilePatterns"
-            id={pattern.id}
-            className="col s5 offset-s1 pointer"
-            key={index}
-            onMouseOver={this.handleMouseEnter}
-            onMouseLeave={this.handleMouseLeave}
-            onTouchTap={this.handlePatternClick}
-            // eslint-disable-next-line
-            style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', paddingTop: '10px', marginBottom: '20px' }}
-          >
-            <div
-              data-clicked={clicked} //new
-              data-patternId={pattern.id}
-              onTouchTap={this.handleClickStar} // moved from Icon
-              style={{ display: `${pattern.display}`,
-                      backgroundColor: '#fff',
-                      position: 'absolute',
-                      marginTop: '10px',
-                      marginLeft: '10px',
-                      borderRadius: '5px',
-                      padding: '5px 5px 2px 5px',
-                      boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
-              }}>
-              <FontIcon
-                className="material-icons"
-                data-clicked={clicked}
-                // data-clicked="false"
-                data-patternId={pattern.id}
-                // onTouchTap={this.handleClickStar}
-                style={{ color: starColor }}
-
-              >
-                stars
-              </FontIcon>
-            </div>
-
-            <img
-              alt={pattern.altText}
+            return <div
+              data-stateLocation="profilePatterns"
               id={pattern.id}
-              src={pattern.imageUrl}
-            />
-            <p
-              className="center no-top-margin"
-              id={pattern.id}
+              className="pointer"
+              key={index}
+              onMouseOver={this.handleMouseEnter}
+              onMouseLeave={this.handleMouseLeave}
+              onTouchTap={this.handlePatternClick}
+              // eslint-disable-next-line
+              style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:'column', justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
             >
-              {pattern.patternName}
-            </p>
-          </div>;
-        })} */}
+              <div
+                data-clicked={clicked} //new
+                data-patternId={pattern.id}
+                onTouchTap={this.handleClickStar} // moved from Icon
+                style={{ display: `${pattern.display}`,
+                        backgroundColor: '#fff',
+                        position: 'absolute',
+                        marginTop: '10px',
+                        marginLeft: '10px',
+                        borderRadius: '5px',
+                        padding: '5px 5px 2px 5px',
+                        boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px'
+                }}>
+                <FontIcon
+                  className="material-icons"
+                  data-clicked={clicked}
+                  // data-clicked="false"
+                  data-patternId={pattern.id}
+                  // onTouchTap={this.handleClickStar}
+                  style={{ color: starColor }}
+
+                >
+                  stars
+                </FontIcon>
+              </div>
+
+              <img
+                alt={pattern.altText}
+                id={pattern.id}
+                src={pattern.imageUrl}
+                style={{ width: '97px' }}
+              />
+              <p
+                id={pattern.id}
+              >
+                {pattern.patternName}
+              </p>
+            </div>;
+          })}
+        </div>
 
 
 
+        <div className="profile-pattern-container">
 
-
-          {/* <div className="col s4 space-20">
-            <div className="col s12 pattern-square">
-              <h5>My favorites</h5>
+          <h1 style={{ margin: '0 auto 20px auto' }}>My Favorites</h1>
 
               {this.state.profileFavorites.data.map((pattern, index) => {
                 let clicked;
@@ -477,13 +454,13 @@ const ProfilePage = React.createClass({
                 return <div
                   data-stateLocation="profileFavorites"
                   id={pattern.id}
-                  className="col s5 offset-s1 pointer"
+                  className="pointer"
                   key={index}
                   onMouseOver={this.handleMouseEnter}
                   onMouseLeave={this.handleMouseLeave}
                   onTouchTap={this.handlePatternClick}
                   // eslint-disable-next-line
-                  style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', paddingTop: '10px', marginBottom: '20px' }}
+                  style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:"column", justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
                 >
                   <div
                   data-clicked={clicked} //new
@@ -514,6 +491,7 @@ const ProfilePage = React.createClass({
                     alt={pattern.altText}
                     id={pattern.id}
                     src={pattern.imageUrl}
+                    style={{ width: '97px' }}
                   />
                   <p
                     className="center no-top-margin"
@@ -524,34 +502,68 @@ const ProfilePage = React.createClass({
                 </div>;
               })}
 
+          </div>
+
+
+
+
+
+
+
+          <div className="profile-pattern-container">
+              <h1 style={{ margin: '0 auto 20px auto' }}>
+                My favorite artists
+              </h1>
+              <div
+                // eslint-disable-next-line
+                style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:"column", justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
+              >
+                <img src="https://market.ionic.io/img/user-default.png"
+                  style={{ width: '97px' }}
+                />
+                <p className="center no-top-margin">
+                  Test Test
+                </p>
+              </div>
+
+              <div
+                // eslint-disable-next-line
+                style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:"column", justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
+              >
+                <img src="https://market.ionic.io/img/user-default.png"
+                  style={{ width: '97px' }}
+                />
+                <p className="center no-top-margin">
+                  Test Test
+                </p>
+              </div>
+
+              <div
+                // eslint-disable-next-line
+                style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:"column", justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
+              >
+                <img src="https://market.ionic.io/img/user-default.png"
+                  style={{ width: '97px' }}
+                />
+                <p className="center no-top-margin">
+                  Test Test
+                </p>
+              </div>
+
+              <div
+                // eslint-disable-next-line
+                style={{boxShadow: 'rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px', padding: '10px', marginBottom: '20px', display: 'flex', flexDirection:"column", justifyContent: 'space-between', alignItems: 'center', width:'150px' }}
+              >
+                <img src="https://market.ionic.io/img/user-default.png"
+                  style={{ width: '97px' }}
+                />
+                <p className="center no-top-margin">
+                  Test Test
+                </p>
+              </div>
             </div>
-          </div> */}
-
-
-
-
-
-
-
-          {/* <div className="col s4 space-20">
-            <div className="col s12 pattern-square">
-              <h5>My favorite artists</h5>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-              <div className="col s6">
-                <img src="https://market.ionic.io/img/user-default.png" />
-              </div>
-            </div>
-          </div> */}
-        </div>
-
+      </div>
+    </div>
 
       <footer>
         this is a footer
