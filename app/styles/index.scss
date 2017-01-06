@@ -210,6 +210,17 @@ p.upload-title {
   height: 305px;
 }
 
+.pattern-artist-profile {
+  background-color: #79A2C1;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
+  display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // min-width: 241px;
+  // height: 305px;
+}
+
 .pattern-artist img {
   width: 160px;
   align-self: center;
@@ -263,27 +274,28 @@ p.upload-title {
   cursor: pointer;
 }
 
-.profile-about h1 {
-  width: 100px;
-  text-align: center;
-  margin: 0 auto;
-  margin-top: 15px;
-}
-
-.profile-main {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.profile-main img {
-  margin-top: 0px;
-}
-
 .profile-about {
+  display: inline-block;
+  // flex-direction: column;
+  // align-items: center;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.156863) 0px 3px 10px, rgba(0, 0, 0, 0.227451) 0px 3px 10px;
   padding: 10px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.profile-about h1 {
+  width: 100px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.profile-text-box {
+  width: 60%;
 }
 
 .right20 {
@@ -308,9 +320,9 @@ p.upload-title {
   padding-top: 45px;
 }
 
-.space-20 {
-  margin-top: 30px
-}
+// .space-20 {
+//   margin-top: 30px
+// }
 
 .styleMaterial {
   border-radius: 5px;
@@ -533,7 +545,11 @@ button:hover {
 
 
 
-
+.profile-top img {
+  width: 230px;
+  height: 230px;
+  border-radius: 5px;
+}
 
 
 
@@ -597,6 +613,19 @@ button:hover {
 
 
 
+.profile-top-left {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+}
+
+
+
+
+
+
+
 @media (max-width: 1365px) {
   .main-hero img {
     min-height: 200px;
@@ -613,6 +642,10 @@ button:hover {
   }
   .main-hero img {
     display: none;
+  }
+
+  .profile-text-box  {
+    width: 45%;
   }
 }
 
@@ -691,6 +724,17 @@ button:hover {
     margin-top: 20px;
   }
 
+  .profile-top img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .profile-top-left {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
 }
 
 
@@ -718,4 +762,30 @@ ul {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+
+.profile-top {
+  background-color: #79A2C1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+.align-vert-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+.border {
+  border: 1px solid #039be5;
+}
+
+textarea {
+  border: none;
 }
